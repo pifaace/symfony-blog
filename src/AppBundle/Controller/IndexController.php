@@ -14,8 +14,11 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('home/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')) . DIRECTORY_SEPARATOR,
-        ]);
+        $em = $this->getDoctrine()->getManager();
+        $adverts = $em->getRepository('AppBundle:Advert')->findAll();
+
+        return $this->render('home/index.html.twig', array(
+            'adverts' => $adverts
+        ));
     }
 }
