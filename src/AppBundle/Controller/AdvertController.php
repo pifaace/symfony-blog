@@ -3,7 +3,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Advert;
+use AppBundle\Entity\Comment;
 use AppBundle\Form\AdvertType;
+use AppBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -47,20 +49,36 @@ class AdvertController extends Controller
 
     /**
      * @Route("advert/{id}", name="advert_show")
+     * @param Request $request
      * @param $id
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $advert = $em->getRepository('AppBundle:Advert')->find($id);
+        $comments = $em->getRepository('AppBundle:Comment')->findByAdvert($id);
 
-        if(null == $advert){
+        if (null == $advert) {
             throw new NotFoundHttpException("L'annonce n'existe pas");
         }
 
+        /** Ajout d'un commentaire **/
+        $comment = new Comment($advert, $this->getUser());
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirect($request->getUri());
+        }
+
         return $this->render('advert/show.html.twig', array(
-            'advert' => $advert
+            'advert' => $advert,
+            'comments' => $comments,
+            'form' => $form->createView()
         ));
     }
 }
