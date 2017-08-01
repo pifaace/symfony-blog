@@ -49,6 +49,12 @@ class Comment
      */
     private $advert;
 
+    public function __construct($advert, $author)
+    {
+        $this->advert = $advert;
+        $this->author = $author;
+    }
+
     /**
      * Get id
      *
