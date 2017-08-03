@@ -6,6 +6,7 @@ use AppBundle\Entity\Advert;
 use AppBundle\Entity\Comment;
 use AppBundle\Form\AdvertType;
 use AppBundle\Form\CommentType;
+use AppBundle\Services\BadgeManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -51,9 +52,10 @@ class AdvertController extends Controller
      * @Route("advert/{id}", name="advert_show")
      * @param Request $request
      * @param $id
+     * @param BadgeManager $badgeManager
      * @return Response
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, $id, BadgeManager $badgeManager)
     {
         $em = $this->getDoctrine()->getManager();
         $advert = $em->getRepository('AppBundle:Advert')->find($id);
@@ -71,6 +73,8 @@ class AdvertController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($comment);
             $em->flush();
+
+            $badgeManager->checkAndUnlockBadge('comment');
 
             return $this->redirect($request->getUri());
         }
