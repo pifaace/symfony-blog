@@ -42,6 +42,12 @@ class Badge
      */
     private $actionName;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="actionCount", type="integer")
+     */
+    private $actionCount;
 
     /**
      * Get id
@@ -123,6 +129,22 @@ class Badge
     public function getActionName()
     {
         return $this->actionName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getActionCount()
+    {
+        return $this->actionCount;
+    }
+
+    /**
+     * @param int $actionCount
+     */
+    public function setActionCount($actionCount)
+    {
+        $this->actionCount = $actionCount;
     }
 }
 
