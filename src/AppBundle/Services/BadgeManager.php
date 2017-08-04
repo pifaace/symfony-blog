@@ -3,25 +3,26 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\UnlockBadge;
+use AppBundle\Envents\BadgeUnlockEvent;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-/**
- * Created by PhpStorm.
- * User: maxime.joassy
- * Date: 03/08/2017
- * Time: 15:41
- */
 class BadgeManager
 {
     /**
      * @var EntityManager
      */
     private $em;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, EventDispatcherInterface $dispatcher)
     {
         $this->em = $em;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -41,6 +42,8 @@ class BadgeManager
                 $unlockBadge->setUser($user);
                 $this->em->persist($unlockBadge);
                 $this->em->flush();
+
+                $this->dispatcher->dispatch(BadgeUnlockEvent::NAME, new BadgeUnlockEvent($badge));
             }
         } catch (NoResultException $e) {
         }
