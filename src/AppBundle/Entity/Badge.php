@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\UnlockBadge;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +51,21 @@ class Badge
      * @ORM\Column(name="actionCount", type="integer")
      */
     private $actionCount;
+
+    /**
+     * @var Badge
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UnlockBadge", mappedBy="badge")
+     */
+    private $unlockBadge;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->unlockBadge = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -146,5 +164,38 @@ class Badge
     {
         $this->actionCount = $actionCount;
     }
-}
 
+    /**
+     * Add unlockBadge
+     *
+     * @param UnlockBadge $unlockBadge
+     *
+     * @return Badge
+     */
+    public function addUnlockBadge(UnlockBadge $unlockBadge)
+    {
+        $this->unlockBadge[] = $unlockBadge;
+
+        return $this;
+    }
+
+    /**
+     * Remove unlockBadge
+     *
+     * @param UnlockBadge $unlockBadge
+     */
+    public function removeUnlockBadge(UnlockBadge $unlockBadge)
+    {
+        $this->unlockBadge->removeElement($unlockBadge);
+    }
+
+    /**
+     * Get unlockBadge
+     *
+     * @return Collection
+     */
+    public function getUnlockBadge()
+    {
+        return $this->unlockBadge;
+    }
+}

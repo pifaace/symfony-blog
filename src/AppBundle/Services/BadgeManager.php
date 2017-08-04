@@ -2,7 +2,9 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\UnlockBadge;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NoResultException;
 
 /**
  * Created by PhpStorm.
@@ -22,13 +24,20 @@ class BadgeManager
         $this->em = $em;
     }
 
-    public function checkAndUnlockBadge($actionName)
+    public function checkAndUnlockBadge($actionName, $actionCount, $user)
     {
-        $badge = $this->em->getRepository('AppBundle:Badge')->findBy(array(
-            'actionName' => $actionName,
-        ));
-
-        var_dump($badge);
-
+        try {
+            $badge = $this->em
+                ->getRepository('AppBundle:Badge')
+                ->badgeUnlockAndNotUsed($actionName, $actionCount, $user->getId());
+            if ($badge->getUnlockBadge()->isEmpty()) {
+                $unlockBadge = new UnlockBadge();
+                $unlockBadge->setBadge($badge);
+                $unlockBadge->setUser($user);
+                $this->em->persist($unlockBadge);
+                $this->em->flush();
+            }
+        } catch (NoResultException $e) {
+        }
     }
 }

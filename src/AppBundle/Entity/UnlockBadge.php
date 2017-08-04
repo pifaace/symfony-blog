@@ -22,7 +22,7 @@ class UnlockBadge
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Badge")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Badge", inversedBy="unlockBadge")
      * @ORM\JoinColumn(nullable=false)
      */
     private $badge;

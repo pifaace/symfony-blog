@@ -60,6 +60,7 @@ class AdvertController extends Controller
         $em = $this->getDoctrine()->getManager();
         $advert = $em->getRepository('AppBundle:Advert')->find($id);
         $comments = $em->getRepository('AppBundle:Comment')->findByAdvert($id);
+        $user = $this->getUser();
 
         if (null == $advert) {
             throw new NotFoundHttpException("L'annonce n'existe pas");
@@ -74,7 +75,8 @@ class AdvertController extends Controller
             $em->persist($comment);
             $em->flush();
 
-            $badgeManager->checkAndUnlockBadge('comment');
+            $commentCount = $em->getRepository('AppBundle:Comment')->commentForUser($user->getId());
+            $badgeManager->checkAndUnlockBadge('comment', $commentCount, $user);
 
             return $this->redirect($request->getUri());
         }
