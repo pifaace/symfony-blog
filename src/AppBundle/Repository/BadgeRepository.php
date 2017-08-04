@@ -27,4 +27,16 @@ class BadgeRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
+
+    public function findBadgeFor($userId)
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        $qb
+            ->join('b.unlockBadge', 'u')
+            ->where('u.user = :userId')
+            ->setParameter(':userId', $userId);
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

@@ -5,4 +5,14 @@
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
     <hr>
     <h1>Mes badges :</h1>
+
+    {% if badges is not empty %}
+        <ul>
+            {% for badge in badges %}
+                <li>{{ badge.name }} - {{ badge.description }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        Aucun badge :(
+    {% endif %}
 </div>

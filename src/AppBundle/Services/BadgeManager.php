@@ -24,6 +24,11 @@ class BadgeManager
         $this->em = $em;
     }
 
+    /**
+     * @param $actionName
+     * @param $actionCount
+     * @param $user
+     */
     public function checkAndUnlockBadge($actionName, $actionCount, $user)
     {
         try {
@@ -39,5 +44,16 @@ class BadgeManager
             }
         } catch (NoResultException $e) {
         }
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function findBadgeFor($userId): array
+    {
+        $badges = $this->em->getRepository('AppBundle:Badge')->findBadgeFor($userId);
+
+        return $badges;
     }
 }
