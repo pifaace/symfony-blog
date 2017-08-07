@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Envents;
+namespace AppBundle\Events;
 
 use AppBundle\Entity\Badge;
 use AppBundle\Entity\UnlockBadge;
