@@ -3,7 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\UnlockBadge;
-use AppBundle\Envents\BadgeUnlockEvent;
+use AppBundle\Events\BadgeUnlockEvent;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -43,7 +43,7 @@ class BadgeManager
                 $this->em->persist($unlockBadge);
                 $this->em->flush();
 
-                $this->dispatcher->dispatch(BadgeUnlockEvent::NAME, new BadgeUnlockEvent($badge));
+                $this->dispatcher->dispatch(BadgeUnlockEvent::NAME, new BadgeUnlockEvent($unlockBadge));
             }
         } catch (NoResultException $e) {
         }
