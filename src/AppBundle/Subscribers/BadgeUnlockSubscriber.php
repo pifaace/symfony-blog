@@ -3,10 +3,21 @@
 namespace AppBundle\Subscribers;
 
 use AppBundle\Events\BadgeUnlockEvent;
+use AppBundle\Services\Mailer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class BadgeUnlockSubscriber implements EventSubscriberInterface
 {
+
+    /**
+     * @var Mailer
+     */
+    private $mailer;
+
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
 
     /**
      * @return array The event names to listen to
@@ -20,6 +31,6 @@ class BadgeUnlockSubscriber implements EventSubscriberInterface
 
     public function onBadgeUnlock(BadgeUnlockEvent $event)
     {
-        // Envoyer une notification
+        return $this->mailer->unlockedBadgeEmail($event->getBadge(), $event->getUser());
     }
 }

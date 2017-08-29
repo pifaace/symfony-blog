@@ -4,6 +4,7 @@ namespace AppBundle\Events;
 
 use AppBundle\Entity\Badge;
 use AppBundle\Entity\UnlockBadge;
+use AppBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
 
 class BadgeUnlockEvent extends Event
@@ -16,7 +17,6 @@ class BadgeUnlockEvent extends Event
 
     public function __construct(UnlockBadge $unlockBadge)
     {
-
         $this->unlockBadge = $unlockBadge;
     }
 
@@ -26,6 +26,16 @@ class BadgeUnlockEvent extends Event
     public function getUnlockBadge(): UnlockBadge
     {
         return $this->unlockBadge;
+    }
+
+    public function getBadge() : Badge
+    {
+        return $this->unlockBadge->getBadge();
+    }
+
+    public function getUser(): User
+    {
+        return $this->unlockBadge->getUser();
     }
 
 }
