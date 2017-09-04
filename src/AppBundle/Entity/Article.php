@@ -8,13 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Advert
+ * Article
  *
- * @ORM\Table(name="advert")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AdvertRepository")
+ * @ORM\Table(name="article")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Advert
+class Article
 {
     /**
      * @var int
@@ -53,7 +53,7 @@ class Advert
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="advert")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
      */
     private $comments;
 
@@ -80,7 +80,7 @@ class Advert
      *
      * @param string $title
      *
-     * @return Advert
+     * @return Article
      */
     public function setTitle($title)
     {
@@ -123,7 +123,7 @@ class Advert
      *
      * @param string $content
      *
-     * @return Advert
+     * @return Article
      */
     public function setContent($content)
     {
@@ -163,7 +163,7 @@ class Advert
      *
      * @param Comment $comment
      *
-     * @return Advert
+     * @return Article
      */
     public function addComment(Comment $comment)
     {

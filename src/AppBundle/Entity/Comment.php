@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Article;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,14 +44,14 @@ class Comment
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Advert", inversedBy="comments")
-     * @ORM\JoinColumn(name="advert_id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", nullable=false)
      */
-    private $advert;
+    private $article;
 
-    public function __construct($advert, $author)
+    public function __construct($article, $author)
     {
-        $this->advert = $advert;
+        $this->article = $article;
         $this->author = $author;
     }
 
@@ -125,7 +125,7 @@ class Comment
     /**
      * Get author
      *
-     * @return Advert
+     * @return Article
      */
     public function getAuthor()
     {
@@ -133,26 +133,26 @@ class Comment
     }
 
     /**
-     * Set advert
+     * Set article
      *
-     * @param Advert $advert
+     * @param Article $article
      *
      * @return Comment
      */
-    public function setAdvert(Advert $advert)
+    public function setArticle(Article $article)
     {
-        $this->advert = $advert;
+        $this->article = $article;
 
         return $this;
     }
 
     /**
-     * Get advert
+     * Get article
      *
-     * @return Advert
+     * @return Article
      */
-    public function getAdvert()
+    public function getArticle()
     {
-        return $this->advert;
+        return $this->article;
     }
 }

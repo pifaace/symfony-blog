@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdvertType extends AbstractType
+class ArticleType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ class AdvertType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Advert'
+            'data_class' => 'AppBundle\Entity\Article'
         ));
     }
 
@@ -35,7 +35,7 @@ class AdvertType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_advert';
+        return 'appbundle_article';
     }
 
 
