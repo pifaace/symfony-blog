@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('advert_new') }}">Créer une annonce</a><br>
+    <a href="{{ path('article_new') }}">Créer un article</a><br>
 
-    {% if adverts is not empty %}
+    {% if articles is not empty %}
         <ul>
-            {% for advert in adverts %}
-                <li><a href="{{ path('advert_show', {'id': advert.id}) }}">{{ advert.title }}</a></li>
+            {% for article in articles %}
+                <li><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
-        <i>Pas d'annonce</i>
+        <i>Pas d'article</i>
     {% endif %}
 {% endblock %}

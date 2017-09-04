@@ -15,10 +15,10 @@ class IndexController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $adverts = $em->getRepository('AppBundle:Advert')->findAll();
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
 
         return $this->render('home/index.html.twig', array(
-            'adverts' => $adverts
+            'articles' => $articles
         ));
     }
 }

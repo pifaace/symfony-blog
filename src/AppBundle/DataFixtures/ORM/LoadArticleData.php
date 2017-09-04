@@ -9,12 +9,12 @@
 namespace AppBundle\DataFixtures\ORM;
 
 
-use AppBundle\Entity\Advert;
+use AppBundle\Entity\Article;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadAdvertData extends AbstractFixture implements OrderedFixtureInterface
+class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
 {
 
     /**
@@ -24,12 +24,12 @@ class LoadAdvertData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $advert = new Advert();
-        $advert->setTitle('Une annonce de test');
-        $advert->setAuthor($this->getReference('user1'));
-        $advert->setContent('Ceci est une annonce pour faire des petits tests');
+        $article = new Article();
+        $article->setTitle('Une annonce de test');
+        $article->setAuthor($this->getReference('user1'));
+        $article->setContent('Ceci est une annonce pour faire des petits tests');
 
-        $manager->persist($advert);
+        $manager->persist($article);
         $manager->flush();
     }
 
