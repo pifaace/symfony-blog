@@ -2,7 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Badge;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * BadgeRepository
@@ -12,7 +14,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class BadgeRepository extends EntityRepository
 {
-    public function badgeUnlockAndNotUsed($actionName, $actionCount, $userId)
+    /**
+     * @param $actionName
+     * @param $actionCount
+     * @param $userId
+     * @return Badge
+     */
+    public function findBadgeAndNotUsedForUser($actionName, $actionCount, $userId)
     {
         $qb = $this->createQueryBuilder('b');
 
@@ -20,10 +28,11 @@ class BadgeRepository extends EntityRepository
             ->where('b.actionName = :actionName')
             ->andWhere('b.actionCount = :actionCount')
             ->andWhere('u.user = :userId OR u.user IS NULL')
-            ->leftJoin('b.unlockBadge', 'u')
-            ->setParameter(':actionName', $actionName)
-            ->setParameter(':actionCount', $actionCount)
-            ->setParameter(':userId', $userId);
+            ->leftJoin('b.unlockBadge', 'u', Join::WITH, 'u.user = :userId')
+            ->setParameter('actionName', $actionName)
+            ->setParameter('actionCount', $actionCount)
+            ->setParameter('userId', $userId)
+            ->select('b, u');
 
         return $qb->getQuery()->getSingleResult();
     }

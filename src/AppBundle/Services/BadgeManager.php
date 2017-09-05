@@ -35,7 +35,7 @@ class BadgeManager
         try {
             $badge = $this->em
                 ->getRepository('AppBundle:Badge')
-                ->badgeUnlockAndNotUsed($actionName, $actionCount, $user->getId());
+                ->findBadgeAndNotUsedForUser($actionName, $actionCount, $user->getId());
             if ($badge->getUnlockBadge()->isEmpty()) {
                 $unlockBadge = new UnlockBadge();
                 $unlockBadge->setBadge($badge);
