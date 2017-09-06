@@ -43,3 +43,6 @@ node_modules
 **/Entity/*~
 
 .idea/
+
+# Database
+/tmp/db
