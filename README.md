@@ -46,11 +46,11 @@ $ docker-compose stop
 ### Dump database
 
 ```
-php bin/console doctrine:schema:update --force
+docke-compose run blog-server php bin/console doctrine:schema:update --force
 ```
 
 And run datafixtures
 
 ```
-php bin/console doctrine:fixtures:load
+docke-compose run blog-server php bin/console doctrine:fixtures:load
 ```
