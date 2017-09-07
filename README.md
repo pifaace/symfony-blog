@@ -6,19 +6,41 @@ My application to try some stuffs about Symfony 3.3
 
 ### Installing
 
-Clone the project 
+#### Clone the project
 ```
 git clone https://github.com/pifaace/training-symfony.git
 ```
 
-Run composer install
+#### Run composer install
 ```
 composer install
 ```
 
-Run npm install (nothing really useful at this moment ..)
+#### Run npm install (nothing really useful at this moment ..)
 ```
 npm install
+```
+
+### Running docker containers
+
+#### Update database configuration
+```
+parameters:
+    database_host: mysql
+    database_port: 3306
+    database_name: training-symfony
+    database_user: root
+    database_password: secret
+```
+
+#### Running containers
+```
+$ docker-compose up -d
+```
+
+#### Stoping containers
+```
+$ docker-compose stop
 ```
 
 ### Dump database
