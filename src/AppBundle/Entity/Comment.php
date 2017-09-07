@@ -37,11 +37,11 @@ class Comment
      */
     private $createAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $author;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
@@ -108,29 +108,29 @@ class Comment
         return $this->createAt;
     }
 
-    /**
-     * Set author
-     *
-     * @param User $author
-     *
-     * @return Comment
-     */
-    public function setAuthor(User $author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get author
-     *
-     * @return Article
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
+//    /**
+//     * Set author
+//     *
+//     * @param User $author
+//     *
+//     * @return Comment
+//     */
+//    public function setAuthor(User $author)
+//    {
+//        $this->author = $author;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get author
+//     *
+//     * @return Article
+//     */
+//    public function getAuthor()
+//    {
+//        return $this->author;
+//    }
 
     /**
      * Set article
