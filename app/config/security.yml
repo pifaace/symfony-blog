@@ -1,7 +1,13 @@
 security:
+    encoders:
+        AppBundle\Enity\User:
+          algorithm: bcrypt
+
     providers:
-        in_memory:
-            memory: ~
+        database_users:
+          entity:
+            class: AppBundle:User
+            property: username
 
     firewalls:
         dev:
@@ -10,3 +16,9 @@ security:
 
         main:
             anonymous: ~
+            pattern: ^/
+            http_basic: ~
+            provider: database_users
+
+    access_control:
+        - { path: ^/admin, role: ROLE_ADMIN }
