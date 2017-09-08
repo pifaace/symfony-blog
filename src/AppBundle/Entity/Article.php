@@ -46,11 +46,11 @@ class Article
      */
     private $content;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $author;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+//     * @ORM\JoinColumn(nullable=true)
+//     */
+//    private $author;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
@@ -141,22 +141,22 @@ class Article
     {
         return $this->content;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getAuthor()
+//    {
+//        return $this->author;
+//    }
+//
+//    /**
+//     * @param mixed $author
+//     */
+//    public function setAuthor($author)
+//    {
+//        $this->author = $author;
+//    }
 
     /**
      * Add comment

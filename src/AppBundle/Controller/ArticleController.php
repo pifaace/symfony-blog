@@ -34,7 +34,7 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setAuthor($this->getUser());
+//            $article->setAuthor($this->getUser());
             $em->persist($article);
             $em->flush();
 
@@ -60,7 +60,6 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
         $comments = $em->getRepository('AppBundle:Comment')->findByArticle($id);
-        $user = $this->getUser();
 
         if (null == $article) {
             throw new NotFoundHttpException("L'article n'existe pas");
@@ -74,9 +73,6 @@ class ArticleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($comment);
             $em->flush();
-
-            $commentCount = $em->getRepository('AppBundle:Comment')->commentForUser($user->getId());
-            $badgeManager->checkAndUnlockBadge('comment', $commentCount, $user);
 
             return $this->redirect($request->getUri());
         }
