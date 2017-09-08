@@ -1,6 +1,6 @@
 security:
     encoders:
-        AppBundle\Enity\User:
+        AppBundle\Entity\User:
           algorithm: bcrypt
 
     providers:

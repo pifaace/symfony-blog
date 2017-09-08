@@ -16,9 +16,17 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin/login", name="admin-login")
+     * @Route("/login", name="dashboard")
      */
-    public function adminLoginAction()
+    public function loginAction()
+    {
+        return new Response('<html><body>login page!</body></html>');
+    }
+
+    /**
+     * @Route("/admin/dashboard", name="admin-login")
+     */
+    public function adminAction()
     {
         return new Response('<html><body>Admin page!</body></html>');
     }
