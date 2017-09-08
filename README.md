@@ -16,9 +16,14 @@ git clone https://github.com/pifaace/training-symfony.git
 composer install
 ```
 
-#### Run npm install (nothing really useful at this moment ..)
+#### Run npm install
 ```
 npm install
+```
+
+#### Run gulp
+```
+gulp
 ```
 
 ### Running docker containers

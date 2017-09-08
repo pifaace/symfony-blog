@@ -1,14 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('article_new') }}">Créer un artiiiiiicle</a><br>
-    {% if articles is not empty %}
-        <ul>
-            {% for article in articles %}
-                <li><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <i>Pas d'article</i>
-    {% endif %}
+        <a href="{{ path('article_new') }}">Créer un artiiiiiicle</a><br>
+        <div class="alert alert-success" role="alert">
+            <strong>Well done!</strong> You successfully read this important alert message.
+        </div>
+        {% if articles is not empty %}
+            <ul>
+                {% for article in articles %}
+                    <li><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <i>Pas d'article</i>
+        {% endif %}
 {% endblock %}
