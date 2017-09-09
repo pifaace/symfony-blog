@@ -35,6 +35,7 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface
         $encodedPassword = $encoded->encodePassword($userAdmin, 'password');
         $userAdmin->setPassword($encodedPassword);
         $userAdmin->setEmail('admin@admin.fr');
+        $userAdmin->setRole(['ROLE_ADMIN']);
 
         $manager->persist($userAdmin);
         $manager->flush();

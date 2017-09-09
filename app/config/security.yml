@@ -15,10 +15,11 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            anonymous: true
             pattern: ^/
-            http_basic: ~
-            provider: database_users
+            form_login:
+              login_path: login
+              check_path: login
 
     access_control:
         - { path: ^/admin, role: ROLE_ADMIN }
