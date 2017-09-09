@@ -3,8 +3,12 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\User;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Created by PhpStorm.
@@ -13,8 +17,9 @@ use Doctrine\Common\Persistence\ObjectManager;
  * Time: 19:54
  */
 
-class LoadUserData implements FixtureInterface
+class LoadUserData extends AbstractFixture implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
 
     /**
      * Load data fixtures with the passed EntityManager
@@ -23,9 +28,12 @@ class LoadUserData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $encoded = $this->container->get('security.password_encoder');
+
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
-        $userAdmin->setPassword('password');
+        $encodedPassword = $encoded->encodePassword($userAdmin, 'password');
+        $userAdmin->setPassword($encodedPassword);
         $userAdmin->setEmail('admin@admin.fr');
 
         $manager->persist($userAdmin);
