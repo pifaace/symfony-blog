@@ -20,6 +20,14 @@ security:
             form_login:
               login_path: login
               check_path: login
+              csrf_token_generator: security.csrf.token_manager
+              default_target_path: admin-dashboard
+              always_use_default_target_path: true
+
+            logout:
+              path: /logout
+              target: /
 
     access_control:
-        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
