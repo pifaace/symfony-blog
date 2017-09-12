@@ -34,7 +34,6 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $article->setAuthor($this->getUser());
             $em->persist($article);
             $em->flush();
 
@@ -43,7 +42,7 @@ class ArticleController extends Controller
             ));
         }
 
-        return $this->render('article/add.html.twig', array(
+        return $this->render('blog/article/add.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -77,7 +76,7 @@ class ArticleController extends Controller
             return $this->redirect($request->getUri());
         }
 
-        return $this->render('article/show.html.twig', array(
+        return $this->render('blog/article/show.html.twig', array(
             'article' => $article,
             'comments' => $comments,
             'form' => $form->createView()
