@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block wrapper %}
+    <body class="grey-body">
+    <div class="container-fluid">
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </div>
+    </body>
+{% endblock %}

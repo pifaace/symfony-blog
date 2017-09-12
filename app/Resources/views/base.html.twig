@@ -7,11 +7,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('build/css/app.css/app.css') }}">
     </head>
-    <body>
-    <div class="container">
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </div>
+    {% block wrapper %}
 
-    </body>
+    {% endblock %}
 </html>

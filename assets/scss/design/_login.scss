@@ -1,0 +1,10 @@
+.grey-body {
+  background: #DFDFDF;
+}
+
+.border-form {
+  background: #FFFFFF;
+  border-radius: 15px;
+  @extend .m-3;
+  @extend .p-5;
+}
