@@ -13,6 +13,6 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return new Response('<html><body>Admin page!</body></html>');
+        return $this->render('backoffice/dashboard/dashboard.html.twig');
     }
 }
