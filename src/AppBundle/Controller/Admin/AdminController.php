@@ -16,7 +16,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/articles/list", name="admin-articles-list")
+     * @Route("/admin/articles", name="admin-articles")
      */
     public function listArticleAction()
     {

@@ -2,13 +2,15 @@
 
 {% block body %}
     <div class="col-lg-10 bg-grey ml-md-auto">
-        <a href="{{ path('article_new') }}">Nouvel article</a><br>
+
+        div.
+        <a class="btn btn-dark" href="{{ path('article_create') }}">Nouvel article</a>
 
         {% if articles is not empty %}
             <table class="table">
                 <thead class="thead-inverse">
-                <th>#</th>
-                <th>Nom</th>
+                <th>id</th>
+                <th>Titre</th>
                 <th>Auteur</th>
                 <th>Date poste</th>
                 <th>Commentaire</th>
@@ -18,7 +20,12 @@
                 <tbody>
                 {% for article in articles %}
                     <tr>
-                        
+                        <th scope="row">{{ article.id }}</th>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.author.username }}</td>
+                        <td>{{ article.createAt|date("d/m/Y") }}</td>
+                        <td>/</td>
+                        <td>/</td>
                     </tr>
                 {% endfor %}
                 </tbody>
