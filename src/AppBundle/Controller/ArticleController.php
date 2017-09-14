@@ -51,10 +51,9 @@ class ArticleController extends Controller
      * @Route("article/{id}", name="article_show")
      * @param Request $request
      * @param $id
-     * @param BadgeManager $badgeManager
      * @return Response
      */
-    public function showAction(Request $request, $id, BadgeManager $badgeManager)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);

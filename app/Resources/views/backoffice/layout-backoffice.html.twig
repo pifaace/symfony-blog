@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block wrapper %}
+    <body class="bg-dark">
+    <div class="container-fluid">
+        <div class="row">
+            {% include 'backoffice/sidebar/sidebar.html.twig' %}
+
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}{% endblock %}
+    </div>
+    </body>
+{% endblock %}

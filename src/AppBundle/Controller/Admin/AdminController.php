@@ -11,8 +11,16 @@ class AdminController extends Controller
     /**
      * @Route("/admin/dashboard", name="admin-dashboard")
      */
-    public function indexAction()
+    public function dashBoardAction()
     {
-        return new Response('<html><body>Admin page!</body></html>');
+        return $this->render('backoffice/dashboard/dashboard.html.twig');
+    }
+
+    /**
+     * @Route("/admin/articles/list", name="admin-articles-list")
+     */
+    public function listArticleAction()
+    {
+        return $this->render('backoffice/article/list.html.twig');
     }
 }
