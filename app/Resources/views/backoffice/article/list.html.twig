@@ -2,6 +2,29 @@
 
 {% block body %}
     <div class="col-lg-10 bg-grey ml-md-auto">
-        test
+        <a href="{{ path('article_new') }}">Nouvel article</a><br>
+
+        {% if articles is not empty %}
+            <table class="table">
+                <thead class="thead-inverse">
+                <th>#</th>
+                <th>Nom</th>
+                <th>Auteur</th>
+                <th>Date poste</th>
+                <th>Commentaire</th>
+                <th>Actions</th>
+                </thead>
+
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <i>Pas d'article</i>
+        {% endif %}
     </div>
 {% endblock %}
