@@ -4,10 +4,9 @@
     <body class="bg-dark">
     <div class="container-fluid">
         <div class="row">
-            {% include 'backoffice/navbar/navbar.html.twig' %}
-            {% block body %}
+            {% include 'backoffice/sidebar/sidebar.html.twig' %}
 
-            {% endblock %}
+            {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}
     </div>
