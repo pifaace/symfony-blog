@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 
-gulp.task('default', ['sass'], function () {
+gulp.task('default', ['sass', 'fonts'], function () {
 });
 
 gulp.task('sass', function () {
@@ -12,4 +12,9 @@ gulp.task('sass', function () {
 
 gulp.task('sass:watch', function () {
     gulp.watch('assets/**/*.scss', ['sass']);
+});
+
+gulp.task('fonts', function () {
+   gulp.src('node_modules/font-awesome/fonts/**')
+       .pipe(gulp.dest('web/build/fonts'))
 });

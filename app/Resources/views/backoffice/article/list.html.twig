@@ -25,7 +25,11 @@
                         <td>{{ article.author.username }}</td>
                         <td>{{ article.createAt|date("d/m/Y") }}</td>
                         <td>/</td>
-                        <td>/</td>
+                        <td>
+                            <a href="#" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
