@@ -2,9 +2,9 @@
 
 {% block body %}
     <div class="col-lg-10 bg-grey ml-md-auto">
-
-        div.
-        <a class="btn btn-dark" href="{{ path('article_create') }}">Nouvel article</a>
+        <h2>LES ARTICLES</h2>
+        <hr>
+        <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_create') }}">Nouvel article</a>
 
         {% if articles is not empty %}
             <table class="table">
