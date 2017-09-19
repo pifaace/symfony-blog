@@ -2,6 +2,40 @@
 
 {% block body %}
     <div class="col-lg-10 bg-grey ml-md-auto">
-        test
+        <h2>LES ARTICLES</h2>
+        <hr>
+        <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_new') }}">Nouvel article</a>
+
+        {% if articles is not empty %}
+            <table class="table">
+                <thead class="thead-inverse">
+                <th>id</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Date poste</th>
+                <th>Commentaire</th>
+                <th>Actions</th>
+                </thead>
+
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <th scope="row">{{ article.id }}</th>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.author.username }}</td>
+                        <td>{{ article.createAt|date("d/m/Y") }}</td>
+                        <td>/</td>
+                        <td>
+                            <a href="#" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <i>Pas d'article</i>
+        {% endif %}
     </div>
 {% endblock %}

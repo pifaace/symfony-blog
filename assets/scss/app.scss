@@ -1,5 +1,10 @@
+// Import overwride variables
+@import "variables";
+
 // Import Bootstrap4
 @import "./node_modules/bootstrap/scss/bootstrap";
 
-@import "../admin/scss/admin";
+// Import Font-awesome
+@import "./node_modules/font-awesome/scss/font-awesome";
 
+@import "../admin/scss/admin";

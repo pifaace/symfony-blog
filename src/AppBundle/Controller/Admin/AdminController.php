@@ -4,7 +4,6 @@ namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
@@ -17,10 +16,15 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/articles/list", name="admin-articles-list")
+     * @Route("/admin/articles", name="admin-articles")
      */
     public function listArticleAction()
     {
-        return $this->render('backoffice/article/list.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
+
+        return $this->render('backoffice/article/list.html.twig', array(
+            'articles' => $articles
+        ));
     }
 }

@@ -14,11 +14,6 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->findAll();
-
-        return $this->render('blog/home/index.html.twig', array(
-            'articles' => $articles
-        ));
+        return $this->render('blog/home/index.html.twig');
     }
 }
