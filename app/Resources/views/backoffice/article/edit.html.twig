@@ -1,0 +1,17 @@
+{% extends 'backoffice/layout-backoffice.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-10 bg-grey ml-md-auto">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content) }}
+        {{ form_rest(form) }}
+
+        <input type="submit">
+    </div>
+{% endblock %}

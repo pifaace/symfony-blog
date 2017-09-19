@@ -4,7 +4,7 @@
     <div class="col-lg-10 bg-grey ml-md-auto">
         <h2>LES ARTICLES</h2>
         <hr>
-        <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_create') }}">Nouvel article</a>
+        <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_new') }}">Nouvel article</a>
 
         {% if articles is not empty %}
             <table class="table">
@@ -27,7 +27,7 @@
                         <td>/</td>
                         <td>
                             <a href="#" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a href="#" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <a href="#" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                         </td>
                     </tr>

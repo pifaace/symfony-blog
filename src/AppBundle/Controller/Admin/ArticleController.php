@@ -21,11 +21,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ArticleController extends Controller
 {
     /**
-     * @Route("admin/article/create", name="article_create")
+     * @Route("admin/article/new", name="article_new")
      * @param Request $request
      * @return Response
      */
-    public function addAction(Request $request)
+    public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -47,12 +47,38 @@ class ArticleController extends Controller
     }
 
     /**
+     * @Route("admin/article/{id}/edit", name="article_edit")
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function editAction(Request $request, int $id) : Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->find($id);
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('admin-articles');
+        }
+
+        return $this->render('backoffice/article/edit.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * @Route("article/{id}", name="article_show")
      * @param Request $request
      * @param $id
      * @return Response
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, $id) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
