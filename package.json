@@ -27,6 +27,7 @@
   "homepage": "https://github.com/pifaace/training-symfony#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
     "gulp-sass": "^3.1.0"
   }
 }
