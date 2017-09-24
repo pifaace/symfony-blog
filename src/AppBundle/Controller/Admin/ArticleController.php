@@ -25,7 +25,7 @@ class ArticleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request) : Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -53,7 +53,7 @@ class ArticleController extends Controller
      * @param int $id
      * @return Response
      */
-    public function editAction(Request $request, int $id) : Response
+    public function editAction(Request $request, int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
@@ -73,12 +73,29 @@ class ArticleController extends Controller
     }
 
     /**
+     * @Route("admin/article/{id}/delete", name="article_delete")
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function deleteAction(int $id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $advert = $em->getRepository('AppBundle:Article')->find($id);
+
+        $em->remove($advert);
+        $em->flush();
+
+        return $this->redirectToRoute('admin-articles');
+    }
+
+    /**
      * @Route("article/{id}", name="article_show")
      * @param Request $request
      * @param $id
      * @return Response
      */
-    public function showAction(Request $request, $id) : Response
+    public function showAction(Request $request, $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
