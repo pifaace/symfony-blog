@@ -14,7 +14,7 @@ class BlogController extends Controller
      * @Route("/", name="homepage")
      * @return Response
      */
-    public function indexAction() : Response
+    public function indexAction(): Response
     {
         return $this->render('blog/home/index.html.twig');
     }
@@ -34,8 +34,16 @@ class BlogController extends Controller
             throw new NotFoundHttpException("L'article n'existe pas");
         }
 
+        $this->commentAction();
+
         return $this->render('blog/article/show.html.twig', array(
             'article' => $article,
         ));
+    }
+
+    private function commentAction()
+    {
+        // INSTANCE DE LOBJET COMMENTAIRE
+        // CREATION DU FORMULAIRE
     }
 }

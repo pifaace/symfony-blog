@@ -2,9 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Comment;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -161,11 +159,11 @@ class Article
     /**
      * Add comment
      *
-     * @param Comment $comment
+     * @param \AppBundle\Entity\Comment $comment
      *
      * @return Article
      */
-    public function addComment(Comment $comment)
+    public function addComment(\AppBundle\Entity\Comment $comment)
     {
         $this->comments[] = $comment;
 
@@ -175,9 +173,9 @@ class Article
     /**
      * Remove comment
      *
-     * @param Comment $comment
+     * @param \AppBundle\Entity\Comment $comment
      */
-    public function removeComment(Comment $comment)
+    public function removeComment(\AppBundle\Entity\Comment $comment)
     {
         $this->comments->removeElement($comment);
     }
@@ -185,7 +183,7 @@ class Article
     /**
      * Get comments
      *
-     * @return Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComments()
     {
