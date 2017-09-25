@@ -81,31 +81,11 @@ class ArticleController extends Controller
     public function deleteAction(int $id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $advert = $em->getRepository('AppBundle:Article')->find($id);
+        $article = $em->getRepository('AppBundle:Article')->find($id);
 
-        $em->remove($advert);
+        $em->remove($article);
         $em->flush();
 
         return $this->redirectToRoute('admin-articles');
-    }
-
-    /**
-     * @Route("article/{id}", name="article_show")
-     * @param Request $request
-     * @param $id
-     * @return Response
-     */
-    public function showAction(Request $request, $id): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('AppBundle:Article')->find($id);
-
-        if (null == $article) {
-            throw new NotFoundHttpException("L'article n'existe pas");
-        }
-
-        return $this->render('blog/article/show.html.twig', array(
-            'article' => $article,
-        ));
     }
 }

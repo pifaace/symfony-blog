@@ -1,31 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'blog/layout-blog.html.twig' %}
 
 {% block body %}
     <h1>{{ article.title }}</h1>
     <p>{{ article.content }}</p>
-    <hr>
-    <h2>Laisser un commentaire</h2>
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-
-    {{ form_label(form.content) }}
-    {{ form_widget(form.content) }}
-
-    {{ form_rest(form) }}
-
-    <input type="submit">
-    {{ form_end(form) }}
-
-    {#<hr>#}
-    {#<h2>Commentaires</h2>#}
-    {#{% if comments is not empty %}#}
-        {#{% for comment in comments %}#}
-            {#<h4>De {{ comment.author.username }}</h4>#}
-            {#{{ comment.content }}<br>#}
-        {#{% endfor %}#}
-    {#{% else %}#}
-        {#<i>Aucun commentaire</i>#}
-    {#{% endif %}#}
-
 {% endblock %}
 
