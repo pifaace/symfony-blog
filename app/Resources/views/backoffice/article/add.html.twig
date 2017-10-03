@@ -1,19 +1,31 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
-
 {% block body %}
-    <div class="col-lg-10 bg-grey ml-md-auto">
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
+    {% set titlePage = 'Ajouter un article' %}
 
-        {{ form_label(form.title) }}
-        {{ form_widget(form.title) }}
+    <div class="col-lg-10 bg-grey ml-md-auto form-padding">
+        <div class="form-content">
+            <h2>{{ titlePage }}</h2>
 
-        {{ form_label(form.content) }}
-        {{ form_widget(form.content) }}
-        {{ form_rest(form) }}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
 
-        <input type="submit">
-        {{ form_end(form) }}
+
+            <span class="form-part">Actualité</span>
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            {{ form_rest(form) }}
+
+            <input type="submit" class="btn btn-primary">
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
 
