@@ -13,16 +13,18 @@ use Doctrine\ORM\EntityRepository;
 class CommentRepository extends EntityRepository
 {
     /**
-     * @param int $userId
+     * @param int $articleId
+     * @return string
+     * @internal param int $userId
      */
-    public function commentForUser($userId)
+    public function getCountComment(int $articleId) : string
     {
         $qb = $this->createQueryBuilder('c');
 
         $qb
             ->select('COUNT(c)')
-            ->where('c.author = :userId')
-            ->setParameter(':userId', $userId);
+            ->where('c.article = :articleId')
+            ->setParameter(':articleId', $articleId);
 
         return $qb->getQuery()->getSingleScalarResult();
     }

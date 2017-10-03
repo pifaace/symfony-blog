@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
+use AppBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,29 +23,42 @@ class BlogController extends Controller
 
     /**
      * @Route("article/{id}", name="article_show")
+     * @param Request $request
      * @param $id
      * @return Response
      * @internal param Request $request
      */
-    public function showAction($id): Response
+    public function showAction(Request $request, $id): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
+        $comments = $em->getRepository('AppBundle:Comment')->findBy(array('article' => $article->getId()));
+        $countComment = $em->getRepository('AppBundle:Comment')->getCountComment($article->getId());
+
+
+        $newComment = new Comment();
 
         if (null == $article) {
             throw new NotFoundHttpException("L'article n'existe pas");
         }
 
-        $this->commentAction();
+        $form = $this->createForm(CommentType::class, $newComment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newComment->setArticle($article);
+            $em->persist($newComment);
+            $em->flush();
+
+            return $this->redirect($request->getUri());
+        }
+
 
         return $this->render('blog/article/show.html.twig', array(
             'article' => $article,
+            'comments' => $comments,
+            'countComment' => $countComment,
+            'form'    => $form->createView()
         ));
-    }
-
-    private function commentAction()
-    {
-        // INSTANCE DE LOBJET COMMENTAIRE
-        // CREATION DU FORMULAIRE
     }
 }

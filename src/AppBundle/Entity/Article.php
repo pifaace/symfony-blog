@@ -103,7 +103,7 @@ class Article
      */
     public function setCreateAt()
     {
-        $this->createAt = (new \DateTime());
+        $this->createAt = new \DateTime();
     }
 
     /**

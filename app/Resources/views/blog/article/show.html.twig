@@ -1,7 +1,20 @@
 {% extends 'blog/layout-blog.html.twig' %}
 
+
 {% block body %}
     <h1>{{ article.title }}</h1>
     <p>{{ article.content }}</p>
+    <hr>
+
+    <h3>{{ countComment }} {{ countComment <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
+    {% for comment in comments %}
+        <strong>Par : {{ comment.username }}</strong>
+        <p>{{ comment.content }}</p>
+    {% endfor %}
+
+
+    <h3>Postez un commentaire</h3>
+    {% include 'blog/article/comment.html.twig' %}
+
 {% endblock %}
 

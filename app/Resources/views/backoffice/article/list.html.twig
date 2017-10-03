@@ -24,7 +24,7 @@
                         <td>{{ article.title }}</td>
                         <td>{{ article.author.username }}</td>
                         <td>{{ article.createAt|date("d/m/Y") }}</td>
-                        <td>/</td>
+                        <td>{{ article.comments.count }}</td>
                         <td>
                             <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
                             <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
