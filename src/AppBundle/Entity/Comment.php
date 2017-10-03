@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\Article;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,34 +25,36 @@ class Comment
     /**
      * @var string
      *
+     * @ORM\Column(name="username", type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="content", type="string", length=255)
      */
     private $content;
 
     /**
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(name="createAt", type="datetime")
      */
     private $createAt;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-//     * @ORM\JoinColumn(nullable=false)
-//     */
-//    private $author;
-
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article", inversedBy="comments")
-     * @ORM\JoinColumn(name="article_id", nullable=false)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $article;
-
-    public function __construct($article, $author)
-    {
-        $this->article = $article;
-        $this->author = $author;
-    }
 
     /**
      * Get id
@@ -63,6 +64,54 @@ class Comment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Comment
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Comment
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -91,55 +140,32 @@ class Comment
 
     /**
      * Set createAt
-     * @ORM\PrePersist
+     *
+     * @ORM\PrePersist()
      */
     public function setCreateAt()
     {
-        $this->createAt = (new \DateTime());
+        $this->createAt = new \DateTime();
     }
 
     /**
      * Get createAt
      *
-     * @return string
+     * @return \DateTime
      */
     public function getCreateAt()
     {
         return $this->createAt;
     }
 
-//    /**
-//     * Set author
-//     *
-//     * @param User $author
-//     *
-//     * @return Comment
-//     */
-//    public function setAuthor(User $author)
-//    {
-//        $this->author = $author;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get author
-//     *
-//     * @return Article
-//     */
-//    public function getAuthor()
-//    {
-//        return $this->author;
-//    }
-
     /**
      * Set article
      *
-     * @param Article $article
+     * @param \AppBundle\Entity\Article $article
      *
      * @return Comment
      */
-    public function setArticle(Article $article)
+    public function setArticle(\AppBundle\Entity\Article $article)
     {
         $this->article = $article;
 
@@ -149,7 +175,7 @@ class Comment
     /**
      * Get article
      *
-     * @return Article
+     * @return \AppBundle\Entity\Article
      */
     public function getArticle()
     {

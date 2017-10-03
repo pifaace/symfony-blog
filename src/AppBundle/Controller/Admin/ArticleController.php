@@ -3,16 +3,11 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Article;
-use AppBundle\Entity\Comment;
 use AppBundle\Form\ArticleType;
-use AppBundle\Form\CommentType;
-use AppBundle\Services\BadgeManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Article controller.

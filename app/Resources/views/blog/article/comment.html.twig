@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+        {{ form_errors(form) }}
+
+<div class="form-row">
+    <div class="form-group col-md-3">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group col-md-3">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(form.content) }}
+    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+{{ form_rest(form) }}
+<input type="submit" class="btn btn-primary" value="Poster">
+{{ form_end(form) }}
