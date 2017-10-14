@@ -2,9 +2,10 @@
 
 {% block wrapper %}
     <body>
-    <div class="container">
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </div>
+        {{ parent() }}
+        <div class="container">
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
     </body>
 {% endblock %}

@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Symfony-blog{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     </head>
     {% block wrapper %}
-
+        {% include 'blog/navbar/navbar.html.twig' %}
     {% endblock %}
     <script src="{{ asset('build/js/app.js') }}"></script>
 </html>
