@@ -59,3 +59,9 @@ And run datafixtures
 ```
 docker-compose run blog-server php bin/console doctrine:fixtures:load
 ```
+
+### Routes
+To access to the dashboard admin go to the following url :
+```
+/admin/dashboard
+```
