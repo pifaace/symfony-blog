@@ -1,5 +1,19 @@
 {% extends 'blog/layout-blog.html.twig' %}
 
 {% block body %}
-    Index page
+    {% for article in articles %}
+        <div class="card text-center card-space">
+            <div class="card-header">
+                Featured
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{ article.title }}</h4>
+                <p class="card-text">{{ article.content|truncate(50) }}</p>
+                <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-primary">Lire l'article</a>
+            </div>
+            <div class="card-footer text-muted">
+                <i>publier le {{ article.createAt|date("d/m/Y") }}</i>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

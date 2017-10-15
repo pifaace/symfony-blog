@@ -15,3 +15,8 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+          - { name: twig.extension }
+

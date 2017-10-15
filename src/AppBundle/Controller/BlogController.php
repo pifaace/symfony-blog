@@ -18,7 +18,12 @@ class BlogController extends Controller
      */
     public function indexAction(): Response
     {
-        return $this->render('blog/home/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('AppBundle:Article')->findAll();
+
+        return $this->render('blog/home/index.html.twig', array(
+            'articles' => $articles
+        ));
     }
 
     /**
