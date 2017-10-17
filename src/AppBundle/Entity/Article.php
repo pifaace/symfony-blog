@@ -3,7 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Article
@@ -54,6 +57,11 @@ class Article
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
      */
     private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
+     */
+    private $image;
 
     /**
      * Constructor
@@ -188,5 +196,29 @@ class Article
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Article
+     */
+    public function setImage(\AppBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

@@ -20,3 +20,6 @@ services:
         tags:
           - { name: twig.extension }
 
+    AppBundle\Services\FileUploader:
+        arguments:
+          $targetDir: '%image_articles_coverages_directory%'

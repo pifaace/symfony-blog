@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    image_articles_coverages_directory: '%kernel.project_dir%/web/uploads/articles/coverages'
 
 framework:
     #esi: ~

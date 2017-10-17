@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Article;
 use AppBundle\Form\ArticleType;
+use AppBundle\Services\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class ArticleController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function newAction(Request $request) : Response
+    public function newAction(Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -30,6 +31,7 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setAuthor($this->getUser());
+
             $em->persist($article);
             $em->flush();
 

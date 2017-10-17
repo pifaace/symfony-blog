@@ -21,6 +21,11 @@
                 {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
             </div>
 
+            <div class="form-group">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+            </div>
+
             {{ form_rest(form) }}
 
             <input type="submit" class="btn btn-primary">
