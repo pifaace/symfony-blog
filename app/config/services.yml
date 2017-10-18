@@ -20,6 +20,10 @@ services:
         tags:
           - { name: twig.extension }
 
+    AppBundle\Subscribers\UploadSubscriber:
+        tags:
+          - { name: doctrine.event_subscriber, connection: default }
+
     AppBundle\Services\FileUploader:
         arguments:
           $targetDir: '%image_articles_coverages_directory%'

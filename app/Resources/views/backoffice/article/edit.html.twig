@@ -1,5 +1,36 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
 
 {% block body %}
-    {% include 'backoffice/article/add.html.twig' %}
+    {% set titlePage = 'Editer un article' %}
+
+    <div class="col-lg-10 bg-grey ml-md-auto form-padding">
+        <div class="form-content">
+            <h2>{{ titlePage }}</h2>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+
+            <span class="form-part">Actualité</span>
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+            </div>
+
+            {{ form_rest(form) }}
+
+            <input type="submit" class="btn btn-primary">
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

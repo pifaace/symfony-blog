@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Image
@@ -24,9 +25,11 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="imageName", type="string", length=255, nullable=true)
+     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
      */
-    private $imageName;
+    private $alt;
+
+    private $file;
 
 
     /**
@@ -40,27 +43,42 @@ class Image
     }
 
     /**
-     * Set imageName
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Set alt
      *
-     * @param string $imageName
+     * @param string $alt
      *
      * @return Image
      */
-    public function setImageName($imageName)
+    public function setAlt($alt)
     {
-        $this->imageName = $imageName;
+        $this->alt = $alt;
 
         return $this;
     }
 
     /**
-     * Get imageName
+     * Get alt
      *
      * @return string
      */
-    public function getImageName()
+    public function getAlt()
     {
-        return $this->imageName;
+        return $this->alt;
     }
 }
-

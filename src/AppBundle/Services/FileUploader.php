@@ -2,10 +2,12 @@
 
 namespace AppBundle\Services;
 
+
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader
 {
+
     private $targetDir;
 
     public function __construct($targetDir)
@@ -13,13 +15,20 @@ class FileUploader
         $this->targetDir = $targetDir;
     }
 
-    public function upload(UploadedFile $file)
+    public function preUploadImage(UploadedFile $file)
     {
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $alt = md5(uniqid()) . '.' . $file->guessExtension();
+        return $alt;
+    }
 
-        $file->move($this->getTargetDir(), $fileName);
+    public function uploaderImage(UploadedFile $file, $imageName)
+    {
+        $file->move($this->getTargetDir(), $imageName);
+    }
 
-        return $fileName;
+    public function removeImage($imageName)
+    {
+        unlink($this->getTargetDir() . $imageName);
     }
 
     public function getTargetDir()

@@ -59,7 +59,8 @@ class Article
     private $comments;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $image;
 
