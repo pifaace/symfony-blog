@@ -14,16 +14,20 @@
             <div class="form-group">
                 {{ form_label(form.title) }}
                 {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.title) }}
             </div>
 
             <div class="form-group">
                 {{ form_label(form.content) }}
                 {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.content) }}
             </div>
 
             <div class="form-group">
                 {{ form_label(form.image) }}
                 {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                <i>Format : jpg, png</i>
+                {{ form_errors(form.image) }}
             </div>
 
             {{ form_rest(form) }}

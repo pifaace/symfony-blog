@@ -31,6 +31,9 @@ class Article
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank(
+     *     message="Ce champs est obligatoire"
+     * )
      */
     private $title;
 
@@ -45,6 +48,9 @@ class Article
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255)
+     * @Assert\NotBlank(
+     *     message="Ce champs est obligatoire"
+     * )
      */
     private $content;
 
@@ -62,6 +68,7 @@ class Article
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid
      */
     private $image;
 

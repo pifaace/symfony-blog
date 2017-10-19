@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -29,6 +30,12 @@ class Image
      */
     private $alt;
 
+    /**
+     * @Assert\Image(
+     *     mimeTypes={"image/png", "image/jpg"},
+     *     mimeTypesMessage="Le fichier n'est pas une image valide"
+     * )
+     */
     private $file;
 
 
