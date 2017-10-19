@@ -81,7 +81,8 @@ class ArticleController extends Controller
         }
 
         return $this->render('backoffice/article/edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'currentImage' => $currentImage
         ));
     }
 
