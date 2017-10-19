@@ -67,8 +67,9 @@ class ArticleController extends Controller
             if (null == $article->getImage()->getId() && null == $article->getImage()->getFile()) {
                 $article->setImage(null);
             } else if (null != $article->getImage()->getFile()){
-
-                $em->remove($currentImage);
+                if (null != $currentImage) {
+                    $em->remove($currentImage);
+                }
 
                 $image = new Image();
                 $image->setFile($article->getImage()->getFile());

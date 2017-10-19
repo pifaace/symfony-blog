@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader
@@ -28,7 +29,11 @@ class FileUploader
 
     public function removeImage($imageName)
     {
-        unlink($this->getTargetDir() . $imageName);
+        $fs = new Filesystem();
+
+        if ($fs->exists($this->getTargetDir() . $imageName)) {
+            unlink($this->getTargetDir() . $imageName);
+        }
     }
 
     public function getTargetDir()
