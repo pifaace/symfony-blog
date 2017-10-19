@@ -23,9 +23,7 @@ class UploadSubscriber implements EventSubscriber
     {
         return array(
             'prePersist',
-            'preUpdate',
             'postPersist',
-            'postUpdate',
             'postRemove'
         );
     }
@@ -34,12 +32,6 @@ class UploadSubscriber implements EventSubscriber
      * @param LifecycleEventArgs $args
      */
     public function prePersist(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        $this->preUploadFile($entity);
-    }
-
-    public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
         $this->preUploadFile($entity);
@@ -54,20 +46,13 @@ class UploadSubscriber implements EventSubscriber
         }
     }
 
-    public function postUpdate(LifecycleEventArgs $args)
-    {
-        $entity = $args->getEntity();
-        if ($entity instanceof Image && null != $entity->getFile()) {
-            $this->uploadFile($entity->getFile(), $entity->getAlt());
-        }
-    }
-
     public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
         if ($entity instanceof Article && null != $entity->getImage()) {
             $this->removeFile($entity->getImage()->getAlt());
+        } else if ($entity instanceof Image) {
+            $this->removeFile($entity->getAlt());
         }
     }
 

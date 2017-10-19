@@ -58,14 +58,21 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
+        $currentImage = $article->getImage();
 
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form->getData()->getImage();
-            if (null != $image->getFile()) {
-                $image->setAlt('');
+            if (null == $article->getImage()->getId() && null == $article->getImage()->getFile()) {
+                $article->setImage(null);
+            } else if (null != $article->getImage()->getFile()){
+
+                $em->remove($currentImage);
+
+                $image = new Image();
+                $image->setFile($article->getImage()->getFile());
+                $article->setImage($image);
             }
             $em->flush();
 
