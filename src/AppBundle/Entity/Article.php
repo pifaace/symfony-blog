@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Image;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -202,11 +203,11 @@ class Article
     /**
      * Set image
      *
-     * @param \AppBundle\Entity\Image $image
+     * @param Image $image
      *
      * @return Article
      */
-    public function setImage(\AppBundle\Entity\Image $image = null)
+    public function setImage(Image $image = null)
     {
         $this->image = $image;
 
@@ -216,7 +217,7 @@ class Article
     /**
      * Get image
      *
-     * @return \AppBundle\Entity\Image
+     * @return Image
      */
     public function getImage()
     {

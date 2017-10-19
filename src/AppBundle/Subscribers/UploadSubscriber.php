@@ -3,6 +3,7 @@
 namespace AppBundle\Subscribers;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Image;
 use AppBundle\Services\FileUploader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -40,36 +41,41 @@ class UploadSubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $args)
     {
-        die('preUpdate');
+        $entity = $args->getEntity();
+        $this->preUploadFile($entity);
     }
 
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
-        if ($entity instanceof Article && null != $entity->getImage()->getFile()) {
-            $this->uploadFile($entity->getImage()->getFile(), $entity->getImage()->getAlt());
+        if ($entity instanceof Image && null != $entity->getFile()) {
+            $this->uploadFile($entity->getFile(), $entity->getAlt());
         }
     }
 
     public function postUpdate(LifecycleEventArgs $args)
     {
-        die('postUpdate');
+        $entity = $args->getEntity();
+        if ($entity instanceof Image && null != $entity->getFile()) {
+            $this->uploadFile($entity->getFile(), $entity->getAlt());
+        }
     }
 
     public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Article && null != $entity->getImage()->getAlt()) {
+
+        if ($entity instanceof Article && null != $entity->getImage()) {
             $this->removeFile($entity->getImage()->getAlt());
         }
     }
 
     public function preUploadFile($entity)
     {
-        if ($entity instanceof Article && null != $entity->getImage()->getFile()) {
-            $alt = $this->uploadFile->preUploadImage($entity->getImage()->getFile());
-            $entity->getImage()->setAlt($alt);
+        if ($entity instanceof Image && null != $entity->getFile()) {
+            $alt = $this->uploadFile->preUploadImage($entity->getFile());
+            $entity->setAlt($alt);
         }
         return;
     }

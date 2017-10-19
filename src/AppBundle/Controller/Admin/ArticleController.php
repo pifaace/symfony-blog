@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Image;
 use AppBundle\Form\ArticleType;
 use AppBundle\Services\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,6 +32,9 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setAuthor($this->getUser());
+            if (null == $article->getImage()->getFile()) {
+                $article->setImage(null);
+            }
 
             $em->persist($article);
             $em->flush();
@@ -59,6 +63,10 @@ class ArticleController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->getData()->getImage();
+            if (null != $image->getFile()) {
+                $image->setAlt('');
+            }
             $em->flush();
 
             return $this->redirectToRoute('admin-articles');
