@@ -64,4 +64,6 @@ docker-compose run blog-server php bin/console doctrine:fixtures:load
 To access to the dashboard admin go to the following url :
 ```
 /admin/dashboard
+login : admin
+password : password
 ```

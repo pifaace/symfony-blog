@@ -1,5 +1,59 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
 
 {% block body %}
-    {% include 'backoffice/article/add.html.twig' %}
+    {% set titlePage = 'Editer un article' %}
+
+    <div class="col-lg-10 bg-grey ml-md-auto form-padding">
+        <div class="form-content">
+            <h2>{{ titlePage }}</h2>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+
+            <span class="form-part">Actualité</span>
+
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.content) }}
+                {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.content) }}
+            </div>
+
+            <span class="form-part">Médias</span>
+
+            <div class="form-group">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
+                <span><i>Format : jpg, png</i></span>
+                {{ form_errors(form.image) }}
+            </div>
+
+            <div class="form-group">
+                <h5>Image de couverture actuelle</h5>
+                {% if currentImage is not null %}
+                    <div class="img-coverage-container">
+                        <img src="{{ asset(image_article_coverage_display ~ currentImage.alt) }}"
+                             alt="{{ currentImage.alt }} "
+                             class="img-thumbnail img-coverage" width="270" height="150">
+                        <div class="overlay">
+                            <span class="btn btn-danger delete-image">Supprimer l'image</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <i>Aucune image de couverture</i>
+                {% endif %}
+            </div>
+
+            {{ form_rest(form) }}
+
+            <input type="submit" class="btn btn-primary">
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

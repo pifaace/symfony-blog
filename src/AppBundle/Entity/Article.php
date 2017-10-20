@@ -2,8 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Image;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Article
@@ -27,6 +31,9 @@ class Article
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank(
+     *     message="Ce champs est obligatoire"
+     * )
      */
     private $title;
 
@@ -41,6 +48,9 @@ class Article
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255)
+     * @Assert\NotBlank(
+     *     message="Ce champs est obligatoire"
+     * )
      */
     private $content;
 
@@ -54,6 +64,13 @@ class Article
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article")
      */
     private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\Valid
+     */
+    private $image;
 
     /**
      * Constructor
@@ -188,5 +205,29 @@ class Article
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set image
+     *
+     * @param Image $image
+     *
+     * @return Article
+     */
+    public function setImage(Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
