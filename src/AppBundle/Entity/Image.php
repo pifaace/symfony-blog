@@ -38,6 +38,11 @@ class Image
      */
     private $file;
 
+    /**
+     * @var boolean
+     */
+    private $deletedImage;
+
 
     /**
      * Get id
@@ -87,5 +92,21 @@ class Image
     public function getAlt()
     {
         return $this->alt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeletedImage(): ?bool
+    {
+        return $this->deletedImage;
+    }
+
+    /**
+     * @param bool $deletedImage
+     */
+    public function setDeletedImage(bool $deletedImage)
+    {
+        $this->deletedImage = $deletedImage;
     }
 }

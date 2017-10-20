@@ -37,9 +37,14 @@
             <div class="form-group">
                 <h5>Image de couverture actuelle</h5>
                 {% if currentImage is not null %}
-                    <img src="{{ asset(image_article_coverage_display ~ currentImage.alt) }}"
-                         alt="{{ currentImage.alt }} "
-                         class="img-thumbnail" width="270" height="150">
+                    <div class="img-coverage-container">
+                        <img src="{{ asset(image_article_coverage_display ~ currentImage.alt) }}"
+                             alt="{{ currentImage.alt }} "
+                             class="img-thumbnail img-coverage" width="270" height="150">
+                        <div class="overlay">
+                            <span class="btn btn-danger delete-image">Supprimer l'image</span>
+                        </div>
+                    </div>
                 {% else %}
                     <i>Aucune image de couverture</i>
                 {% endif %}

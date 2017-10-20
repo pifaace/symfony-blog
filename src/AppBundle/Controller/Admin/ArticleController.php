@@ -74,6 +74,9 @@ class ArticleController extends Controller
                 $image = new Image();
                 $image->setFile($article->getImage()->getFile());
                 $article->setImage($image);
+            } else if (true == $form->getData()->getImage()->isDeletedImage()){
+                $article->setImage(null);
+                $em->remove($currentImage);
             }
             $em->flush();
 
