@@ -24,6 +24,14 @@
             </div>
 
             <div class="form-group">
+                {{ form_label(form.tags) }}
+                {{ form_widget(form.tags, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.tags) }}
+            </div>
+
+            <span class="form-part">Médias</span>
+
+            <div class="form-group">
                 {{ form_label(form.image) }}
                 {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
                 <i>Format : jpg, png</i>
