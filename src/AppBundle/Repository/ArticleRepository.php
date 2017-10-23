@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+    public function getAllArticleWithComment()
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+            ->leftJoin('a.comments', 'c')
+            ->addSelect('c');
+
+        return $qb->getQuery()->getResult();
+    }
 }
