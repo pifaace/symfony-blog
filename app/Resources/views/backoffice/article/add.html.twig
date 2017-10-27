@@ -25,8 +25,12 @@
 
             <div class="form-group">
                 {{ form_label(form.tags) }}
-                {{ form_widget(form.tags, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.tags, {'attr': {'class': 'hidden-tag-input'}}) }}
+                <div class="tags">
+                    <input type="text" class="tag-input" placeholder="Ajouter un tag">
+                </div>
                 {{ form_errors(form.tags) }}
+                <i>Séparez vos tags par une virgule</i>
             </div>
 
             <span class="form-part">Médias</span>

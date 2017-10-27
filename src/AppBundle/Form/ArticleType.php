@@ -24,9 +24,11 @@ class ArticleType extends AbstractType
             ->add('title', TextType::class, array('label' => 'Titre'))
             ->add('content', TextareaType::class, array('label' => 'Contenu'))
             ->add('image', ImageType::class, array('label' => 'Image de couverture'))
-            ->add('tags', TagsType::class);
+            ->add('tags', TagsType::class, array(
+                'required' => false
+            ));
     }
-    
+
     /**
      * {@inheritdoc}
      */

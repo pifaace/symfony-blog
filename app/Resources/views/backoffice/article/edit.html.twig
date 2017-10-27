@@ -2,14 +2,12 @@
 
 {% block body %}
     {% set titlePage = 'Editer un article' %}
-
     <div class="col-lg-10 bg-grey ml-md-auto form-padding">
         <div class="form-content">
             <h2>{{ titlePage }}</h2>
 
             {{ form_start(form) }}
             {{ form_errors(form) }}
-
 
             <span class="form-part">Actualité</span>
 
@@ -27,8 +25,17 @@
 
             <div class="form-group">
                 {{ form_label(form.tags) }}
-                {{ form_widget(form.tags, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.tags, {'attr': {'class': 'hidden-tag-input'}}) }}
+                <div class="tags">
+                    {% if article.tags is not null %}
+                        {% for tag in article.tags %}
+                            <div class='tag'>{{ tag.name }}<i class='fa fa-times tag-remove' aria-hidden='true'></i></div>
+                        {% endfor %}
+                    {% endif %}
+                    <input type="text" class="tag-input" placeholder="Ajouter un tag">
+                </div>
                 {{ form_errors(form.tags) }}
+                <i>Séparez vos tags par une virgule</i>
             </div>
 
             <span class="form-part">Médias</span>
