@@ -1,4 +1,4 @@
-# Training Symfony 3.3
+# Symfony-blog 3.3.8
 
 My application to try some stuffs about Symfony 3.3
 In this project, I'm trying to use various components of Symfony like :
@@ -27,22 +27,14 @@ This project require
 
 #### Clone the project
 ```
-git clone https://github.com/pifaace/training-symfony.git
+$ git clone https://github.com/pifaace/blog-symfony.git
 ```
 
-#### Run composer install
+#### Run dependencies
 ```
-composer install
-```
-
-#### Run npm install
-```
-npm install
-```
-
-#### Run gulp
-```
-gulp
+$ composer install
+$ npm install
+$ gulp
 ```
 
 ### Running docker containers
@@ -53,17 +45,18 @@ copy/paste these paramaters into app/config/parameters.yml
 parameters:
     database_host: mysql
     database_port: 3306
-    database_name: training-symfony
+    database_name: symfony-blog
     database_user: root
     database_password: secret
 ```
-
 #### Running containers
 ```
 $ docker-compose up -d
+$ start http://localhost/app_dev.php # Windows
+$ open http://localhost/app_dev.php # Mac
 ```
 
-#### Stoping containers
+#### Stopping containers
 ```
 $ docker-compose stop
 ```
@@ -71,19 +64,20 @@ $ docker-compose stop
 ### Dump database
 
 ```
-docker-compose run blog-server php bin/console doctrine:schema:update --force
+$ docker-compose exec blog-server php bin/console doctrine:schema:update --force
 ```
 
 And run datafixtures
 
 ```
-docker-compose run blog-server php bin/console doctrine:fixtures:load
+$ docker-compose exec blog-server php bin/console doctrine:fixtures:load
 ```
 
 ### Routes
 To access to the dashboard admin go to the following url :
+
+[http://localhost/app_dev.php/admin/dashboard](http://localhost/app_dev.php/admin/dashboard)
 ```
-/admin/dashboard
 login : admin
 password : password
 ```

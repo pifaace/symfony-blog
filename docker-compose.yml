@@ -2,12 +2,13 @@ version: '2'
 
 services:
   blog-server:
-    build: .
-    image: training-symfony
+    build: ./docker/php
+    image: blog-symfony
     links:
       - mysql
     volumes:
       - ./:/application
+      - /application/var/sessions/
 
   mysql:
     image: mysql
@@ -15,7 +16,7 @@ services:
       - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: training-symfony
+      MYSQL_DATABASE: symfony-blog
     volumes:
       - ./tmp/db:/var/lib/mysql
 
@@ -24,7 +25,7 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./:/application
     links:
       - blog-server
