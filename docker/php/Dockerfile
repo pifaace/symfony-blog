@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     locales \
     zip
 
+COPY php.ini /usr/local/etc/php/php.ini
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -19,3 +21,7 @@ RUN echo fr_FR.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
 
 # Changing Workdir
 WORKDIR /application
+
+RUN mkdir -p \
+		var/sessions \
+	&& chown -R www-data var
