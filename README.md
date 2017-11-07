@@ -27,7 +27,7 @@ This project require
 
 #### Clone the project
 ```
-$ git clone https://github.com/pifaace/blog-symfony.git
+$ git clone https://github.com/pifaace/symfony-blog.git
 ```
 
 #### Run dependencies
