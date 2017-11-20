@@ -8,11 +8,7 @@
             <h2>{{ titlePage }}</h2>
 
 
-            {% for flashMessage in app.session.flashbag.get('notice') %}
-                <div class="alert alert-success" role="alert">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
+            {% include 'flashMessage/flashMessage.html.twig' %}
 
             {{ form_start(form) }}
             {{ form_errors(form) }}

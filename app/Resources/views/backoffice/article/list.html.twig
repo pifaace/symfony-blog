@@ -4,11 +4,7 @@
     <div class="col-lg-10 bg-grey ml-md-auto">
         <h2>LES ARTICLES</h2>
 
-        {% for flashMessage in app.session.flashbag.get('notice') %}
-            <div class="alert alert-success" role="alert">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
+        {% include 'flashMessage/flashMessage.html.twig' %}
 
         <hr>
         <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_new') }}">Nouvel article</a>

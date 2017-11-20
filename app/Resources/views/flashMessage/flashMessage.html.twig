@@ -1,0 +1,9 @@
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-container">
+        <div class="alert alert-success" role="alert">
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        </div>
+    </div>
+{% endfor %}
