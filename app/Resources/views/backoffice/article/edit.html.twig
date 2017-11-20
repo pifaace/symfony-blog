@@ -3,8 +3,12 @@
 {% block body %}
     {% set titlePage = 'Editer un article' %}
     <div class="col-lg-10 bg-grey ml-md-auto form-padding">
+
         <div class="form-content">
             <h2>{{ titlePage }}</h2>
+
+
+            {% include 'flashMessage/flashMessage.html.twig' %}
 
             {{ form_start(form) }}
             {{ form_errors(form) }}
@@ -29,7 +33,8 @@
                 <div class="tags">
                     {% if article.tags is not null %}
                         {% for tag in article.tags %}
-                            <div class='tag'>{{ tag.name }}<i class='fa fa-times tag-remove' aria-hidden='true'></i></div>
+                            <div class='tag'>{{ tag.name }}<i class='fa fa-times tag-remove' aria-hidden='true'></i>
+                            </div>
                         {% endfor %}
                     {% endif %}
                     <input type="text" class="tag-input" placeholder="Ajouter un tag">
