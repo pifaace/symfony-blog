@@ -53,6 +53,7 @@
 }
 
 .tags {
+  background-color: #fff;
   padding: 8px 16px 8px 16px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
@@ -65,16 +66,10 @@
   }
 
   .tag {
-    display: block;
-    float: left;
-    background-color: rgba(#3498db, 0.5);
-    padding: 0.25em 0.5em;
-    border-radius: 3px;
-    margin-right: 0.5em;
-    cursor: pointer;
-    &.highlight {
-      background-color: rgba(#e74c3c, 0.5);
-    }
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 0;
+    background-color: #55D3E7;
   }
 
   .tag-input {
@@ -88,16 +83,21 @@
 
     &:hover {
       color: #E3E3E3;
+      cursor: pointer;
     }
   }
 
   &.input-focus {
-    border-color: #80bdff;
+    border-color: #3273dc;
   }
 
   &:after {
     content: "";
     clear: both;
     display: table;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }

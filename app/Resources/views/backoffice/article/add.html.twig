@@ -1,52 +1,67 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
 {% block body %}
-    {% set titlePage = 'Ajouter un article' %}
+    {% set titlePage = 'AJOUTER UN ARTICLE' %}
 
-    <div class="col-lg-10 bg-grey ml-md-auto form-padding">
-        <div class="form-content">
-            <h2>{{ titlePage }}</h2>
+    <div class="container">
+        <div class="title-tab">
+            <h2 class="title is-3">{{ titlePage }}</h2>
+        </div>
 
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
 
-
-            <span class="form-part">Actualité</span>
-            <div class="form-group">
-                {{ form_label(form.title) }}
-                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.title) }}
+        <span class="form-part">Actualité</span>
+        <div class="field">
+            {{ form_label(form.title, 'Titre', {'label_attr': {'class': 'label'}}) }}
+            <div class="control">
+                {{ form_widget(form.title, {'attr': {'class': 'input'}}) }}
             </div>
+            {{ form_errors(form.title) }}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.content) }}
-                {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.content) }}
+        <div class="field">
+            {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'label'}}) }}
+            <div class="control">
+                {{ form_widget(form.content, {'attr': {'class': 'textarea'}}) }}
             </div>
+            {{ form_errors(form.content) }}
+        </div>
 
-            <div class="form-group">
-                {{ form_label(form.tags) }}
+        <div class="field">
+            {{ form_label(form.tags, 'Tags', {'label_attr': {'class': 'label'}}) }}
+            <div class="control">
                 {{ form_widget(form.tags, {'attr': {'class': 'hidden-tag-input'}}) }}
                 <div class="tags">
                     <input type="text" class="tag-input" placeholder="Ajouter un tag">
                 </div>
-                {{ form_errors(form.tags) }}
-                <i>Séparez vos tags par une virgule</i>
             </div>
+            {{ form_errors(form.tags) }}
+            <i>Séparez vos tags par une virgule</i>
+        </div>
 
-            <span class="form-part">Médias</span>
+        <span class="form-part">Médias</span>
 
-            <div class="form-group">
-                {{ form_label(form.image) }}
-                {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
-                <i>Format : jpg, png</i>
+        <div class="field">
+            <div class="file has-name">
+                <label class="file-label">
+                    {{ form_widget(form.image, {'attr': {'class': 'file-input coverage-input', 'name': 'resume'}}) }}
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fa fa-upload"></i>
+                        </span>
+                        <span class="file-label">Image de couverture...</span>
+                    </span>
+                    <span id="coverage-name" class="file-name">Aucun fichier</span>
+                </label>
                 {{ form_errors(form.image) }}
             </div>
-
-            {{ form_rest(form) }}
-
-            <input type="submit" class="btn btn-primary">
-            {{ form_end(form) }}
         </div>
+
+        {{ form_rest(form) }}
+
+        <div class="control">
+            <input type="submit" class="button is-primary">
+        </div>
+        {{ form_end(form) }}
     </div>
 {% endblock %}
-

@@ -1,35 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block wrapper %}
-    <body class="bg-dark">
-    <div class="container-fluid">
-        {% block body %}
-            <div class="row justify-content-center mt-5">
-                <div class="col-4 border-form">
-                    <h2>Panneau d'administration</h2>
-                    <form action="{{ path('login') }}" method="post">
-                        <div class="form-group">
-                            <label for="username">Identifiant :</label>
-                            <input class="form-control" type="text" id="username" name="_username"
+    {% block body %}
+        <div class="login-container">
+            <div class="border-form">
+                <h2 class="title is-3">Panneau d'administration</h2>
+
+                <form action="{{ path('login') }}" method="post">
+                    <div class="field">
+                        <label for="username" class="label has-text-left">Identifiant :</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="username" name="_username"
                                    value="{{ lastUsername }}"/>
+                            <span class="icon is-small is-right">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="password">Mot de passe :</label>
-                            <input class="form-control" type="password" id="password" name="_password"/>
+                    <div class="field">
+                        <label for="password" class="label has-text-left">Mot de passe :</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="password" id="password" name="_password"/>
+                            <span class="icon is-small is-right">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
                         </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    </div>
 
-                        {% if error %}
-                            <div class="text-danger mt-2 mb-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                        <button type="submit" class="btn btn-primary">Connexion</button>
-                    </form>
+                    {% if error %}
+                        <div class="text-danger mt-2 mb-2">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-                </div>
+                    <button type="submit" class="button is-primary">Connexion</button>
+                </form>
             </div>
-        {% endblock %}
-    </div>
-    </body>
+        </div>
+
+    {% endblock %}
 {% endblock %}

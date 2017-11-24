@@ -1,37 +1,45 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
 
 {% block body %}
-    <div class="col-lg-10 bg-grey ml-md-auto">
-        <h2>LES ARTICLES</h2>
+    {% set titlePage = 'LES ARTICLES' %}
+    <div class="container">
+
+        <div class="title-tab">
+            <h2 class="title is-3">{{ titlePage }}</h2>
+        </div>
 
         {% include 'flashMessage/flashMessage.html.twig' %}
 
         <hr>
-        <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_new') }}">Nouvel article</a>
+        <a class="button is-primary" href="{{ path('article_new') }}">Nouvel article</a>
 
         {% if articles is not empty %}
             <table class="table">
-                <thead class="thead-inverse">
-                <th>id</th>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Date poste</th>
-                <th>Commentaire</th>
-                <th>Actions</th>
+                <thead>
+                <th><abbr title="Id">id</abbr></th>
+                <th><abbr title="Titre">Titre</abbr></th>
+                <th><abbr title="Auteur">Auteur</abbr></th>
+                <th><abbr title="Date poste">Date poste</abbr></th>
+                <th><abbr title="Commentaire">Commentaire</abbr></th>
+                <th><abbr title="Actions">Actions</abbr></th>
                 </thead>
 
                 <tbody>
                 {% for article in articles %}
                     <tr>
-                        <th scope="row">{{ article.id }}</th>
+                        <th>{{ article.id }}</th>
                         <td>{{ article.title }}</td>
                         <td>{{ article.author.username }}</td>
                         <td>{{ article.createAt|date("d/m/Y") }}</td>
                         <td>{{ article.comments.count }}</td>
                         <td>
-                            <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                            <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                            <a href="{{ path('article_delete', {'id': article.id}) }}" class="btn btn-danger delete-article"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            <a href="{{ path('article_show', {'id': article.id}) }}" class="button is-primary"><i
+                                        class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="{{ path('article_edit', {'id': article.id}) }}" class="button is-warning"><i
+                                        class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="{{ path('article_delete', {'id': article.id}) }}"
+                               class="button is-danger delete-article"><i class="fa fa-trash-o"
+                                                                        aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

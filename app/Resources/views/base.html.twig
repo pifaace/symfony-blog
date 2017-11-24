@@ -7,8 +7,10 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
     </head>
+    <body class="bg-grey">
     {% block wrapper %}
-        {% include 'blog/navbar/navbar.html.twig' %}
+        {% include 'navbar/navbar.html.twig' %}
     {% endblock %}
+    </body>
     <script src="{{ asset('build/js/app.js') }}"></script>
 </html>

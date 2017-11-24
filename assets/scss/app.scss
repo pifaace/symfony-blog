@@ -1,14 +1,18 @@
+// Variables Bulma
+@import "./node_modules/bulma/sass/utilities/initial-variables";
+
 // Import overwride variables
 @import "variables";
 
-// Import Bootstrap4
-@import "./node_modules/bootstrap/scss/bootstrap";
+// Import Bulma
+@import "./node_modules/bulma/bulma";
 
 // Import Font-awesome
 @import "./node_modules/font-awesome/scss/font-awesome";
 
 @import "admin/admin";
-
 @import "design/index";
-
 @import "design/flash";
+@import "design/navbar";
+
+@import "base";

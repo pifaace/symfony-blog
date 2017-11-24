@@ -19,7 +19,10 @@ class ImageType extends AbstractType
     {
         $builder->add('file', FileType::class, array(
             'label' => false,
-            'required' => false
+            'required' => false,
+            'attr' => array(
+                'class' => 'coverage-file',
+            )
         ));
 
         $builder->addEventListener(

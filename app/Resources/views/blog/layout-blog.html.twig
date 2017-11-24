@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block wrapper %}
-    <body>
         {{ parent() }}
         <div class="container">
             {% block body %}{% endblock %}
             {% block javascripts %}{% endblock %}
         </div>
-    </body>
 {% endblock %}
