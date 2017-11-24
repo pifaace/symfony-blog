@@ -2,76 +2,90 @@
 
 {% block body %}
     {% set titlePage = 'Editer un article' %}
-    <div class="col-lg-10 bg-grey ml-md-auto form-padding">
-
-        <div class="form-content">
-            <h2>{{ titlePage }}</h2>
-
-
-            {% include 'flashMessage/flashMessage.html.twig' %}
-
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-
-            <span class="form-part">Actualité</span>
-
-            <div class="form-group">
-                {{ form_label(form.title) }}
-                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.title) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.content) }}
-                {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.content) }}
-            </div>
-
-            <div class="form-group">
-                {{ form_label(form.tags) }}
-                {{ form_widget(form.tags, {'attr': {'class': 'hidden-tag-input'}}) }}
-                <div class="tags">
-                    {% if article.tags is not null %}
-                        {% for tag in article.tags %}
-                            <div class='tag'>{{ tag.name }}<i class='fa fa-times tag-remove' aria-hidden='true'></i>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    <input type="text" class="tag-input" placeholder="Ajouter un tag">
-                </div>
-                {{ form_errors(form.tags) }}
-                <i>Séparez vos tags par une virgule</i>
-            </div>
-
-            <span class="form-part">Médias</span>
-
-            <div class="form-group">
-                {{ form_label(form.image) }}
-                {{ form_widget(form.image, {'attr': {'class': 'form-control-file'}}) }}
-                <span><i>Format : jpg, png</i></span>
-                {{ form_errors(form.image) }}
-            </div>
-
-            <div class="form-group">
-                <h5>Image de couverture actuelle</h5>
-                {% if currentImage is not null %}
-                    <div class="img-coverage-container">
-                        <img src="{{ asset(image_article_coverage_display ~ currentImage.alt) }}"
-                             alt="{{ currentImage.alt }} "
-                             class="img-thumbnail img-coverage" width="270" height="150">
-                        <div class="overlay">
-                            <span class="btn btn-danger delete-image">Supprimer l'image</span>
-                        </div>
-                    </div>
-                {% else %}
-                    <i>Aucune image de couverture</i>
-                {% endif %}
-            </div>
-
-            {{ form_rest(form) }}
-
-            <input type="submit" class="btn btn-primary">
-            {{ form_end(form) }}
+    <div class="container">
+        <div class="title-tab">
+            <h2 class="title is-3">{{ titlePage }}</h2>
         </div>
+
+        {% include 'flashMessage/flashMessage.html.twig' %}
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <span class="form-part">Actualité</span>
+
+        <div class="field">
+            {{ form_label(form.title, 'Titre', {'label_attr': {'class': 'label'}}) }}
+            <div class="control">
+                {{ form_widget(form.title, {'attr': {'class': 'input'}}) }}
+            </div>
+            {{ form_errors(form.title) }}
+        </div>
+
+        <div class="field">
+            {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'label'}}) }}
+            <div class="control">
+                {{ form_widget(form.content, {'attr': {'class': 'textarea'}}) }}
+            </div>
+            {{ form_errors(form.content) }}
+        </div>
+
+        <div class="field">
+            {{ form_label(form.tags) }}
+            <div class="control">
+                {{ form_widget(form.tags, {'attr': {'class': 'hidden-tag-input'}}) }}
+            </div>
+            <div class="tags">
+                {% if article.tags is not null %}
+                    {% for tag in article.tags %}
+                        <div class='tag'>{{ tag.name }}<i class='fa fa-times tag-remove' aria-hidden='true'></i>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <input type="text" class="tag-input" placeholder="Ajouter un tag">
+            </div>
+            {{ form_errors(form.tags) }}
+            <i>Séparez vos tags par une virgule</i>
+        </div>
+
+        <span class="form-part">Médias</span>
+
+        <div class="field">
+            <div class="file has-name">
+                <label class="file-label">
+                    {{ form_widget(form.image, {'attr': {'class': 'file-input coverage-input', 'name': 'resume'}}) }}
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            <i class="fa fa-upload"></i>
+                        </span>
+                        <span class="file-label">Image de couverture...</span>
+                    </span>
+                    <span id="coverage-name" class="file-name">Aucun fichier</span>
+                </label>
+            </div>
+            <span><i>Format : jpg, png</i></span>
+            {{ form_errors(form.image) }}
+        </div>
+
+        <div class="field">
+            <h5 class="title is-5">Image de couverture actuelle</h5>
+            {% if currentImage is not null %}
+                <div class="img-coverage-container">
+                    <img src="{{ asset(image_article_coverage_display ~ currentImage.alt) }}"
+                         alt="{{ currentImage.alt }} "
+                         class="img-thumbnail img-coverage" width="270" height="150">
+                    <div class="overlay">
+                        <span class="button is-danger delete-image">Supprimer l'image</span>
+                    </div>
+                </div>
+            {% else %}
+                <i>Aucune image de couverture</i>
+            {% endif %}
+        </div>
+
+        {{ form_rest(form) }}
+
+        <input type="submit" class="button is-primary">
+        {{ form_end(form) }}
     </div>
 {% endblock %}

@@ -1,0 +1,32 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+
+        <div class="navbar-brand">
+            <a href="{{ path('homepage') }}" class="navbar-item">Training Symfony-blog</a>
+
+            <div class="button navbar-burger burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="field is-grouped">
+                            <p class="control">
+                                <a class="button is-primary" href="{{ path('admin-dashboard') }}">Dashboard</a>
+                            </p>
+                            <p class="control">
+                                <a class="button is-danger is-outlined" href="{{ path('logout') }}">Déconnexion</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>

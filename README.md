@@ -1,4 +1,4 @@
-# Symfony-blog 3.3.8
+# Symfony-blog 3.3.13
 
 My application to try some stuffs about Symfony 3.3
 In this project, I'm trying to use various components of Symfony like :
@@ -10,7 +10,7 @@ In this project, I'm trying to use various components of Symfony like :
 this list should evolve.
 
 Also, to improve this project, I'm using some tools like :
-* [Bootstrap4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+* [Bulma.io](https://bulma.io/)
 * [SASS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html)
 * [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/API.md)
 * [Font-awesome](http://fontawesome.io/)

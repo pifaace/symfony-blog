@@ -1,0 +1,36 @@
+.bg-grey {
+  background-color: #F3F3F3;
+}
+
+.bg-light {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.text-danger {
+  color: #FF7676;
+}
+
+.height-max {
+  height: 100%;
+}
+
+/** Override bulma class **/
+
+.columns.is-gapless:not(:last-child) {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.menu-list a.is-active,
+.menu-list a.is-active:hover {
+  background-color: rgba(255, 255, 255, 0.23);
+}
+
+a.navbar-item:hover {
+  color: #17a2b8;
+}
+
+.input-focus {
+  border-color: #80bdff;
+  outline: none;
+}

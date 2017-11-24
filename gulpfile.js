@@ -12,7 +12,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch('assets/**/*.scss', ['sass']);
+    gulp.watch('assets/scss/**/*.scss', ['sass']);
 });
 
 gulp.task('fonts', function () {
