@@ -14,6 +14,10 @@
   height: 100%;
 }
 
+.mt-30 {
+  margin-top: 30px;
+}
+
 /** Override bulma class **/
 
 .columns.is-gapless:not(:last-child) {
@@ -33,4 +37,11 @@ a.navbar-item:hover {
 .input-focus {
   border-color: #80bdff;
   outline: none;
+}
+
+.card-footer a {
+  color: #17a2b8;
+  &:hover {
+    color: #000;
+  }
 }
