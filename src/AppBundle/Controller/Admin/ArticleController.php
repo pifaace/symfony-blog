@@ -42,7 +42,7 @@ class ArticleController extends Controller
             $em->persist($article);
             $em->flush();
 
-            $flashMessage->castMessage($request);
+            $flashMessage->createMessage($request, 'info', "L'article a été créé avec succès");
 
             return $this->redirectToRoute('admin-articles');
         }
@@ -86,8 +86,7 @@ class ArticleController extends Controller
             }
             $em->flush();
 
-
-            $flashMessage->castMessage($request, $id);
+            $flashMessage->createMessage($request, 'info', "L'article a été mis à jour avec succès");
 
             return $this->redirect($request->getUri());
         }
@@ -105,7 +104,7 @@ class ArticleController extends Controller
      * @param int $id
      * @return Response
      */
-    public function deleteAction(int $id): Response
+    public function deleteAction(Request $request, int $id, FlashMessage $flashMessage): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
@@ -113,6 +112,8 @@ class ArticleController extends Controller
         $em->remove($article);
         $em->flush();
 
+        $flashMessage->createMessage($request, "info", "L'annonce été supprimé avec succès");
+        
         return $this->redirectToRoute('admin-articles');
     }
 }
