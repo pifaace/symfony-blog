@@ -1,0 +1,27 @@
+.notification-container {
+  position: fixed;
+  width: 380px;
+  right: -380px;
+  top: 76px;
+  z-index: 999;
+  -webkit-animation-name: slide-on; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1.5s; /* Safari 4.0 - 8.0 */
+  animation-name: slide-on;
+  animation-duration: 6s;
+  animation-delay: 0.5s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes slide-on {
+  10%   {transform: translateX(-107%)}
+  11%, 90% {transform: translateX(-107%)}
+  100% {transform: translateX(380px)}
+}
+
+/* Standard syntax */
+@keyframes example {
+  10%   {transform: translateX(-107%)}
+  11%, 80% {transform: translateX(-107%)}
+  100% {transform: translateX(380px)}
+}
+
