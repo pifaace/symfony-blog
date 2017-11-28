@@ -6,28 +6,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FlashMessage
 {
-    public function castMessage(Request $request, int $id = null)
+    public function createMessage(Request $request, string $type, string $message)
     {
         if (!$request instanceof Request) {
             return false;
         }
 
-        if (null == $id) {
-            $this->createArticleMessage($request);
-        } else {
-            $this->updateArticleMessage($request);
-        }
+        $request->getSession()->getFlashBag()->add($type, $message);
 
         return true;
-    }
-
-    private function createArticleMessage(Request $request)
-    {
-        $request->getSession()->getFlashBag()->add('notice', "L'article a été créé avec succès");
-    }
-
-    private function updateArticleMessage(Request $request)
-    {
-        $request->getSession()->getFlashBag()->add('notice', "L'article a été mise à jour avec succès");
     }
 }
