@@ -1,21 +1,31 @@
 {{ form_start(form) }}
         {{ form_errors(form) }}
 
-<div class="form-row">
-    <div class="form-group col-md-3">
-        {{ form_label(form.username) }}
-        {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group col-md-3">
-        {{ form_label(form.email) }}
-        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+<div class="field is-horizontal">
+    <div class="field-body">
+        <div class="field">
+            {{ form_label(form.username, 'Pseudo', {'label_attr': {'class': 'label'}}) }}
+            <div class="control">
+                {{ form_widget(form.username, {'attr': {'class': 'input'}}) }}
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                {{ form_label(form.content, 'Email', {'label_attr': {'class': 'label'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'input'}}) }}
+            </div>
+        </div>
     </div>
 </div>
-<div class="form-group">
-    {{ form_label(form.content) }}
-    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+
+<div class="field">
+    {{ form_label(form.content, 'Commentaire', {'label_attr': {'class': 'label'}}) }}
+    <div class="control">
+        {{ form_widget(form.content, {'attr': {'class': 'textarea'}}) }}
+    </div>
 </div>
 
 {{ form_rest(form) }}
-<input type="submit" class="btn btn-primary" value="Poster">
+<input type="submit" class="button is-primary" value="Poster">
 {{ form_end(form) }}

@@ -6,19 +6,25 @@
     {% if article.image is not null %}
         <img src="{{ asset(image_article_coverage_display ~ article.image.alt) }}" alt="{{ article.image.alt }}">
     {% endif %}
-    <h1>{{ article.title }}</h1>
+    <div class="title-tab">
+        <h1 class="title is-1">{{ article.title }}</h1>
+    </div>
     <p>{{ article.content }}</p>
     <hr>
 
-    <h3>{{ countComment }} {{ countComment <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
+    <h3 class="title is-3">{{ countComment }} {{ countComment <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
     {% for comment in comments %}
-        <strong>Par : {{ comment.username }}</strong>
-        <p>{{ comment.content }}</p>
+        <div class="comment">
+            <strong>{{ comment.username }}</strong>
+            <p>{{ comment.content }}</p>
+        </div>
     {% endfor %}
 
-
-    <h3>Postez un commentaire</h3>
-    {% include 'blog/article/comment.html.twig' %}
-
+    <div class="columns">
+        <div class="column is-two-fifths">
+            <h3 class="title is-3">Postez un commentaire</h3>
+            {% include 'blog/article/comment.html.twig' %}
+        </div>
+    </div>
 {% endblock %}
 

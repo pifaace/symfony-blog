@@ -1,19 +1,26 @@
 {% extends 'blog/layout-blog.html.twig' %}
 
 {% block body %}
-    {#{% for article in articles %}#}
-        {#<div class="card text-center card-space">#}
-            {#<div class="card-header">#}
-                {#Featured#}
-            {#</div>#}
-            {#<div class="card-body">#}
-                {#<h4 class="card-title">{{ article.title }}</h4>#}
-                {#<p class="card-text">{{ article.content|truncate(50) }}</p>#}
-                {#<a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-primary">Lire l'article</a>#}
-            {#</div>#}
-            {#<div class="card-footer text-muted">#}
-                {#<i>publier le {{ article.createAt|date("d/m/Y") }}</i>#}
-            {#</div>#}
-        {#</div>#}
-    {#{% endfor %}#}
+    {% for article in articles %}
+        <div class="card mt-30">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{ article.title }}
+                </p>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    {{ article.content|truncate(50) }}
+                    <br>
+                    Publié le
+                    <time datetime="2016-1-1">{{ article.createAt|date("d/m/Y") }}
+                        à {{ article.createAt|date("h:i:s") }}</time>
+                </div>
+            </div>
+            <footer class="card-footer">
+                <a href="{{ path('article_show', {'id': article.id}) }}" class="card-footer-item is-primary">Lire
+                    l'article</a>
+            </footer>
+        </div>
+    {% endfor %}
 {% endblock %}
