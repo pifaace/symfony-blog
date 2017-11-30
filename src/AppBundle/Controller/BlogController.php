@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Form\CommentType;
+use AppBundle\Services\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,15 +15,22 @@ class BlogController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @param Paginator $paginator
      * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(Paginator $paginator): Response
     {
+        $page = $paginator->getPage();
+
         $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->findAll();
+        $articles = $paginator->getItemList($em->getRepository('AppBundle:Article'), $page);
+
+        $nbPages = $paginator->countPage($articles);
 
         return $this->render('blog/home/index.html.twig', array(
-            'articles' => $articles
+            'articles' => $articles,
+            'nbPages' => $nbPages,
+            'page' => $page
         ));
     }
 
@@ -63,7 +71,8 @@ class BlogController extends Controller
             'article' => $article,
             'comments' => $comments,
             'countComment' => $countComment,
-            'form'    => $form->createView()
+            'form' => $form->createView()
         ));
     }
+
 }

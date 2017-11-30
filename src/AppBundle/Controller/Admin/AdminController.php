@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function listArticleAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->getAllArticleWithComment();
+        $articles = $em->getRepository('AppBundle:Article')->getArticlesWithComment();
 
         return $this->render('backoffice/article/list.html.twig', array(
             'articles' => $articles

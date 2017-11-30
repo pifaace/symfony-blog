@@ -9,6 +9,7 @@ parameters:
     locale: fr
     image_articles_coverages_directory: '%kernel.project_dir%/web/uploads/articles/coverages/'
     image_articles_coverages_display: '/uploads/articles/coverages/'
+    itemPerPage: '5'
 
 framework:
     #esi: ~

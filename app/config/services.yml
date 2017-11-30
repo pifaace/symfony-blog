@@ -27,3 +27,7 @@ services:
     AppBundle\Services\FileUploader:
         arguments:
           $targetDir: '%image_articles_coverages_directory%'
+
+    AppBundle\Services\Paginator:
+        arguments:
+          $itemPerPage: '%itemperpage%'

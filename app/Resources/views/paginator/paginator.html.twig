@@ -1,0 +1,15 @@
+<div class="pagination-container">
+    <nav class="pagination" role="navigation" aria-label="pagination">
+        <nav class="pagination" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                {% for p in range(1, nbPages) %}
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), {'page': p}) }}"
+                           class="pagination-link {{ (p == page ? 'is-current') }}"
+                           aria-label="Goto page {{ p }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </nav>
+</div>
