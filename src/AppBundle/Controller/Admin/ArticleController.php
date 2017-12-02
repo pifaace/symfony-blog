@@ -101,7 +101,9 @@ class ArticleController extends Controller
     /**
      * @Route("admin/article/{id}/delete", name="article_delete")
      *
+     * @param Request $request
      * @param int $id
+     * @param FlashMessage $flashMessage
      * @return Response
      */
     public function deleteAction(Request $request, int $id, FlashMessage $flashMessage): Response

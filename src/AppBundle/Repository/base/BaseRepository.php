@@ -2,9 +2,7 @@
 
 namespace AppBundle\Repository\base;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class BaseRepository extends EntityRepository
