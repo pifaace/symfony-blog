@@ -1,0 +1,35 @@
+{% set minLimit = page - 3 %}
+{% set maxLimit = page + 3 %}
+{% set hellipMin = 0 %}
+{% set hellipMax = 0 %}
+{% set arrayPages = range(1, nbPages) %}
+
+<div class="pagination-container">
+    <nav class="pagination" role="navigation" aria-label="pagination">
+        <nav class="pagination" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                {% for p in arrayPages %}
+                    {% if p > minLimit and p < maxLimit or p == min(arrayPages) or p == min(arrayPages) + 1 or p == max(arrayPages) or p == max(arrayPages) - 1 %}
+                        <li>
+                            <a href="{{ path(app.request.get('_route'), {'page': p}) }}"
+                               class="pagination-link {{ (p == page ? 'is-current') }}"
+                               aria-label="Goto page {{ p }}">{{ p }}</a>
+                        </li>
+                    {% else %}
+                        {% if hellipMin != 1 and minLimit > min(arrayPages) and minLimit > min(arrayPages) + 1 %}
+                            <li>
+                                <span class="pagination-ellipsis">&hellip;</span>
+                            </li>
+                            {% set hellipMin = 1 %}
+                        {% elseif hellipMax != 1 and maxLimit < max(arrayPages) and maxLimit < max(arrayPages) - 1 %}
+                            <li>
+                                <span class="pagination-ellipsis">&hellip;</span>
+                            </li>
+                            {% set hellipMax = 1 %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </nav>
+</div>

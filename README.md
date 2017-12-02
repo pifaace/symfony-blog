@@ -52,8 +52,8 @@ parameters:
 #### Running containers
 ```
 $ docker-compose up -d
-$ start http://localhost/app_dev.php # Windows
-$ open http://localhost/app_dev.php # Mac
+$ start http://localhost/app_dev.php/ # Windows
+$ open http://localhost/app_dev.php/ # Mac
 ```
 
 #### Stopping containers

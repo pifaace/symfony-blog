@@ -7,7 +7,7 @@ services:
     links:
       - mysql
     volumes:
-      - ./:/application
+      - ./:/application:cached
       - /application/var/sessions/
 
   mysql:
@@ -26,6 +26,6 @@ services:
       - '80:80'
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./:/application
+      - ./:/application:cached
     links:
       - blog-server
