@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2.0-fpm
 
 # Installing dependencies
 RUN apt-get update && apt-get install -y \
@@ -14,7 +14,7 @@ COPY php.ini /usr/local/etc/php/php.ini
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Installing extensions
-RUN docker-php-ext-install mcrypt pdo_mysql
+RUN docker-php-ext-install pdo_mysql
 
 # Setting locales
 RUN echo fr_FR.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
