@@ -23,6 +23,8 @@ security:
               csrf_token_generator: security.csrf.token_manager
               default_target_path: admin-dashboard
               always_use_default_target_path: true
+            logout_on_user_change: true
+
 
             logout:
               path: /logout
