@@ -1,4 +1,5 @@
 .idea
+tmp/db
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
