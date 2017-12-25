@@ -8,7 +8,7 @@ gulp.task('default', ['sass', 'fonts', 'js'], function () {
 gulp.task('sass', function () {
     return gulp.src('assets/scss/app.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('web/build/css'));
+        .pipe(gulp.dest('public/build/css'));
 });
 
 gulp.task('sass:watch', function () {
@@ -17,11 +17,11 @@ gulp.task('sass:watch', function () {
 
 gulp.task('fonts', function () {
    gulp.src('node_modules/font-awesome/fonts/**')
-       .pipe(gulp.dest('web/build/fonts'))
+       .pipe(gulp.dest('public/build/fonts'))
 });
 
 gulp.task('js', function () {
     gulp.src('assets/js/app.js')
         .pipe(browserify())
-        .pipe(gulp.dest('web/build/js'))
+        .pipe(gulp.dest('public/build/js'))
 });
