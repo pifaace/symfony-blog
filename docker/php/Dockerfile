@@ -4,7 +4,7 @@ FROM php:7.2.0-fpm
 RUN apt-get update && apt-get install -y \
     build-essential \
     mysql-client \
-    libmcrypt-dev \
+    openssl \
     locales \
     zip
 
