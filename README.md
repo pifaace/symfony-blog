@@ -40,20 +40,15 @@ $ gulp
 ### Running docker containers
 
 #### Update database configuration
-copy/paste these paramaters into app/config/parameters.yml
+go to the .env file and put these paramaters into DATABASE_URL
 ```
-parameters:
-    database_host: mysql
-    database_port: 3306
-    database_name: symfony-blog
-    database_user: root
-    database_password: secret
+DATABASE_URL=mysql://root:secret@db:3306/symfony-blog
 ```
 #### Running containers
 ```
 $ docker-compose up -d
-$ start http://localhost/app_dev.php/ # Windows
-$ open http://localhost/app_dev.php/ # Mac
+$ start http://localhost/ # Windows
+$ open http://localhost/ # Mac
 ```
 
 #### Stopping containers
@@ -64,7 +59,7 @@ $ docker-compose stop
 ### Dump database
 
 ```
-$ docker-compose exec blog-server php bin/console doctrine:schema:update --force
+$ docker-compose exec blog-server php bin/console doctrine:migrations:migrate
 ```
 
 And run datafixtures
@@ -76,7 +71,7 @@ $ docker-compose exec blog-server php bin/console doctrine:fixtures:load
 ### Routes
 To access to the dashboard admin go to the following url :
 
-[http://localhost/app_dev.php/admin/dashboard](http://localhost/app_dev.php/admin/dashboard)
+[http://localhost/admin/dashboard](http://localhost/admin/dashboard)
 ```
 login : admin
 password : password
