@@ -1,16 +1,16 @@
-version: '2'
+version: '3'
 
 services:
   blog-server:
     build: ./docker/php
     image: blog-symfony
-    links:
-      - mysql
+    depends_on:
+      - db
     volumes:
       - ./:/application:cached
       - /application/var/sessions/
 
-  mysql:
+  db:
     image: mysql
     ports:
       - '3306:3306'
@@ -27,5 +27,6 @@ services:
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./:/application:cached
-    links:
+    depends_on:
       - blog-server
+

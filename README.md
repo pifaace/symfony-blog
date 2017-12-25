@@ -1,6 +1,6 @@
-# Symfony-blog 3.3.13
+# Symfony-blog 4.0
 
-My application to try some stuffs about Symfony 3.3
+My application to try some stuffs about Symfony 4
 In this project, I'm trying to use various components of Symfony like :
 * [Authentication](https://symfony.com/doc/current/security.html)
 * [Service container](http://symfony.com/doc/current/service_container.html)
