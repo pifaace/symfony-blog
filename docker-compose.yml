@@ -30,3 +30,9 @@ services:
     depends_on:
       - blog-server
 
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - '1080:80'
+      - '1025:25'
+

@@ -32,7 +32,7 @@ $ git clone https://github.com/pifaace/symfony-blog.git
 
 #### Run dependencies
 ```
-$ composer install
+$ docker-compose exec blog-server composer install
 $ npm install
 $ gulp
 ```
