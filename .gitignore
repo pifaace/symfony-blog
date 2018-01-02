@@ -1,6 +1,7 @@
 .idea
 tmp/db
 node_modules
+public/build
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
