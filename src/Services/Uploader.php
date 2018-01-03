@@ -2,18 +2,42 @@
 
 namespace App\Services;
 
-
+use App\Entity\Image;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class FileUploader
+class Uploader
 {
-
     private $targetDir;
 
     public function __construct($targetDir)
     {
         $this->targetDir = $targetDir;
+    }
+
+    public function hasNewImage(Image $image)
+    {
+        if (!$image->getFile() == null)
+            return true;
+
+        return false;
+    }
+
+    public function noImage(Image $image)
+    {
+        if ($image->getId() || $image->getFile() != null)
+            return false;
+
+        return true;
+    }
+
+    public function isDeleteImageChecked($formData)
+    {
+        if($formData->getImage()->isDeletedImage())
+            return true;
+
+        return false;
     }
 
     public function preUploadImage(UploadedFile $file)
@@ -41,3 +65,4 @@ class FileUploader
         return $this->targetDir;
     }
 }
+

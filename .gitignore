@@ -2,12 +2,12 @@
 tmp/db
 node_modules
 public/build
+public/uploads
 ###> symfony/framework-bundle ###
 .env
 /public/bundles/
 /var/
 /vendor/
-mail/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

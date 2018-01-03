@@ -4,17 +4,16 @@ namespace App\Subscribers;
 
 use App\Entity\Article;
 use App\Entity\Image;
-use App\Services\FileUploader;
+use App\Services\Uploader;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadSubscriber implements EventSubscriber
 {
-
     private $uploadFile;
 
-    public function __construct(FileUploader $uploadFile)
+    public function __construct(Uploader $uploadFile)
     {
         $this->uploadFile = $uploadFile;
     }
@@ -40,7 +39,6 @@ class UploadSubscriber implements EventSubscriber
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
         if ($entity instanceof Image && null != $entity->getFile()) {
             $this->uploadFile($entity->getFile(), $entity->getAlt());
         }

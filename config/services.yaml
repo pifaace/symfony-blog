@@ -36,7 +36,7 @@ services:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
 
-    App\Services\FileUploader:
+    App\Services\Uploader:
         arguments:
           $targetDir: '%image_articles_coverages_directory%'
 
