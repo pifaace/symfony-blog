@@ -20,6 +20,16 @@ services:
     volumes:
       - ./tmp/db:/var/lib/mysql
 
+  db-test:
+    image: mysql
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: symfony-blog-test
+    volumes:
+      - ./tmp/test:/var/lib/mysql
+
   nginx:
     image: nginx
     ports:
