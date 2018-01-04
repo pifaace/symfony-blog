@@ -26,15 +26,17 @@ class Uploader
 
     public function noImage(Image $image)
     {
-        if ($image->getId() || $image->getFile() != null)
-            return false;
+        if ($image instanceof Image) {
+            if ($image->getId() != null || $image->getFile() != null)
+                return false;
+        }
 
         return true;
     }
 
     public function isDeleteImageChecked($formData)
     {
-        if($formData->getImage()->isDeletedImage())
+        if ($formData->getImage()->isDeletedImage())
             return true;
 
         return false;
