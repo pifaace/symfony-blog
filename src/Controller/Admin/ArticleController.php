@@ -36,7 +36,7 @@ class ArticleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setAuthor($this->getUser());
 
-            if (!$fileUploader->hasNewImage($article->getImage()->getFile())) {
+            if ($fileUploader->noImage($article->getImage())) {
                 $article->setImage(null);
             }
 
