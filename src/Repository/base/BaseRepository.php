@@ -21,7 +21,8 @@ class BaseRepository extends EntityRepository
 
         $qb
             ->setFirstResult(($page - 1) * $maxResults)
-            ->setMaxResults($maxResults);
+            ->setMaxResults($maxResults)
+            ->orderBy('p.createAt', 'DESC');
 
         $paginator = new Paginator($qb);
 
