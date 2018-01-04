@@ -15,7 +15,8 @@ class ArticleRepository extends BaseRepository
 
         $qb
             ->leftJoin('a.comments', 'c')
-            ->addSelect('c');
+            ->addSelect('c')
+            ->orderBy('a.createAt', 'DESC');
 
         return $qb->getQuery()->getResult();
     }
