@@ -40,6 +40,7 @@ class BlogController extends Controller
      * @param $id
      * @return Response
      * @internal param Request $request
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function showAction(Request $request, $id): Response
     {

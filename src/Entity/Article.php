@@ -266,7 +266,7 @@ class Article
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return array
      */
     public function getTags()
     {

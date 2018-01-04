@@ -27,6 +27,7 @@ services:
     volumes:
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./:/application:cached
+      - ./var/log/nginx:/var/log/nginx
     depends_on:
       - blog-server
 

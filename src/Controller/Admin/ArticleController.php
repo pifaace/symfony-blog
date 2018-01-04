@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Image;
 use App\Form\ArticleType;
 use App\Services\FlashMessage;
+use App\Services\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +22,10 @@ class ArticleController extends Controller
      * @Route("admin/article/new", name="article_new")
      * @param Request $request
      * @param FlashMessage $flashMessage
+     * @param Uploader $fileUploader
      * @return Response
      */
-    public function newAction(Request $request, FlashMessage $flashMessage): Response
+    public function newAction(Request $request, FlashMessage $flashMessage, Uploader $fileUploader): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -33,7 +35,8 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setAuthor($this->getUser());
-            if (null == $article->getImage()->getFile()) {
+
+            if (!$fileUploader->hasNewImage($article->getImage()->getFile())) {
                 $article->setImage(null);
             }
 
@@ -56,31 +59,33 @@ class ArticleController extends Controller
      * @param Request $request
      * @param int $id
      * @param FlashMessage $flashMessage
+     * @param Uploader $fileUploader
      * @return Response
      */
-    public function editAction(Request $request, int $id, FlashMessage $flashMessage): Response
+    public function editAction(Request $request, int $id, FlashMessage $flashMessage, Uploader $fileUploader): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('App:Article')->find($id);
-        $currentImage = $article->getImage();
-
+        $image = $article->getImage();
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (null == $article->getImage()->getId() && null == $article->getImage()->getFile()) {
+            if ($fileUploader->noImage($article->getImage())) {
                 $article->setImage(null);
-            } else if (null != $article->getImage()->getFile()) {
-                if (null != $currentImage) {
-                    $em->remove($currentImage);
+
+            } else if ($fileUploader->hasNewImage($article->getImage())) {
+                if (!null == $image) {
+                    $em->remove($image);
                 }
 
                 $image = new Image();
                 $image->setFile($article->getImage()->getFile());
                 $article->setImage($image);
-            } else if (true == $form->getData()->getImage()->isDeletedImage()) {
+
+            } else if ($fileUploader->isDeleteImageChecked($form->getData())) {
                 $article->setImage(null);
-                $em->remove($currentImage);
+                $em->remove($image);
             }
             $em->flush();
 
@@ -92,7 +97,7 @@ class ArticleController extends Controller
         return $this->render('backoffice/article/edit.html.twig', array(
             'article' => $article,
             'form' => $form->createView(),
-            'currentImage' => $currentImage
+            'currentImage' => $image
         ));
     }
 
@@ -113,7 +118,7 @@ class ArticleController extends Controller
         $em->flush();
 
         $flashMessage->createMessage($request, "info", "L'annonce été supprimé avec succès");
-        
+
         return $this->redirectToRoute('admin-articles');
     }
 }
