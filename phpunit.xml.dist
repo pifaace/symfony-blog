@@ -14,10 +14,7 @@
         <env name="APP_DEBUG" value="1" />
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
-
-        <!--DATABASE TESTS-->
-        <env name="DATABASE_URL" value="mysql://root:secret@db-test/symfony-blog-test?charset=utf8mb4&serverVersion=5.7" />
-        <!--DATABASE TESTS-->
+        <!-- define your env variables for the test env here -->
     </php>
 
     <testsuites>
