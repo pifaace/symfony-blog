@@ -83,6 +83,9 @@
     "egulias/email-validator": {
         "version": "2.1.3"
     },
+    "fzaninotto/faker": {
+        "version": "v1.7.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -166,9 +169,6 @@
             "version": "3.3",
             "ref": "71d29aaf710fd59cd3abff2b1ade907ed73103c6"
         }
-    },
-    "symfony/debug-pack": {
-        "version": "v1.0.4"
     },
     "symfony/dependency-injection": {
         "version": "v4.0.1"

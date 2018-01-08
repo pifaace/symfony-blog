@@ -1,5 +1,5 @@
 .idea
-tmp/db
+tmp
 node_modules
 public/build
 public/uploads
