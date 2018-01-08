@@ -76,3 +76,8 @@ To access to the dashboard admin go to the following url :
 login : admin
 password : password
 ```
+
+### Running tests
+```
+$ ./vendor/bin/simple-phpunit
+```

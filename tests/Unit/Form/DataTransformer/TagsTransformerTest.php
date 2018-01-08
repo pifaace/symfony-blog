@@ -5,7 +5,6 @@ namespace App\Tests\Unit\Form\DataTransformer;
 use App\Entity\Tag;
 use App\Form\DataTransformer\TagsTransformer;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -28,6 +27,32 @@ class TagsTransformerTest extends TestCase
     {
         $tag = $this->getMockedTransformer()->reverseTransform('   Symfony   ');
         $this->assertEquals('Symfony', $tag[0]->getName());
+    }
+
+    public function testDuplicateTagsName()
+    {
+        $tags = $this->getMockedTransformer()->reverseTransform('Hello,Hello,Symfony,Symfony,Test,Symfony');
+        $this->assertCount(3, $tags);
+    }
+
+    public function testAlreadyDefinedTags()
+    {
+        $tagArray = [
+            $this->createTag('Symfony'),
+            $this->createTag('Unit')
+        ];
+
+        $tags = $this->getMockedTransformer($tagArray)->reverseTransform('Symfony,Unit,Feature,Docker');
+        $this->assertCount(4, $tags);
+        $this->assertSame($tagArray[0], $tags[0]);
+        $this->assertSame($tagArray[1], $tags[1]);
+    }
+
+    public function testRemoveEmptyTags()
+    {
+        $tags = $this->getMockedTransformer()->reverseTransform('Unit, , , ,,Symfony');
+        $this->assertCount(2, $tags);
+        $this->assertEquals('Symfony', $tags[1]);
     }
 
     private function getMockedTransformer(array $findByReturnValues = []): TagsTransformer
