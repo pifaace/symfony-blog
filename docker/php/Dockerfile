@@ -6,15 +6,18 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     openssl \
     locales \
-    zip
-
-COPY php.ini /usr/local/etc/php/php.ini
+    zip \
+    zlib1g-dev
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Installing extensions
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install \
+    pdo_mysql \
+    zip
+
+COPY php.ini /usr/local/etc/php/php.ini
 
 # Setting locales
 RUN echo fr_FR.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
