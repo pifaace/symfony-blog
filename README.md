@@ -32,7 +32,7 @@ $ git clone https://github.com/pifaace/symfony-blog.git
 
 #### Run dependencies
 ```
-$ docker-compose exec blog-server composer install
+$ docker-compose run --rm --no-deps blog-server composer install
 $ npm install
 $ gulp
 ```
@@ -79,5 +79,5 @@ password : password
 
 ### Running tests
 ```
-$ ./vendor/bin/simple-phpunit
+$ docker-compose run --rm blog-server ./vendor/bin/simple-phpunit
 ```

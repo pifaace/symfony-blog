@@ -84,5 +84,4 @@ class TagsTransformerTest extends TestCase
 
         return $tag;
     }
-
 }
