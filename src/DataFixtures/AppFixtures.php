@@ -13,8 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * Date: 08/09/2017
  * Time: 19:54
  */
-
-class LoadUserData extends Fixture
+class AppFixtures extends Fixture
 {
 
     private $passwordEncoder;
@@ -31,6 +30,12 @@ class LoadUserData extends Fixture
      */
     public function load(ObjectManager $manager)
     {
+        $this->loadUsers($manager);
+
+    }
+
+    public function loadUsers(ObjectManager $manager)
+    {
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
         $userAdmin->setPassword($this->passwordEncoder->encodePassword($userAdmin, 'password'));
@@ -40,5 +45,8 @@ class LoadUserData extends Fixture
         $manager->persist($userAdmin);
         $manager->flush();
 
+        $this->addReference('admin-user', $userAdmin);
     }
+
+
 }
