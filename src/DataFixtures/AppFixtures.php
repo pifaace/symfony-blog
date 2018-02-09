@@ -1,18 +1,14 @@
 <?php
 
-namespace App\DataFixtures\ORM;
+namespace App\DataFixtures;
 
+use App\Entity\Article;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Faker;
 
-/**
- * Created by PhpStorm.
- * User: joassymaxime
- * Date: 08/09/2017
- * Time: 19:54
- */
 class AppFixtures extends Fixture
 {
 
@@ -31,7 +27,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $this->loadUsers($manager);
-
+        $this->loadArticles($manager);
     }
 
     public function loadUsers(ObjectManager $manager)
@@ -48,5 +44,23 @@ class AppFixtures extends Fixture
         $this->addReference('admin-user', $userAdmin);
     }
 
+    public function loadArticles(ObjectManager $manager)
+    {
+        $article = new Article();
+        $article->setTitle('An article test for my blog');
+        $article->setContent($this->getContent());
+        $article->setCreateAt();
+        $article->setAuthor($this->getReference('admin-user'));
 
+        $manager->persist($article);
+        $manager->flush();
+
+        $this->addReference('article', $article);
+    }
+
+    public function getContent()
+    {
+        $faker = Faker\Factory::create();
+        return $faker->text($maxNbChars = 600);
+    }
 }
