@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -14,9 +15,12 @@ class AppFixtures extends Fixture
 
     private $passwordEncoder;
 
+    private $faker;
+
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->passwordEncoder = $encoder;
+        $this->faker = Faker\Factory::create();
     }
 
     /**
@@ -52,6 +56,16 @@ class AppFixtures extends Fixture
         $article->setCreateAt();
         $article->setAuthor($this->getReference('admin-user'));
 
+        foreach (range(1, 5) as $i) {
+            $comment = new Comment();
+            $comment->setUsername($this->faker->name);
+            $comment->setEmail($this->faker->email);
+            $comment->setContent($this->faker->text());
+            $comment->setCreateAt();
+
+            $article->addComment($comment);
+        }
+
         $manager->persist($article);
         $manager->flush();
 
@@ -60,7 +74,6 @@ class AppFixtures extends Fixture
 
     public function getContent()
     {
-        $faker = Faker\Factory::create();
-        return $faker->text($maxNbChars = 600);
+        return $this->faker->text($maxNbChars = 600);
     }
 }

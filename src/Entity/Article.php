@@ -185,14 +185,13 @@ class Article
      * Add comment
      *
      * @param Comment $comment
-     *
-     * @return Article
      */
     public function addComment(Comment $comment)
     {
-        $this->comments[] = $comment;
-
-        return $this;
+        $comment->setArticle($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
     }
 
     /**
