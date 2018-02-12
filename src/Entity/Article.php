@@ -49,7 +49,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
      * @Assert\NotBlank(
      *     message="Ce champs est obligatoire"
      * )
@@ -63,7 +63,7 @@ class Article
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", cascade={"persist", "remove"})
      */
     private $comments;
 
@@ -86,6 +86,7 @@ class Article
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -185,14 +186,13 @@ class Article
      * Add comment
      *
      * @param Comment $comment
-     *
-     * @return Article
      */
     public function addComment(Comment $comment)
     {
-        $this->comments[] = $comment;
-
-        return $this;
+        $comment->setArticle($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
     }
 
     /**
@@ -242,15 +242,15 @@ class Article
     /**
      * Add tag
      *
-     * @param Tag $tag
-     *
-     * @return Article
+     * @param Tag[] $tags
      */
-    public function addTag(Tag $tag)
+    public function addTag(Tag ...$tags)
     {
-        $this->tags[] = $tag;
-
-        return $this;
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
     }
 
     /**
