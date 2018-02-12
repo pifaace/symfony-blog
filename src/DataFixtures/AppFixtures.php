@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -31,6 +32,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $this->loadUsers($manager);
+        $this->loadTags($manager);
         $this->loadArticles($manager);
     }
 
@@ -48,32 +50,86 @@ class AppFixtures extends Fixture
         $this->addReference('admin-user', $userAdmin);
     }
 
-    public function loadArticles(ObjectManager $manager)
+    public function loadTags(ObjectManager $manager)
     {
-        $article = new Article();
-        $article->setTitle('An article test for my blog');
-        $article->setContent($this->getContent());
-        $article->setCreateAt();
-        $article->setAuthor($this->getReference('admin-user'));
+        foreach ($this->getTagsData() as $index => $name) {
+            $tag = new Tag();
+            $tag->setName($name);
 
-        foreach (range(1, 5) as $i) {
-            $comment = new Comment();
-            $comment->setUsername($this->faker->name);
-            $comment->setEmail($this->faker->email);
-            $comment->setContent($this->faker->text());
-            $comment->setCreateAt();
-
-            $article->addComment($comment);
+            $manager->persist($tag);
+            $this->addReference('tag-' . $name, $tag);
         }
-
-        $manager->persist($article);
         $manager->flush();
-
-        $this->addReference('article', $article);
     }
 
-    public function getContent()
+    public function loadArticles(ObjectManager $manager)
+    {
+        foreach ($this->getArticleData() as [$title, $content, $author, $tags]) {
+            $article = new Article();
+            $article->setTitle($title);
+            $article->setContent($content);
+            $article->setCreateAt();
+            $article->setAuthor($author);
+            $article->addTag(...$tags);
+
+            foreach (range(1, 5) as $i) {
+                $comment = new Comment();
+                $comment->setUsername($this->faker->name);
+                $comment->setEmail($this->faker->email);
+                $comment->setContent($this->faker->text());
+                $comment->setCreateAt();
+
+                $article->addComment($comment);
+            }
+
+            $manager->persist($article);
+            $manager->flush();
+        }
+    }
+
+    private function getArticleData(): array
+    {
+        $post = [];
+
+        foreach (range(1, 1) as $item => $value) {
+            $post[] = [
+                'An article test for my blog',
+                $this->getContent(),
+                $this->getReference('admin-user'),
+                $this->getRandomTags()
+            ];
+        }
+
+        return $post;
+    }
+
+    private function getContent(): string
     {
         return $this->faker->text($maxNbChars = 600);
+    }
+
+    private function getTagsData(): array
+    {
+        return [
+            'Lorem',
+            'Broh',
+            'Docker',
+            'Ipso',
+            'Odopl',
+            'Blaorp',
+            'Mideoed'
+        ];
+    }
+
+    private function getRandomTags()
+    {
+        $tags = $this->getTagsData();
+        shuffle($tags);
+
+        $selectedTags = array_slice($tags, 0, rand(2, 6));
+
+        return array_map(function ($tagName) {
+            return $this->getReference('tag-' . $tagName);
+        }, $selectedTags);
     }
 }

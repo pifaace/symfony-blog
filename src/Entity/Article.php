@@ -86,6 +86,7 @@ class Article
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -241,15 +242,15 @@ class Article
     /**
      * Add tag
      *
-     * @param Tag $tag
-     *
-     * @return Article
+     * @param Tag[] $tags
      */
-    public function addTag(Tag $tag)
+    public function addTag(Tag ...$tags)
     {
-        $this->tags[] = $tag;
-
-        return $this;
+        foreach ($tags as $tag) {
+            if (!$this->tags->contains($tag)) {
+                $this->tags->add($tag);
+            }
+        }
     }
 
     /**
