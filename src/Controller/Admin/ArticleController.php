@@ -48,9 +48,9 @@ class ArticleController extends Controller
             return $this->redirectToRoute('admin-articles');
         }
 
-        return $this->render('backoffice/article/add.html.twig', array(
+        return $this->render('backoffice/article/add.html.twig', [
             'form' => $form->createView()
-        ));
+        ]);
     }
 
     /**
@@ -94,11 +94,11 @@ class ArticleController extends Controller
             return $this->redirect($request->getUri());
         }
 
-        return $this->render('backoffice/article/edit.html.twig', array(
+        return $this->render('backoffice/article/edit.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
             'currentImage' => $image
-        ));
+        ]);
     }
 
     /**

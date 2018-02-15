@@ -25,9 +25,9 @@ class SecurityController extends Controller
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();
 
-        return $this->render('backoffice/security/login.html.twig', array(
+        return $this->render('backoffice/security/login.html.twig', [
             'lastUsername' => $lastUsername,
             'error' => $error
-        ));
+        ]);
     }
 }

@@ -20,11 +20,11 @@ class UploadSubscriber implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             'prePersist',
             'postPersist',
             'postRemove'
-        );
+        ];
     }
 
     /**

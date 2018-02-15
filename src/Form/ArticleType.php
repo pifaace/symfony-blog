@@ -21,12 +21,10 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, array('label' => false))
-            ->add('content', TextareaType::class, array('label' => false))
-            ->add('image', ImageType::class, array('label' => false))
-            ->add('tags', TagsType::class, array(
-                'required' => false
-            ));
+            ->add('title', TextType::class, ['label' => false])
+            ->add('content', TextareaType::class, ['label' => false])
+            ->add('image', ImageType::class, ['label' => false])
+            ->add('tags', TagsType::class, ['required' => false]);
     }
 
     /**
@@ -34,9 +32,9 @@ class ArticleType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'App\Entity\Article'
-        ));
+        ]);
     }
 
     /**

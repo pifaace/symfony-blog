@@ -17,13 +17,13 @@ class ImageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', FileType::class, array(
+        $builder->add('file', FileType::class, [
             'label' => false,
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'class' => 'coverage-file',
-            )
-        ));
+            ]
+        ]);
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
@@ -35,14 +35,14 @@ class ImageType extends AbstractType
                 }
 
                 if (null != $image->getId()) {
-                    $event->getForm()->add('deletedImage', CheckboxType::class, array(
+                    $event->getForm()->add('deletedImage', CheckboxType::class, [
                         'required' => false,
                         'label' => false,
-                        'attr' => array(
+                        'attr' => [
                             'hidden' => true,
                             'class' => 'delete-img-confirm'
-                        )
-                    ));
+                        ]
+                    ]);
                 } else {
                     $event->getForm()->remove('deletedImage');
                 }
@@ -56,9 +56,9 @@ class ImageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'App\Entity\Image'
-        ));
+        ]);
     }
 
     /**
@@ -68,6 +68,4 @@ class ImageType extends AbstractType
     {
         return 'App_image';
     }
-
-
 }

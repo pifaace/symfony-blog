@@ -27,11 +27,11 @@ class BlogController extends Controller
 
         $nbPages = $paginator->countPage($articles);
 
-        return $this->render('blog/home/index.html.twig', array(
+        return $this->render('blog/home/index.html.twig', [
             'articles' => $articles,
             'nbPages' => $nbPages,
             'page' => $page
-        ));
+        ]);
     }
 
     /**
@@ -46,9 +46,8 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('App:Article')->find($id);
-        $comments = $em->getRepository('App:Comment')->findBy(array('article' => $article->getId()));
+        $comments = $em->getRepository('App:Comment')->findBy(['article' => $article->getId()]);
         $countComment = $em->getRepository('App:Comment')->getCountComment($article->getId());
-
 
         $newComment = new Comment();
 
@@ -67,13 +66,12 @@ class BlogController extends Controller
             return $this->redirect($request->getUri());
         }
 
-
-        return $this->render('blog/article/show.html.twig', array(
+        return $this->render('blog/article/show.html.twig', [
             'article' => $article,
             'comments' => $comments,
             'countComment' => $countComment,
             'form' => $form->createView()
-        ));
+        ]);
     }
 
 }
