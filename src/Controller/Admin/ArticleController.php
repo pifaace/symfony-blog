@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Form\ArticleType;
 use App\Services\FlashMessage;
 use App\Services\Uploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,7 @@ class ArticleController extends Controller
 {
     /**
      * @Route("admin/article/new", name="article_new")
+     * @Method({"GET", "POST"})
      * @param Request $request
      * @param FlashMessage $flashMessage
      * @param Uploader $fileUploader
@@ -55,7 +57,7 @@ class ArticleController extends Controller
 
     /**
      * @Route("admin/article/{id}/edit", name="article_edit")
-     *
+     * @Method({"GET", "POST"})
      * @param Request $request
      * @param int $id
      * @param FlashMessage $flashMessage
@@ -103,7 +105,7 @@ class ArticleController extends Controller
 
     /**
      * @Route("admin/article/{id}/delete", name="article_delete")
-     *
+     * @Method({"GET", "POST"})
      * @param Request $request
      * @param int $id
      * @param FlashMessage $flashMessage

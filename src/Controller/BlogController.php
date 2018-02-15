@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Services\Paginator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +17,8 @@ class BlogController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Method("GET")
+     * @Cache(smaxage="5")
      * @param Paginator $paginator
      * @return Response
      */
@@ -36,10 +40,10 @@ class BlogController extends Controller
 
     /**
      * @Route("article/{id}", name="article_show")
+     * @Method({"GET", "POST"})
      * @param Request $request
      * @param $id
      * @return Response
-     * @internal param Request $request
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function showAction(Request $request, $id): Response
