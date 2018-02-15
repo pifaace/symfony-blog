@@ -34,6 +34,8 @@
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.0",
     "easycorp/easy-log-handler": "^1.0.2",
+    "friendsofphp/php-cs-fixer": "^2.10",
+    "fzaninotto/faker": "^1.7",
     "symfony/debug-bundle": "^3.3|^4.0",
     "symfony/dotenv": "^4.0",
     "symfony/flex": "^1.0",
@@ -41,8 +43,7 @@
     "symfony/monolog-bundle": "^3.0",
     "symfony/phpunit-bridge": "^4.0",
     "symfony/profiler-pack": "^1.0",
-    "symfony/var-dumper": "^3.3|^4.0",
-    "fzaninotto/faker": "^1.7"
+    "symfony/var-dumper": "^3.3|^4.0"
   },
   "config": {
     "preferred-install": {
