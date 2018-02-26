@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Repository\base\BaseRepository;
 
 /**
- * TagRepository
+ * TagRepository.
  */
 class TagRepository extends BaseRepository
 {

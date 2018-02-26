@@ -39,7 +39,7 @@ class TagsTransformerTest extends TestCase
     {
         $tagArray = [
             $this->createTag('Symfony'),
-            $this->createTag('Unit')
+            $this->createTag('Unit'),
         ];
 
         $tags = $this->getMockedTransformer($tagArray)->reverseTransform('Symfony,Unit,Feature,Docker');
@@ -64,7 +64,6 @@ class TagsTransformerTest extends TestCase
         $tagRepository->expects($this->any())
             ->method('findBy')
             ->willReturn($findByReturnValues);
-
 
         $entityManager = $this
             ->getMockBuilder(ObjectManager::class)

@@ -5,11 +5,9 @@ namespace App\Form\DataTransformer;
 use App\Entity\Tag;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TagsTransformer implements DataTransformerInterface
 {
-
     /**
      * @var ObjectManager
      */
@@ -30,7 +28,7 @@ class TagsTransformer implements DataTransformerInterface
         $names = array_filter(array_unique(array_map('trim', explode(',', $string))));
 
         $tags = $this->em->getRepository('App:Tag')->findBy([
-            'name' => $names
+            'name' => $names,
         ]);
 
         $newNames = array_diff($names, $tags);

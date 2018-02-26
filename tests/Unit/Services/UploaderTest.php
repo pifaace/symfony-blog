@@ -21,17 +21,18 @@ class UploaderTest extends TestCase
 
     public function testHasNotNewImage()
     {
-        $this->assertFalse($this->uploader->hasNewImage($this->image), "No new image");
+        $this->assertFalse($this->uploader->hasNewImage($this->image), 'No new image');
     }
 
     public function testHasNewImage()
     {
         $this->image->setFile($this->mockedFile('test.png'));
-        $this->assertTrue($this->uploader->hasNewImage($this->image), "new image");
+        $this->assertTrue($this->uploader->hasNewImage($this->image), 'new image');
     }
 
     /**
      * @param $fileName
+     *
      * @return UploadedFile
      */
     private function mockedFile($fileName)

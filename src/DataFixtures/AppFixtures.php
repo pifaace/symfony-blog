@@ -8,12 +8,11 @@ use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-
     private $passwordEncoder;
 
     private $faker;
@@ -25,7 +24,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param ObjectManager $manager
      */
@@ -57,7 +56,7 @@ class AppFixtures extends Fixture
             $tag->setName($name);
 
             $manager->persist($tag);
-            $this->addReference('tag-' . $name, $tag);
+            $this->addReference('tag-'.$name, $tag);
         }
         $manager->flush();
     }
@@ -96,7 +95,7 @@ class AppFixtures extends Fixture
                 'An article test for my blog',
                 $this->getContent(),
                 $this->getReference('admin-user'),
-                $this->getRandomTags()
+                $this->getRandomTags(),
             ];
         }
 
@@ -117,7 +116,7 @@ class AppFixtures extends Fixture
             'Ipso',
             'Odopl',
             'Blaorp',
-            'Mideoed'
+            'Mideoed',
         ];
     }
 
@@ -129,7 +128,7 @@ class AppFixtures extends Fixture
         $selectedTags = array_slice($tags, 0, rand(2, 6));
 
         return array_map(function ($tagName) {
-            return $this->getReference('tag-' . $tagName);
+            return $this->getReference('tag-'.$tagName);
         }, $selectedTags);
     }
 }

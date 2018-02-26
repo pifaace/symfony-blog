@@ -22,7 +22,7 @@ class ImageType extends AbstractType
             'required' => false,
             'attr' => [
                 'class' => 'coverage-file',
-            ]
+            ],
         ]);
 
         $builder->addEventListener(
@@ -40,14 +40,13 @@ class ImageType extends AbstractType
                         'label' => false,
                         'attr' => [
                             'hidden' => true,
-                            'class' => 'delete-img-confirm'
-                        ]
+                            'class' => 'delete-img-confirm',
+                        ],
                     ]);
                 } else {
                     $event->getForm()->remove('deletedImage');
                 }
             }
-
         );
     }
 
@@ -57,7 +56,7 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Image'
+            'data_class' => 'App\Entity\Image',
         ]);
     }
 

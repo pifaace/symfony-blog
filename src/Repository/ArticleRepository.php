@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Repository\base\BaseRepository;
 
 /**
- * AdvertRepository
+ * AdvertRepository.
  */
 class ArticleRepository extends BaseRepository
 {

@@ -17,13 +17,13 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'Pseudo'
+                'label' => 'Pseudo',
             ])
             ->add('email', TextType::class, [
-                'label' => 'Adresse mail'
+                'label' => 'Adresse mail',
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Commentaire'
+                'label' => 'Commentaire',
             ]);
     }
 
@@ -33,7 +33,7 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Comment'
+            'data_class' => 'App\Entity\Comment',
         ]);
     }
 
@@ -44,6 +44,4 @@ class CommentType extends AbstractType
     {
         return 'App_comment';
     }
-
-
 }

@@ -7,12 +7,12 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class BaseRepository extends EntityRepository
 {
-
     /**
-     * List all object with paginator
+     * List all object with paginator.
      *
      * @param int $page
      * @param int $maxResults
+     *
      * @return Paginator
      */
     public function paginator($page, int $maxResults)

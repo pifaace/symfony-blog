@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Entity\Image;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -18,8 +17,9 @@ class Uploader
 
     public function hasNewImage(Image $image)
     {
-        if (!$image->getFile() == null)
+        if (null == !$image->getFile()) {
             return true;
+        }
 
         return false;
     }
@@ -27,8 +27,9 @@ class Uploader
     public function noImage(Image $image)
     {
         if ($image instanceof Image) {
-            if ($image->getId() != null || $image->getFile() != null)
+            if (null != $image->getId() || null != $image->getFile()) {
                 return false;
+            }
         }
 
         return true;
@@ -36,15 +37,17 @@ class Uploader
 
     public function isDeleteImageChecked($formData)
     {
-        if ($formData->getImage()->isDeletedImage())
+        if ($formData->getImage()->isDeletedImage()) {
             return true;
+        }
 
         return false;
     }
 
     public function preUploadImage(UploadedFile $file)
     {
-        $alt = md5(uniqid()) . '.' . $file->guessExtension();
+        $alt = md5(uniqid()).'.'.$file->guessExtension();
+
         return $alt;
     }
 
@@ -57,8 +60,8 @@ class Uploader
     {
         $fs = new Filesystem();
 
-        if ($fs->exists($this->getTargetDir() . $imageName)) {
-            unlink($this->getTargetDir() . $imageName);
+        if ($fs->exists($this->getTargetDir().$imageName)) {
+            unlink($this->getTargetDir().$imageName);
         }
     }
 
@@ -67,4 +70,3 @@ class Uploader
         return $this->targetDir;
     }
 }
-

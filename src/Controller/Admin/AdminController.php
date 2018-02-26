@@ -27,7 +27,7 @@ class AdminController extends Controller
         $articles = $em->getRepository('App:Article')->getArticlesWithComment();
 
         return $this->render('backoffice/article/list.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 }

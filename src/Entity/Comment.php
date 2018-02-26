@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Comment
+ * Comment.
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -57,7 +57,7 @@ class Comment
     private $article;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -67,7 +67,7 @@ class Comment
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -81,7 +81,7 @@ class Comment
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -91,7 +91,7 @@ class Comment
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -105,7 +105,7 @@ class Comment
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -115,7 +115,7 @@ class Comment
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -129,7 +129,7 @@ class Comment
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -139,7 +139,7 @@ class Comment
     }
 
     /**
-     * Set createAt
+     * Set createAt.
      *
      * @ORM\PrePersist()
      */
@@ -149,7 +149,7 @@ class Comment
     }
 
     /**
-     * Get createAt
+     * Get createAt.
      *
      * @return \DateTime
      */
@@ -159,7 +159,7 @@ class Comment
     }
 
     /**
-     * Set article
+     * Set article.
      *
      * @param Article $article
      *
@@ -173,7 +173,7 @@ class Comment
     }
 
     /**
-     * Get article
+     * Get article.
      *
      * @return \App\Entity\Article
      */

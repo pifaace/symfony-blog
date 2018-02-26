@@ -15,6 +15,7 @@ class SecurityController extends Controller
      * @Method({"GET", "POST"})
      *
      * @param AuthenticationUtils $authUtils
+     *
      * @return Response
      */
     public function loginAction(AuthenticationUtils $authUtils): Response
@@ -28,7 +29,7 @@ class SecurityController extends Controller
 
         return $this->render('backoffice/security/login.html.twig', [
             'lastUsername' => $lastUsername,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 }

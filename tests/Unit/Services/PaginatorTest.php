@@ -17,7 +17,7 @@ class PaginatorTest extends TestCase
             $this->createArticle(),
             $this->createArticle(),
             $this->createArticle(),
-            $this->createArticle()
+            $this->createArticle(),
         ];
 
         $this->assertEquals($this->getMockedPaginator()->countPage($articleArray), '2');

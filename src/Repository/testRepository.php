@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Repository\base\BaseRepository;
 
 /**
- * testRepository
+ * testRepository.
  */
 class testRepository extends BaseRepository
 {

@@ -3,11 +3,7 @@
 namespace App\Form;
 
 use App\Form\Type\TagsType;
-use Doctrine\ORM\Mapping\Entity;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +29,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Article'
+            'data_class' => 'App\Entity\Article',
         ]);
     }
 
@@ -44,6 +40,4 @@ class ArticleType extends AbstractType
     {
         return 'App_article';
     }
-
-
 }

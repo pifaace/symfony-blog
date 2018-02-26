@@ -19,7 +19,9 @@ class BlogController extends Controller
      * @Route("/", name="homepage")
      * @Method("GET")
      * @Cache(smaxage="5")
+     *
      * @param Paginator $paginator
+     *
      * @return Response
      */
     public function indexAction(Paginator $paginator): Response
@@ -34,16 +36,19 @@ class BlogController extends Controller
         return $this->render('blog/home/index.html.twig', [
             'articles' => $articles,
             'nbPages' => $nbPages,
-            'page' => $page
+            'page' => $page,
         ]);
     }
 
     /**
      * @Route("article/{id}", name="article_show")
      * @Method({"GET", "POST"})
+     *
      * @param Request $request
      * @param $id
+     *
      * @return Response
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function showAction(Request $request, $id): Response
@@ -74,8 +79,7 @@ class BlogController extends Controller
             'article' => $article,
             'comments' => $comments,
             'countComment' => $countComment,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-
 }

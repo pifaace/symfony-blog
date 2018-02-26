@@ -9,22 +9,23 @@ use App\Services\FlashMessage;
 use App\Services\Uploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Article controller.
- *
  */
 class ArticleController extends Controller
 {
     /**
      * @Route("admin/article/new", name="article_new")
      * @Method({"GET", "POST"})
-     * @param Request $request
+     *
+     * @param Request      $request
      * @param FlashMessage $flashMessage
-     * @param Uploader $fileUploader
+     * @param Uploader     $fileUploader
+     *
      * @return Response
      */
     public function newAction(Request $request, FlashMessage $flashMessage, Uploader $fileUploader): Response
@@ -51,17 +52,19 @@ class ArticleController extends Controller
         }
 
         return $this->render('backoffice/article/add.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("admin/article/{id}/edit", name="article_edit")
      * @Method({"GET", "POST"})
-     * @param Request $request
-     * @param int $id
+     *
+     * @param Request      $request
+     * @param int          $id
      * @param FlashMessage $flashMessage
-     * @param Uploader $fileUploader
+     * @param Uploader     $fileUploader
+     *
      * @return Response
      */
     public function editAction(Request $request, int $id, FlashMessage $flashMessage, Uploader $fileUploader): Response
@@ -75,8 +78,7 @@ class ArticleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             if ($fileUploader->noImage($article->getImage())) {
                 $article->setImage(null);
-
-            } else if ($fileUploader->hasNewImage($article->getImage())) {
+            } elseif ($fileUploader->hasNewImage($article->getImage())) {
                 if (!null == $image) {
                     $em->remove($image);
                 }
@@ -84,8 +86,7 @@ class ArticleController extends Controller
                 $image = new Image();
                 $image->setFile($article->getImage()->getFile());
                 $article->setImage($image);
-
-            } else if ($fileUploader->isDeleteImageChecked($form->getData())) {
+            } elseif ($fileUploader->isDeleteImageChecked($form->getData())) {
                 $article->setImage(null);
                 $em->remove($image);
             }
@@ -99,16 +100,18 @@ class ArticleController extends Controller
         return $this->render('backoffice/article/edit.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
-            'currentImage' => $image
+            'currentImage' => $image,
         ]);
     }
 
     /**
      * @Route("admin/article/{id}/delete", name="article_delete")
      * @Method({"GET", "POST"})
-     * @param Request $request
-     * @param int $id
+     *
+     * @param Request      $request
+     * @param int          $id
      * @param FlashMessage $flashMessage
+     *
      * @return Response
      */
     public function deleteAction(Request $request, int $id, FlashMessage $flashMessage): Response
@@ -119,7 +122,7 @@ class ArticleController extends Controller
         $em->remove($article);
         $em->flush();
 
-        $flashMessage->createMessage($request, "info", "L'annonce été supprimé avec succès");
+        $flashMessage->createMessage($request, 'info', "L'annonce été supprimé avec succès");
 
         return $this->redirectToRoute('admin-articles');
     }

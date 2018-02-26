@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * User
+ * User.
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -50,7 +50,7 @@ class User implements UserInterface, \Serializable
     private $role;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -60,7 +60,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      */
@@ -70,7 +70,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get username
+     * Get username.
      */
     public function getUsername(): string
     {
@@ -78,7 +78,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      */
@@ -88,7 +88,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get password
+     * Get password.
      */
     public function getPassword(): string
     {
@@ -96,7 +96,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      */
@@ -106,7 +106,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -115,7 +115,7 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function setRole(array $role) : void
+    public function setRole(array $role): void
     {
         $this->role = $role;
     }
@@ -130,10 +130,11 @@ class User implements UserInterface, \Serializable
         if (empty($role)) {
             $role[] = 'ROLE_USER';
         }
+
         return array_unique($role);
     }
 
-    public function serialize() : string
+    public function serialize(): string
     {
         return serialize([
             $this->id,
@@ -142,24 +143,23 @@ class User implements UserInterface, \Serializable
         ]);
     }
 
-    public function unserialize($serialized) : void
+    public function unserialize($serialized): void
     {
-        list (
+        list(
             $this->id,
             $this->username,
-            $this->password,
-            ) = unserialize($serialized);
+            $this->password) = unserialize($serialized);
     }
 
     /**
      * @return string|null The salt
      */
-    public function getSalt() : ?string
+    public function getSalt(): ?string
     {
         return null;
     }
 
-    public function eraseCredentials() : void
+    public function eraseCredentials(): void
     {
     }
 }
