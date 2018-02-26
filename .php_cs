@@ -5,7 +5,8 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('config')
     ->exclude('var')
     ->exclude('docker')
-    ->exclude('public/build');
+    ->exclude('public/build')
+    ->exclude('Migrations');
 
 return PhpCsFixer\Config::create()
     ->setRules([
