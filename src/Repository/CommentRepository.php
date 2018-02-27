@@ -18,25 +18,4 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
-
-    /**
-     * @param int $articleId
-     *
-     * @return string
-     *
-     * @internal param int $userId
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getCountComment(int $articleId): string
-    {
-        $qb = $this->createQueryBuilder('c');
-
-        $qb
-            ->select('COUNT(c)')
-            ->where('c.article = :articleId')
-            ->setParameter(':articleId', $articleId);
-
-        return $qb->getQuery()->getSingleScalarResult();
-    }
 }
