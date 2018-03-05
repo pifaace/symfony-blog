@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, {'action': path('comment_new', {'id': article.id}) }) }}
         {{ form_errors(form) }}
 
 <div class="field is-horizontal">
@@ -7,6 +7,7 @@
             {{ form_label(form.username, 'Pseudo', {'label_attr': {'class': 'label'}}) }}
             <div class="control">
                 {{ form_widget(form.username, {'attr': {'class': 'input'}}) }}
+                {{ form_errors(form.username) }}
             </div>
         </div>
 
