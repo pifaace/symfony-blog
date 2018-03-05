@@ -28,7 +28,7 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function newAction(Request $request, FlashMessage $flashMessage, Uploader $fileUploader): Response
+    public function new(Request $request, FlashMessage $flashMessage, Uploader $fileUploader): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -67,7 +67,7 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function editAction(Request $request, int $id, FlashMessage $flashMessage, Uploader $fileUploader): Response
+    public function edit(Request $request, int $id, FlashMessage $flashMessage, Uploader $fileUploader): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('App:Article')->find($id);
@@ -114,7 +114,7 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function deleteAction(Request $request, int $id, FlashMessage $flashMessage): Response
+    public function delete(Request $request, int $id, FlashMessage $flashMessage): Response
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('App:Article')->find($id);

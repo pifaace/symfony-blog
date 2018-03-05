@@ -12,7 +12,7 @@ class AdminController extends Controller
      * @Route("/admin/dashboard", name="admin-dashboard")
      * @Method("GET")
      */
-    public function dashBoardAction()
+    public function dashBoard()
     {
         return $this->render('backoffice/dashboard/dashboard.html.twig');
     }
@@ -21,7 +21,7 @@ class AdminController extends Controller
      * @Route("/admin/articles", name="admin-articles")
      * @Method("GET")
      */
-    public function listArticleAction()
+    public function listArticle()
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('App:Article')->getArticlesWithComment();

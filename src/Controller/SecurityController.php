@@ -18,7 +18,7 @@ class SecurityController extends Controller
      *
      * @return Response
      */
-    public function loginAction(AuthenticationUtils $authUtils): Response
+    public function login(AuthenticationUtils $authUtils): Response
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('admin-dashboard');

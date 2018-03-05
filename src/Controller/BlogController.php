@@ -26,7 +26,7 @@ class BlogController extends Controller
      *
      * @return Response
      */
-    public function indexAction(Paginator $paginator, ArticleRepository $articleRepository): Response
+    public function index(Paginator $paginator, ArticleRepository $articleRepository): Response
     {
         $page = $paginator->getPage();
         $articles = $paginator->getItemList($articleRepository, $page);
@@ -47,7 +47,7 @@ class BlogController extends Controller
      *
      * @return Response
      */
-    public function showAction(Article $article): Response
+    public function show(Article $article): Response
     {
         return $this->render('blog/article/show.html.twig', [
             'article' => $article,
@@ -63,7 +63,7 @@ class BlogController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function newCommentAction(Request $request, Article $article): Response
+    public function newComment(Request $request, Article $article): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
