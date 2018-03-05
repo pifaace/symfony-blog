@@ -2,11 +2,17 @@
 
 namespace App\Repository;
 
-use App\Repository\base\BaseRepository;
+use App\Entity\Image;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * ImageRepository
+ * ImageRepository.
  */
-class ImageRepository extends BaseRepository
+class ImageRepository extends ServiceEntityRepository
 {
+    public function __construct(RegistryInterface $registry)
+    {
+        parent::__construct($registry, Image::class);
+    }
 }

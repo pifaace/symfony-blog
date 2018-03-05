@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Image
+ * Image.
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
@@ -39,13 +39,12 @@ class Image
     private $file;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $deletedImage;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -71,7 +70,7 @@ class Image
     }
 
     /**
-     * Set alt
+     * Set alt.
      *
      * @param string $alt
      *
@@ -85,7 +84,7 @@ class Image
     }
 
     /**
-     * Get alt
+     * Get alt.
      *
      * @return string
      */

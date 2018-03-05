@@ -2,17 +2,13 @@
 
 namespace App\Entity;
 
-use App\Entity\Comment;
-use App\Entity\Image;
-use App\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * Article
+ * Article.
  *
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -81,7 +77,7 @@ class Article
     private $tags;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -90,7 +86,7 @@ class Article
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -100,7 +96,7 @@ class Article
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -114,7 +110,7 @@ class Article
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -124,7 +120,8 @@ class Article
     }
 
     /**
-     * Set date
+     * Set date.
+     *
      * @ORM\PrePersist
      */
     public function setCreateAt()
@@ -133,7 +130,7 @@ class Article
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -143,7 +140,7 @@ class Article
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -157,7 +154,7 @@ class Article
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -183,7 +180,7 @@ class Article
     }
 
     /**
-     * Add comment
+     * Add comment.
      *
      * @param Comment $comment
      */
@@ -196,7 +193,7 @@ class Article
     }
 
     /**
-     * Remove comment
+     * Remove comment.
      *
      * @param \App\Entity\Comment $comment
      */
@@ -206,7 +203,7 @@ class Article
     }
 
     /**
-     * Get comments
+     * Get comments.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -216,7 +213,7 @@ class Article
     }
 
     /**
-     * Set image
+     * Set image.
      *
      * @param Image $image
      *
@@ -230,7 +227,7 @@ class Article
     }
 
     /**
-     * Get image
+     * Get image.
      *
      * @return Image
      */
@@ -240,7 +237,7 @@ class Article
     }
 
     /**
-     * Add tag
+     * Add tag.
      *
      * @param Tag[] $tags
      */
@@ -254,7 +251,7 @@ class Article
     }
 
     /**
-     * Remove tag
+     * Remove tag.
      *
      * @param Tag $tag
      */
@@ -264,7 +261,7 @@ class Article
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return array
      */

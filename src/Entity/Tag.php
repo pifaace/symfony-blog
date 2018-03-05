@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tag
+ * Tag.
  *
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
@@ -28,9 +28,8 @@ class Tag
      */
     private $name;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -40,7 +39,7 @@ class Tag
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -54,7 +53,7 @@ class Tag
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -68,4 +67,3 @@ class Tag
         return $this->getName();
     }
 }
-

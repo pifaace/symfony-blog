@@ -26,6 +26,7 @@ class Paginator
     public function countPage($items)
     {
         $nbPage = ceil(count($items) / $this->itemPerPage);
+
         return $nbPage;
     }
 

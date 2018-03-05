@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Comment
+ * Comment.
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -26,6 +27,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -33,6 +35,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -40,6 +43,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -57,7 +61,7 @@ class Comment
     private $article;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -67,7 +71,7 @@ class Comment
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -81,7 +85,7 @@ class Comment
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -91,7 +95,7 @@ class Comment
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -105,7 +109,7 @@ class Comment
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -115,7 +119,7 @@ class Comment
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -129,7 +133,7 @@ class Comment
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -139,7 +143,7 @@ class Comment
     }
 
     /**
-     * Set createAt
+     * Set createAt.
      *
      * @ORM\PrePersist()
      */
@@ -149,7 +153,7 @@ class Comment
     }
 
     /**
-     * Get createAt
+     * Get createAt.
      *
      * @return \DateTime
      */
@@ -159,7 +163,7 @@ class Comment
     }
 
     /**
-     * Set article
+     * Set article.
      *
      * @param Article $article
      *
@@ -173,7 +177,7 @@ class Comment
     }
 
     /**
-     * Get article
+     * Get article.
      *
      * @return \App\Entity\Article
      */

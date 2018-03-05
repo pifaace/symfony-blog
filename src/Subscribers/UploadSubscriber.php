@@ -20,11 +20,11 @@ class UploadSubscriber implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             'prePersist',
             'postPersist',
-            'postRemove'
-        );
+            'postRemove',
+        ];
     }
 
     /**
@@ -49,7 +49,7 @@ class UploadSubscriber implements EventSubscriber
         $entity = $args->getEntity();
         if ($entity instanceof Article && null != $entity->getImage()) {
             $this->removeFile($entity->getImage()->getAlt());
-        } else if ($entity instanceof Image) {
+        } elseif ($entity instanceof Image) {
             $this->removeFile($entity->getAlt());
         }
     }
@@ -60,7 +60,6 @@ class UploadSubscriber implements EventSubscriber
             $alt = $this->uploadFile->preUploadImage($entity->getFile());
             $entity->setAlt($alt);
         }
-        return;
     }
 
     public function uploadFile($file, $imageName)
@@ -68,7 +67,6 @@ class UploadSubscriber implements EventSubscriber
         if ($file instanceof UploadedFile) {
             $this->uploadFile->uploaderImage($file, $imageName);
         }
-        return;
     }
 
     public function removeFile($imageName)

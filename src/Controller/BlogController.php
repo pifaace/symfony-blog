@@ -2,78 +2,96 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Repository\ArticleRepository;
 use App\Services\Paginator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @param Paginator $paginator
+     * @Method("GET")
+     * @Cache(smaxage="5")
+     *
+     * @param Paginator         $paginator
+     * @param ArticleRepository $articleRepository
+     *
      * @return Response
      */
-    public function indexAction(Paginator $paginator): Response
+    public function index(Paginator $paginator, ArticleRepository $articleRepository): Response
     {
         $page = $paginator->getPage();
-
-        $em = $this->getDoctrine()->getManager();
-        $articles = $paginator->getItemList($em->getRepository('App:Article'), $page);
-
+        $articles = $paginator->getItemList($articleRepository, $page);
         $nbPages = $paginator->countPage($articles);
 
-        return $this->render('blog/home/index.html.twig', array(
+        return $this->render('blog/home/index.html.twig', [
             'articles' => $articles,
             'nbPages' => $nbPages,
-            'page' => $page
-        ));
+            'page' => $page,
+        ]);
     }
 
     /**
      * @Route("article/{id}", name="article_show")
-     * @param Request $request
-     * @param $id
+     * @Method({"GET", "POST"})
+     *
+     * @param Article $article
+     *
      * @return Response
-     * @internal param Request $request
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function showAction(Request $request, $id): Response
+    public function show(Article $article): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('App:Article')->find($id);
-        $comments = $em->getRepository('App:Comment')->findBy(array('article' => $article->getId()));
-        $countComment = $em->getRepository('App:Comment')->getCountComment($article->getId());
-
-
-        $newComment = new Comment();
-
-        if (null == $article) {
-            throw new NotFoundHttpException("L'article n'existe pas");
-        }
-
-        $form = $this->createForm(CommentType::class, $newComment);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $newComment->setArticle($article);
-            $em->persist($newComment);
-            $em->flush();
-
-            return $this->redirect($request->getUri());
-        }
-
-
-        return $this->render('blog/article/show.html.twig', array(
+        return $this->render('blog/article/show.html.twig', [
             'article' => $article,
-            'comments' => $comments,
-            'countComment' => $countComment,
-            'form' => $form->createView()
-        ));
+        ]);
     }
 
+    /**
+     * @Route("article/{id}/comment/new", name="comment_new")
+     * @Method("POST")
+     *
+     * @param Request $request
+     * @param Article $article
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function newComment(Request $request, Article $article): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $article->addComment($comment);
+
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
+    }
+
+    /**
+     * @param Article $article
+     *
+     * @return Response
+     */
+    public function commentForm(Article $article): Response
+    {
+        $form = $this->createForm(CommentType::class);
+
+        return $this->render('blog/article/_comment_form.html.twig', [
+            'form' => $form->createView(),
+            'article' => $article,
+        ]);
+    }
 }

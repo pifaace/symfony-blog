@@ -16,25 +16,25 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
-                'label' => 'Pseudo'
-            ))
-            ->add('email', TextType::class, array(
-                'label' => 'Adresse mail'
-            ))
-            ->add('content', TextareaType::class, array(
-                'label' => 'Commentaire'
-            ));
+            ->add('username', TextType::class, [
+                'label' => 'Pseudo',
+            ])
+            ->add('email', TextType::class, [
+                'label' => 'Adresse mail',
+            ])
+            ->add('content', TextareaType::class, [
+                'label' => 'Commentaire',
+            ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Comment'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'App\Entity\Comment',
+        ]);
     }
 
     /**
@@ -44,6 +44,4 @@ class CommentType extends AbstractType
     {
         return 'App_comment';
     }
-
-
 }

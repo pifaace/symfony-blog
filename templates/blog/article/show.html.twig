@@ -1,8 +1,6 @@
 {% extends 'blog/layout-blog.html.twig' %}
 
-
 {% block body %}
-
     {% if article.image is not null %}
         <img src="{{ asset(image_article_coverage_display ~ article.image.alt) }}" alt="{{ article.image.alt }}">
     {% endif %}
@@ -11,9 +9,8 @@
     </div>
     <p>{{ article.content }}</p>
     <hr>
-
-    <h3 class="title is-3">{{ countComment }} {{ countComment <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
-    {% for comment in comments %}
+    <h3 class="title is-3">{{ article.comments|length }} {{ article.comments|length <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
+    {% for comment in article.comments %}
         <div class="comment">
             <strong>{{ comment.username }}</strong>
             <p>{{ comment.content }}</p>
@@ -23,7 +20,7 @@
     <div class="columns">
         <div class="column is-two-fifths">
             <h3 class="title is-3">Postez un commentaire</h3>
-            {% include 'blog/article/comment.html.twig' %}
+            {{ render(controller('App\\Controller\\BlogController::commentForm', {'article': article.id})) }}
         </div>
     </div>
 {% endblock %}
