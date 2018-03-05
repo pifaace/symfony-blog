@@ -32,7 +32,11 @@ services:
         tags:
           - { name: twig.extension }
 
-    App\Subscribers\UploadSubscriber:
+    App\EventSubscriber\UploadSubscriber:
+        tags:
+          - { name: doctrine.event_subscriber, connection: default }
+
+    App\EventSubscriber\UserActionSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
 
@@ -43,3 +47,7 @@ services:
     App\Services\Paginator:
         arguments:
           $itemPerPage: '%itemperpage%'
+
+    App\Services\UserActionLogger:
+        arguments:
+          $logger: '@monolog.logger.user_action'

@@ -1,0 +1,2 @@
+monolog:
+    channels: ['user_action']
