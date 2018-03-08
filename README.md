@@ -6,6 +6,7 @@ In this project, I'm trying to use various components of Symfony like :
 * [Service container](http://symfony.com/doc/current/service_container.html)
 * [Subscriber](http://symfony.com/doc/current/doctrine/event_listeners_subscribers.html)
 * [Data transormers](https://symfony.com/doc/current/form/data_transformers.html)
+* [Monolog](https://symfony.com/doc/current/logging.html)
 
 this list should evolve.
 
