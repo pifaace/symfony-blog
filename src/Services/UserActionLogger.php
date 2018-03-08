@@ -12,9 +12,9 @@ class UserActionLogger
      */
     private $logger;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $userActionLogger)
     {
-        $this->logger = $logger;
+        $this->logger = $userActionLogger;
     }
 
     /**

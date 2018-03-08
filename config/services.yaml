@@ -14,6 +14,10 @@ services:
         public: false       # Allows optimizing the container by removing unused services; this also means
                             # fetching services directly from the container via $container->get() won't work.
                             # The best practice is to be explicit about your dependencies anyway.
+        bind:
+            $userActionLogger: '@monolog.logger.user_action'
+            $itemPerPage: '%itemperpage%'
+            $targetDir: '%image_articles_coverages_directory%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -39,15 +43,3 @@ services:
     App\EventSubscriber\UserActionSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
-
-    App\Services\Uploader:
-        arguments:
-          $targetDir: '%image_articles_coverages_directory%'
-
-    App\Services\Paginator:
-        arguments:
-          $itemPerPage: '%itemperpage%'
-
-    App\Services\UserActionLogger:
-        arguments:
-          $logger: '@monolog.logger.user_action'
