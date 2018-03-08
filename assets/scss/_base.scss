@@ -6,6 +6,10 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.dark-grey-color {
+  color: $dark-grey;
+}
+
 .text-danger {
   color: #FF7676;
 }
@@ -37,4 +41,8 @@ a.navbar-item:hover {
 .input-focus {
   border-color: #80bdff;
   outline: none;
+}
+
+.footer {
+  background-color: #DADADA;
 }
