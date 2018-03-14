@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserActionLogger
 {
@@ -18,12 +17,11 @@ class UserActionLogger
     }
 
     /**
-     * @param string       $entityName
-     * @param RequestStack $request
-     * @param string       $status
+     * @param string $entityName
+     * @param string $status
      */
-    public function userAction(string $entityName, RequestStack $request, string $status)
+    public function userAction(string $entityName, string $status)
     {
-        $this->logger->info('User with IP : '.$request->getMasterRequest()->getClientIp().' '.$status.' : '.$entityName);
+        $this->logger->info('User '.$status.' : '.$entityName);
     }
 }
