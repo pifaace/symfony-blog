@@ -9,10 +9,11 @@ use App\Repository\ArticleRepository;
 use App\Services\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends Controller
 {
@@ -40,7 +41,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("article/{id}", name="article_show")
+     * @Route("article/{slug}", name="article_show")
      * @Method({"GET", "POST"})
      *
      * @param Article $article
@@ -55,7 +56,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("article/{id}/comment/new", name="comment_new")
+     * @Route("article/{slug}/comment/new", name="comment_new")
      * @Method("POST")
      *
      * @param Request $request
@@ -77,11 +78,12 @@ class BlogController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('article_show', ['id' => $article->getId()]);
+        return $this->redirectToRoute('article_show', ['slug' => $article->getSlug()]);
     }
 
     /**
      * @param Article $article
+     * @ParamConverter()
      *
      * @return Response
      */

@@ -33,7 +33,7 @@
                         <td>{{ article.createAt|date("d/m/Y") }}</td>
                         <td>{{ article.comments.count }}</td>
                         <td>
-                            <a href="{{ path('article_show', {'id': article.id}) }}" class="button is-primary"><i
+                            <a href="{{ path('article_show', {'slug': article.slug}) }}" class="button is-primary"><i
                                         class="fa fa-eye" aria-hidden="true"></i></a>
                             <a href="{{ path('article_edit', {'id': article.id}) }}" class="button is-warning"><i
                                         class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
