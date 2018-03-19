@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use App\Form\LoginType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
@@ -14,22 +14,14 @@ class SecurityController extends Controller
      * @Route("/login", name="login")
      * @Method({"GET", "POST"})
      *
-     * @param AuthenticationUtils $authUtils
-     *
      * @return Response
      */
-    public function login(AuthenticationUtils $authUtils): Response
+    public function login(): Response
     {
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('admin-dashboard');
-        }
-
-        $error = $authUtils->getLastAuthenticationError();
-        $lastUsername = $authUtils->getLastUsername();
+        $form = $this->createForm(LoginType::class);
 
         return $this->render('backoffice/security/login.html.twig', [
-            'lastUsername' => $lastUsername,
-            'error' => $error,
+            'form' => $form->createView(),
         ]);
     }
 }
