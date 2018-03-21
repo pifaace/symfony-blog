@@ -17,12 +17,9 @@ security:
         main:
             anonymous: true
             pattern: ^/
-            form_login:
-              login_path: login
-              check_path: login
-              csrf_token_generator: security.csrf.token_manager
-              default_target_path: admin-dashboard
-              always_use_default_target_path: true
+            guard:
+                authenticator:
+                    - App\Security\LoginAuthenticator
             logout_on_user_change: true
 
             logout:
