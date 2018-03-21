@@ -4,7 +4,7 @@
     <div class="field">
         {{ form_label(form.username, 'Identifiant', {'label_attr': {'class': 'label has-text-left'}}) }}
         <div class="control has-icons-left">
-            {{ form_widget(form.username, {'attr': {'class': 'input'}}) }}
+            {{ form_widget(form.username, {'value': lastUserName, 'attr': {'class': 'input'}}) }}
             <span class="icon is-small is-right">
             <i class="fa fa-user" aria-hidden="true"></i>
             </span>
@@ -20,6 +20,12 @@
             </span>
         </div>
     </div>
+
+    {% if (error) %}
+        <div class="login-message">
+                Identifiant ou mot de passe incorrecte
+        </div>
+    {% endif %}
 
     <button type="submit" class="button is-primary">Connexion</button>
 {{ form_end(form) }}

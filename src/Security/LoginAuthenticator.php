@@ -9,6 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
@@ -150,7 +151,9 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        // TODO: Implement onAuthenticationFailure() method.
+        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+        $request->getSession()->set(Security::LAST_USERNAME, $request->request->get('login')['username']);
+        return new RedirectResponse($this->router->generate('login'));
     }
 
     /**
@@ -189,6 +192,6 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function supportsRememberMe()
     {
-        // TODO: Implement supportsRememberMe() method.
+        return false;
     }
 }
