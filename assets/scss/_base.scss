@@ -22,6 +22,10 @@
     margin-top: 30px;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 /** Override bulma class **/
 
 .columns.is-gapless:not(:last-child) {
@@ -37,6 +41,12 @@
 .navbar-brand {
     .navbar-item {
         font-size: 18px;
+    }
+}
+
+.navbar-end {
+    .navbar-item {
+        padding: 0 4px 0 0;
     }
 }
 
