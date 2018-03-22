@@ -1,0 +1,25 @@
+.login-container {
+    text-align: center;
+    height: 100vh;
+    margin-top: 15px;
+
+    .border-form {
+        width: 350px;
+        display: inline-block;
+        background: #FFFFFF;
+        border: 0.5px solid #D9D9D9;
+        border-radius: 7px;
+        padding: 25px;
+    }
+
+    .login-subtitle {
+        margin-top: 15px;
+    }
+
+    .login-message {
+        background-color: $message-error-background-color;
+        color: $message-error-color;
+        padding: 8px 0 8px 0;
+        margin-bottom: 10px;
+    }
+}

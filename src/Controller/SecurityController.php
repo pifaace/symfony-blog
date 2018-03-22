@@ -33,7 +33,7 @@ class SecurityController extends Controller
         $lastUserName = $this->authenticationUtils->getLastUsername();
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
-        return $this->render('backoffice/security/login.html.twig', [
+        return $this->render('blog/security/login.html.twig', [
             'form'         => $form->createView(),
             'lastUserName' => $lastUserName,
             'error'        => $error
