@@ -1,48 +1,54 @@
 .bg-grey {
-  background-color: #F3F3F3;
+    background-color: #F3F3F3;
 }
 
 .bg-light {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dark-grey-color {
-  color: $dark-grey;
+    color: $dark-grey;
 }
 
 .text-danger {
-  color: #FF7676;
+    color: #FF7676;
 }
 
 .height-max {
-  height: 100%;
+    height: 100%;
 }
 
 .mt-30 {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 /** Override bulma class **/
 
 .columns.is-gapless:not(:last-child) {
-  height: 100%;
-  margin-bottom: 0;
+    height: 100%;
+    margin-bottom: 0;
 }
 
 .menu-list a.is-active,
 .menu-list a.is-active:hover {
-  background-color: rgba(255, 255, 255, 0.23);
+    background-color: rgba(255, 255, 255, 0.23);
+}
+
+.navbar-brand {
+    .navbar-item {
+        font-size: 18px;
+    }
 }
 
 a.navbar-item:hover {
-  color: #17a2b8;
+    background-color: transparent;
 }
 
 .input-focus {
-  border-color: #80bdff;
-  outline: none;
+    border-color: #80bdff;
+    outline: none;
 }
 
 .footer {
-  background-color: #DADADA;
+    background-color: #DADADA;
 }

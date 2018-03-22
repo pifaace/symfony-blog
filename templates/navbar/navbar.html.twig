@@ -9,24 +9,35 @@
                 <span></span>
                 <span></span>
             </div>
-
         </div>
 
-        {% if is_granted('ROLE_ADMIN') %}
-            <div class="navbar-menu">
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="field is-grouped">
-                            <p class="control">
-                                <a class="button is-primary" href="{{ path('admin-dashboard') }}">Dashboard</a>
-                            </p>
-                            <p class="control">
-                                <a class="button is-danger is-outlined" href="{{ path('logout') }}">Déconnexion</a>
-                            </p>
+        <div class="navbar-menu">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="navbar-start">
+                    <a href="{{ path('admin-dashboard') }}" class="navbar-item">
+                        Dashboard
+                    </a>
+                </div>
+            {% endif %}
+            <div class="navbar-end">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            {{ app.user.username }}
+                        </a>
+                        <div class="navbar-dropdown is-right">
+                            <a class="navbar-item" href="#">
+                                Profil
+                            </a>
+                            <a class="navbar-item" href="{{ path('logout') }}">
+                                Déconnexion
+                            </a>
                         </div>
                     </div>
-                </div>
+                {% else %}
+                    <a href="{{ path('login') }}" class="navbar-item">Connexion/Inscription</a>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
     </div>
 </nav>
