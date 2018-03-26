@@ -34,9 +34,20 @@ class SecurityController extends Controller
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
         return $this->render('blog/security/login.html.twig', [
-            'form'         => $form->createView(),
+            'form' => $form->createView(),
             'lastUserName' => $lastUserName,
-            'error'        => $error
+            'error' => $error
         ]);
+    }
+
+    /**
+     * @Route("/registration", name="registration")
+     * @Method({"GET", "POST"})
+     *
+     * @return Response
+     */
+    public function registration(): Response
+    {
+        return $this->render('blog/security/registration.html.twig');
     }
 }
