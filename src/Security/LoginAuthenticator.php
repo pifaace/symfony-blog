@@ -39,7 +39,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * requires authentication. The job of this method is to return some
      * response that "helps" the user start into the authentication process.
      *
-     * @param Request                 $request The request that resulted in an AuthenticationException
+     * @param Request                 $request       The request that resulted in an AuthenticationException
      * @param AuthenticationException $authException The exception that started the authentication process
      *
      * @return Response
@@ -60,7 +60,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        return $request->attributes->get('_route') === 'login' && $request->isMethod('POST');
+        return 'login' === $request->attributes->get('_route') && $request->isMethod('POST');
     }
 
     /**
@@ -123,8 +123,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * @param mixed         $credentials
      * @param UserInterface $user
      *
-     * @return boolean
-     *
+     * @return bool
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -132,6 +131,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
         if (!$encoded->isPasswordValid($user->getPassword(), $credentials['password'], $user->getSalt())) {
             return false;
         }
+
         return true;
     }
 
@@ -153,6 +153,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         $request->getSession()->set(Security::LAST_USERNAME, $request->request->get('login')['username']);
+
         return new RedirectResponse($this->router->generate('login'));
     }
 
