@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\LoginType;
+use App\Form\RegistrationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +38,7 @@ class SecurityController extends Controller
         return $this->render('blog/security/login.html.twig', [
             'form' => $form->createView(),
             'lastUserName' => $lastUserName,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 
@@ -48,6 +50,11 @@ class SecurityController extends Controller
      */
     public function registration(): Response
     {
-        return $this->render('blog/security/registration.html.twig');
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
+
+        return $this->render('blog/security/registration.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
