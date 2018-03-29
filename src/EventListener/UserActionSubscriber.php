@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EventSubscriber;
+namespace App\EventListener;
 
 use App\Services\UserActionLogger;
 use Doctrine\Common\EventSubscriber;
