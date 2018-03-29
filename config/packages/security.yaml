@@ -26,6 +26,9 @@ security:
               path: /logout
               target: /
 
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, roles: ROLE_ADMIN }
