@@ -20,6 +20,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class)
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent être identiques',
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répétez le mot de passe'],
             ])

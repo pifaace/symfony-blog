@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,6 +12,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email est déjà utilisé"
+ * )
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="L'identifiant n'est pas disponible"
+ * )
  */
 class User implements UserInterface, \Serializable
 {
@@ -26,6 +36,18 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=25, unique=true)
+     * @Assert\NotBlank(
+     *     message="L'identifiant est obligatoire"
+     * )
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="L'identifiant doit contenir 3 caractères minimum"
+     * )
+     * @Assert\Regex(
+     *     pattern="/[-\/\\^$*`#=§°;,+!?' .()|[\]{}]/",
+     *     match=false,
+     *     message="L'identifiant contient des caractères interdits"
+     * )
      */
     private $username;
 
@@ -38,6 +60,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(
+     *     message="Le mot de passe est obligatoire"
+     * )
+     * @Assert\Length(
+     *     min=6,
+     *     max=4096,
+     *     minMessage="Le mot de passe doit contenir 6 caractères minimum"
+     * )
      */
     private $plainPassword;
 
@@ -45,6 +76,12 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", unique=true)
+     * @Assert\NotBlank(
+     *     message="L'email est obligatoire"
+     * )
+     * @Assert\Email(
+     *     message="Le format de l'email n'est pas valide"
+     * )
      */
     private $email;
 
