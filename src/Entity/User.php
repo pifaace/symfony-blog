@@ -44,8 +44,8 @@ class User implements UserInterface, \Serializable
      *     minMessage="L'identifiant doit contenir 3 caractères minimum"
      * )
      * @Assert\Regex(
-     *     pattern="/[-\/\\^$*`#=§°;,+!?' .()|[\]{}]/",
-     *     match=false,
+     *     pattern="/^[\pL\pM\pN_-]+$/u",
+     *     match=true,
      *     message="L'identifiant contient des caractères interdits"
      * )
      */
