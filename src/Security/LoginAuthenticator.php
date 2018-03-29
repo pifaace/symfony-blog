@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Services\FlashMessage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,16 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var FlashMessage
+     */
+    private $flashMessage;
 
-    public function __construct(EncoderFactoryInterface $encoderFactory, RouterInterface $router)
+    public function __construct(EncoderFactoryInterface $encoderFactory, RouterInterface $router, FlashMessage $flashMessage)
     {
         $this->encoderFactory = $encoderFactory;
         $this->router = $router;
+        $this->flashMessage = $flashMessage;
     }
 
     /**
@@ -174,6 +180,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $this->flashMessage->createMessage($request, 'info', 'Vous êtes maintenant connecté');
         return new RedirectResponse($this->router->generate('homepage'));
     }
 
