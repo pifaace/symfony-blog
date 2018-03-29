@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,6 +12,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email est déjà utilisé"
+ * )
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="L'identifiant n'est pas disponible"
+ * )
  */
 class User implements UserInterface, \Serializable
 {
@@ -26,6 +36,18 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=25, unique=true)
+     * @Assert\NotBlank(
+     *     message="L'identifiant est obligatoire"
+     * )
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="L'identifiant doit contenir 3 caractères minimum"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[\pL\pM\pN_-]+$/u",
+     *     match=true,
+     *     message="L'identifiant contient des caractères interdits"
+     * )
      */
     private $username;
 
@@ -39,7 +61,27 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
+     * @Assert\NotBlank(
+     *     message="Le mot de passe est obligatoire"
+     * )
+     * @Assert\Length(
+     *     min=6,
+     *     max=4096,
+     *     minMessage="Le mot de passe doit contenir 6 caractères minimum"
+     * )
+     */
+    private $plainPassword;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="email", type="string", unique=true)
+     * @Assert\NotBlank(
+     *     message="L'email est obligatoire"
+     * )
+     * @Assert\Email(
+     *     message="Le format de l'email n'est pas valide"
+     * )
      */
     private $email;
 
@@ -72,7 +114,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get username.
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -90,7 +132,7 @@ class User implements UserInterface, \Serializable
     /**
      * Get password.
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -110,7 +152,7 @@ class User implements UserInterface, \Serializable
      *
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -161,5 +203,21 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials(): void
     {
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }

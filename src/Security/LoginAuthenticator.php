@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Services\FlashMessage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,16 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var FlashMessage
+     */
+    private $flashMessage;
 
-    public function __construct(EncoderFactoryInterface $encoderFactory, RouterInterface $router)
+    public function __construct(EncoderFactoryInterface $encoderFactory, RouterInterface $router, FlashMessage $flashMessage)
     {
         $this->encoderFactory = $encoderFactory;
         $this->router = $router;
+        $this->flashMessage = $flashMessage;
     }
 
     /**
@@ -39,7 +45,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * requires authentication. The job of this method is to return some
      * response that "helps" the user start into the authentication process.
      *
-     * @param Request                 $request The request that resulted in an AuthenticationException
+     * @param Request                 $request       The request that resulted in an AuthenticationException
      * @param AuthenticationException $authException The exception that started the authentication process
      *
      * @return Response
@@ -60,7 +66,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        return $request->attributes->get('_route') === 'login' && $request->isMethod('POST');
+        return 'login' === $request->attributes->get('_route') && $request->isMethod('POST');
     }
 
     /**
@@ -123,8 +129,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * @param mixed         $credentials
      * @param UserInterface $user
      *
-     * @return boolean
-     *
+     * @return bool
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -132,6 +137,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
         if (!$encoded->isPasswordValid($user->getPassword(), $credentials['password'], $user->getSalt())) {
             return false;
         }
+
         return true;
     }
 
@@ -153,6 +159,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         $request->getSession()->set(Security::LAST_USERNAME, $request->request->get('login')['username']);
+
         return new RedirectResponse($this->router->generate('login'));
     }
 
@@ -173,7 +180,8 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse($this->router->generate('admin-dashboard'));
+        $this->flashMessage->createMessage($request, 'info', 'Vous êtes maintenant connecté');
+        return new RedirectResponse($this->router->generate('homepage'));
     }
 
     /**

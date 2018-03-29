@@ -10,11 +10,12 @@
 // Import Font-awesome
 @import "./node_modules/font-awesome/scss/font-awesome";
 
+@import "base";
+
 @import "admin/admin";
 @import "design/homepage";
 @import "design/login";
+@import "design/registration";
 @import "design/notification";
 @import "design/navbar";
 @import "design/article";
-
-@import "base";

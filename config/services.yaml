@@ -36,10 +36,14 @@ services:
         tags:
           - { name: twig.extension }
 
-    App\EventSubscriber\UploadSubscriber:
+    App\EventListener\UploadSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
 
-    App\EventSubscriber\UserActionSubscriber:
+    App\EventListener\UserActionSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
+
+    App\EventListener\EncoderUserPassword:
+        tags:
+        - { name: doctrine.event_listener, event: prePersist }

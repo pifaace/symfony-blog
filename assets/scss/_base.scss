@@ -26,8 +26,23 @@
     font-weight: bold;
 }
 
-/** Override bulma class **/
+/** form for registration/login/reset_passord **/
+.center-form {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
 
+    .border-form {
+        width: 350px;
+        display: inline-block;
+        background: #FFFFFF;
+        border: 0.5px solid #D9D9D9;
+        border-radius: 7px;
+        padding: 25px;
+    }
+}
+
+/** Override bulma class **/
 .columns.is-gapless:not(:last-child) {
     height: 100%;
     margin-bottom: 0;
