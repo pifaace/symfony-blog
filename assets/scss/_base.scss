@@ -26,6 +26,10 @@
     font-weight: bold;
 }
 
+.button:disabled {
+    cursor: default;
+}
+
 /** form for registration/login/reset_passord **/
 .center-form {
     text-align: center;

@@ -82,7 +82,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $flashMessage->createMessage($request, 'info', 'Compte créé avec succès');
+            $flashMessage->createMessage($request, 'info', 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
             return $this->redirectToRoute('homepage');
         }
 
