@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\LoginType;
+use App\Form\PasswordResetType;
 use App\Form\RegistrationType;
 use App\Services\FlashMessage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,7 +48,7 @@ class SecurityController extends Controller
         $lastUserName = $this->authenticationUtils->getLastUsername();
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
-        return $this->render('blog/security/login.html.twig', [
+        return $this->render('blog/security/login/login.html.twig', [
             'form' => $form->createView(),
             'lastUserName' => $lastUserName,
             'error' => $error,
@@ -86,12 +87,25 @@ class SecurityController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('blog/security/registration.html.twig', [
+        return $this->render('blog/security/registration/registration.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    public function isLogin()
+    /**
+     * @Route("/password_reset", name="password_reset")
+     * @Method({"GET", "POST"})
+     */
+    public function passwordReset()
+    {
+        $form = $this->createForm(PasswordResetType::class);
+
+        return $this->render("blog/security/password/password_reset.html.twig", [
+            'form' => $form->createView()
+        ]);
+    }
+
+    private function isLogin()
     {
         return $this->checker->isGranted('IS_AUTHENTICATED_FULLY');
     }
