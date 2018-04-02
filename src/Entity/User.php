@@ -92,6 +92,12 @@ class User implements UserInterface, \Serializable
     private $role;
 
     /**
+     * @var string
+     * @ORM\Column(name="reset_password_token", type="string", unique=true, nullable=true)
+     */
+    private $resetPasswordToken;
+
+    /**
      * Get id.
      *
      * @return int
@@ -219,5 +225,21 @@ class User implements UserInterface, \Serializable
     public function setPlainPassword(string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    /**
+     * @param string $resetPasswordToken
+     */
+    public function setResetPasswordToken(string $resetPasswordToken): void
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
     }
 }
