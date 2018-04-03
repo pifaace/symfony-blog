@@ -6,9 +6,12 @@ use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\PasswordResetType;
 use App\Form\RegistrationType;
+use App\Repository\UserRepository;
 use App\Services\FlashMessage;
+use App\Services\ResetPassword;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -93,14 +96,33 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/password_reset", name="password_reset")
+     * @Route("/password_reset/send", name="password_reset")
      * @Method({"GET", "POST"})
+     * @param Request        $request
+     * @param UserRepository $userRepository
+     * @param ResetPassword  $resetPassword
+     * @param FlashMessage   $flashMessage
+     * @return Response
      */
-    public function passwordReset()
+    public function passwordResetSend(Request $request, UserRepository $userRepository, ResetPassword $resetPassword, FlashMessage $flashMessage)
     {
         $form = $this->createForm(PasswordResetType::class);
 
-        return $this->render("blog/security/password/password_reset.html.twig", [
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $userRepository->findOneBy([
+                'email' => $form['email']->getData()
+            ]);
+            if ($user) {
+                $resetPassword->reset($user);
+                $flashMessage->createMessage($request, 'info', "Un mail de réinitialisation a été envoyé à cette adresse mail");
+                return $this->redirectToRoute('login');
+            }
+
+            $form->addError(new FormError("L'email renseigné n'est lié à aucun compte"));
+        }
+
+        return $this->render("blog/security/password/password_reset_send.html.twig", [
             'form' => $form->createView()
         ]);
     }
