@@ -1,12 +1,14 @@
-.security-container.login {
-    .login-subtitle {
-        margin-top: 15px;
-    }
+.security-container {
+    .login {
+        .login-subtitle {
+            margin-top: 15px;
+        }
 
-    .login-message {
-        background-color: $message-error-background-color;
-        color: $message-error-color;
-        padding: 8px 0 8px 0;
-        margin-bottom: 10px;
+        .login-message {
+            background-color: $message-error-background-color;
+            color: $message-error-color;
+            padding: 8px 0 8px 0;
+            margin-bottom: 10px;
+        }
     }
 }
