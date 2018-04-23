@@ -96,15 +96,20 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/password_reset/send", name="password_reset")
+     * Form to send a password reset request
+     *
+     * @Route("/password_reset/request", name="password_reset_request")
      * @Method({"GET", "POST"})
      * @param Request        $request
      * @param UserRepository $userRepository
      * @param ResetPassword  $resetPassword
      * @param FlashMessage   $flashMessage
      * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function passwordResetSend(Request $request, UserRepository $userRepository, ResetPassword $resetPassword, FlashMessage $flashMessage)
+    public function passwordResetRequest(Request $request, UserRepository $userRepository, ResetPassword $resetPassword, FlashMessage $flashMessage)
     {
         $form = $this->createForm(PasswordResetType::class);
 
@@ -125,6 +130,15 @@ class SecurityController extends Controller
         return $this->render("blog/security/password/password_reset_send.html.twig", [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/password_reset/new", name="password_reset_new")
+     * @Method({"GET", "POST"})
+     */
+    public function passwordResetNew()
+    {
+        return $this->render('blog/security/password/password_reset_new.html.twig');
     }
 
     private function isLogin()

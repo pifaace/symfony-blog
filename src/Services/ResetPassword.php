@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class ResetPassword
 {
@@ -18,14 +19,36 @@ class ResetPassword
      * @var \Twig_Environment
      */
     private $templating;
+    /**
+     * @var TokenGeneratorInterface
+     */
+    private $generator;
 
-    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, \Twig_Environment $templating)
+    /**
+     * ResetPassword constructor.
+     * @param EntityManagerInterface  $em
+     * @param \Swift_Mailer           $mailer
+     * @param \Twig_Environment       $templating
+     * @param TokenGeneratorInterface $generator
+     */
+    public function __construct(
+        EntityManagerInterface $em,
+        \Swift_Mailer $mailer,
+        \Twig_Environment $templating,
+        TokenGeneratorInterface $generator)
     {
         $this->em = $em;
         $this->mailer = $mailer;
         $this->templating = $templating;
+        $this->generator = $generator;
     }
 
+    /**
+     * @param $user
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function reset($user)
     {
         $this->addToken($user);
@@ -43,6 +66,12 @@ class ResetPassword
         $this->em->flush();
     }
 
+    /**
+     * @param $user
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function sendResetPasswordEmail($user)
     {
         $message = (new \Swift_Message('Demande reinitialisation de mot de passe'))
@@ -63,6 +92,6 @@ class ResetPassword
      */
     private function generateToken()
     {
-        return base64_encode(random_bytes(30));
+        return $this->generator->generateToken();
     }
 }
