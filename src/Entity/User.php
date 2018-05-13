@@ -3,10 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Faker\Provider\DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User.
@@ -100,9 +99,9 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="token_created_at", type="datetime", nullable=true)
+     * @ORM\Column(name="token_expiration_date", type="datetime", nullable=true)
      */
-    private $tokenCreatedAt;
+    private $tokenExpirationDate;
 
     /**
      * Get id.
@@ -253,16 +252,15 @@ class User implements UserInterface, \Serializable
     /**
      * @return \DateTime
      */
-    public function getTokenCreatedAt(): \DateTime
+    public function getTokenExpirationDate(): \DateTime
     {
-        return $this->tokenCreatedAt;
+        return $this->tokenExpirationDate;
     }
 
-    /**
-     * @param \DateTime $tokenCreatedAt
-     */
-    public function setTokenCreatedAt(\DateTime $tokenCreatedAt): void
+    public function setTokenExpirationDate(): void
     {
-        $this->tokenCreatedAt = $tokenCreatedAt;
+        $date = new \DateTime();
+        $date->add(new \DateInterval('PT1H'));
+        $this->tokenExpirationDate = $date;
     }
 }

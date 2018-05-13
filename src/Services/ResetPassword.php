@@ -68,6 +68,7 @@ class ResetPassword
     {
         $this->token = $this->generateToken();
         $user->setResetPasswordToken($this->token);
+        $user->setTokenExpirationDate();
         $this->em->flush();
     }
 
