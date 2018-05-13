@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Faker\Provider\DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -96,6 +97,12 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="reset_password_token", type="string", unique=true, nullable=true)
      */
     private $resetPasswordToken;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="token_created_at", type="datetime", nullable=true)
+     */
+    private $tokenCreatedAt;
 
     /**
      * Get id.
@@ -241,5 +248,21 @@ class User implements UserInterface, \Serializable
     public function setResetPasswordToken(string $resetPasswordToken): void
     {
         $this->resetPasswordToken = $resetPasswordToken;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTokenCreatedAt(): \DateTime
+    {
+        return $this->tokenCreatedAt;
+    }
+
+    /**
+     * @param \DateTime $tokenCreatedAt
+     */
+    public function setTokenCreatedAt(\DateTime $tokenCreatedAt): void
+    {
+        $this->tokenCreatedAt = $tokenCreatedAt;
     }
 }
