@@ -25,6 +25,11 @@ class ResetPassword
     private $generator;
 
     /**
+     * @var string
+     */
+    private $token;
+
+    /**
      * ResetPassword constructor.
      * @param EntityManagerInterface  $em
      * @param \Swift_Mailer           $mailer
@@ -52,7 +57,7 @@ class ResetPassword
     public function reset($user)
     {
         $this->addToken($user);
-        $this->sendResetPasswordEmail($user);
+        $this->sendResetPasswordEmail($user, $this->token);
     }
 
     /**
@@ -61,8 +66,8 @@ class ResetPassword
      */
     public function addToken($user)
     {
-        $token = $this->generateToken();
-        $user->setResetPasswordToken($token);
+        $this->token = $this->generateToken();
+        $user->setResetPasswordToken($this->token);
         $this->em->flush();
     }
 
@@ -72,14 +77,15 @@ class ResetPassword
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function sendResetPasswordEmail($user)
+    public function sendResetPasswordEmail($user, $token)
     {
         $message = (new \Swift_Message('Demande reinitialisation de mot de passe'))
             ->setFrom('no-remply@symfony-blog.com')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->templating->render('blog/security/password/email/_password_reset_email.html.twig', [
-                    'username' => $user->getUsername()
+                    'username' => $user->getUsername(),
+                    'token' => $token
                 ]),
                 'text/html'
             );
