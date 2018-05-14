@@ -15,4 +15,13 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    public function getByValidToken($token)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->where('u.resetPasswordToken = :token');
+        $qb->setParameter(':token', $token);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -1,9 +1,6 @@
 {% extends 'blog/layout-blog.html.twig' %}
 
 {% block body %}
-
-    {% include 'flashMessage/flashMessage.html.twig' %}
-
     {% for article in articles %}
         <div class="card mt-30">
             <header class="card-header">
@@ -28,5 +25,4 @@
     {% endfor %}
 
     {% include 'paginator/paginator.html.twig' %}
-
 {% endblock %}

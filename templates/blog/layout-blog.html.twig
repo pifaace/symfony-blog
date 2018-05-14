@@ -4,7 +4,15 @@
     <div class="wrapper">
         {{ parent() }}
         <div class="container">
+            {% block flashmessage %}
+                {% include 'flashMessage/flashMessage.html.twig' %}
+            {% endblock %}
+
             {% block body %}{% endblock %}
+
+            <div class="security-container">
+                {% block security %}{% endblock %}
+            </div>
         </div>
         {% block javascripts %}{% endblock %}
     </div>
@@ -18,7 +26,8 @@
                         <a href="https://github.com/pifaace">Github</a>
                     </p>
                     <p>
-                        <a class="dark-grey-color" href="https://github.com/pifaace/symfony-blog"><i class="fa fa-github fa-4x" aria-hidden="true"></i></a>
+                        <a class="dark-grey-color" href="https://github.com/pifaace/symfony-blog"><i
+                                    class="fa fa-github fa-4x" aria-hidden="true"></i></a>
                     </p>
                 </div>
             </div>

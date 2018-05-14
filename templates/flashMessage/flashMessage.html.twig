@@ -7,3 +7,13 @@
         </div>
     </div>
 {% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('error') %}
+    <div class="notification-container">
+        <div class="notification is-danger">
+            <button class="delete"></button>
+            <i class="fa fa-bell" aria-hidden="true"></i>
+            {{ flashMessage }}
+        </div>
+    </div>
+{% endfor %}
