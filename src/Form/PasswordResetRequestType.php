@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class PasswordResetType extends AbstractType
+class PasswordResetRequestType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

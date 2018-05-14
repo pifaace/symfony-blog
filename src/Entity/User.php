@@ -244,7 +244,7 @@ class User implements UserInterface, \Serializable
     /**
      * @param string $resetPasswordToken
      */
-    public function setResetPasswordToken(string $resetPasswordToken): void
+    public function setResetPasswordToken(?string $resetPasswordToken = null): void
     {
         $this->resetPasswordToken = $resetPasswordToken;
     }

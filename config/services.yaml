@@ -46,4 +46,8 @@ services:
 
     App\EventListener\EncoderUserPassword:
         tags:
-        - { name: doctrine.event_listener, event: prePersist }
+          - { name: doctrine.event_listener, event: prePersist }
+
+    App\EventListener\PasswordTokenReset:
+        tags:
+          - { name: kernel.event_listener, event: token.reseted, method: resetToken }
