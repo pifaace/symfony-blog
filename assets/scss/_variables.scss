@@ -1,12 +1,16 @@
 $fa-font-path: "../fonts";
 $navbar-background-color: rgba(255, 255, 255, 0.80) !default;
-$primary: #17a2b8;
+$secondary-color: #17a2b8;
 $dark-grey: #363636;
+$light-grey: #DCDCDC;
 $red-ligt: #fff5f7;
 $strong-red: #cd0930;
+$primary-color: #4a4a4a;
+$menu-list-link-and-hover: rgba(255, 255, 255, 0.23);
 
-$pagination-current-background-color: $primary;
-$pagination-current-border-color: $primary;
-$link: $primary;
-$message-error-background-color: #fff5f7;
-$message-error-color: #cd0930;
+$pagination-current-background-color: $secondary-color;
+$pagination-current-border-color: $secondary-color;
+$link: $secondary-color;
+$message-error-background-color: $red-ligt;
+$message-error-color: $strong-red;
+

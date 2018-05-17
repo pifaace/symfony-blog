@@ -2,7 +2,9 @@
 
 {% block body %}
     <div class="columns">
-        <div class="column is-one-third">is-one-third</div>
+        <div class="column is-one-quarter">
+            {% include('blog/user/profile/_sidebar.html.twig') %}
+        </div>
         <div class="column">Auto</div>
     </div>
 {% endblock %}

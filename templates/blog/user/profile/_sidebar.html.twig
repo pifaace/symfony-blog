@@ -1,0 +1,19 @@
+<aside class="menu">
+    <p class="menu-label">
+        Profil
+    </p>
+    <ul class="menu-list">
+        <li><a class="{{ (app.request.attributes.get('_route') == 'user_profile') ? 'is-active' : '' }}">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Mon profil
+            </a>
+        </li>
+        <li><a><i class="fa fa-pencil" aria-hidden="true"></i> Editer mon profil</a></li>
+    </ul>
+    <p class="menu-label">
+        Securité
+    </p>
+    <ul class="menu-list">
+        <li><a><i class="fa fa-lock" aria-hidden="true"></i> Changer le mot de passe</a></li>
+    </ul>
+</aside>

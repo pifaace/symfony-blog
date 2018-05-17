@@ -7,6 +7,11 @@
   padding-left: 0;
   padding-right: 0;
 
+  .menu-list a.is-active,
+  .menu-list a.is-active:hover {
+      background-color: $menu-list-link-and-hover;
+  }
+
   .sidebar-title {
     color: #fff;
     font-size: 20px;
