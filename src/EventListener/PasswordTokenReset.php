@@ -6,7 +6,7 @@ use App\Entity\User;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
- * This class will delete the reset password token after that it has been used
+ * This class will delete the reset password token after that it has been used.
  */
 class PasswordTokenReset
 {

@@ -181,6 +181,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         $this->flashMessage->createMessage($request, 'info', 'Vous êtes maintenant connecté');
+
         return new RedirectResponse($this->router->generate('homepage'));
     }
 
