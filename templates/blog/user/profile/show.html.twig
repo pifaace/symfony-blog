@@ -5,6 +5,26 @@
         <div class="column is-one-quarter">
             {% include('blog/user/profile/_sidebar.html.twig') %}
         </div>
-        <div class="column">Auto</div>
+        <div class="column">
+            <div class="has-text-centered">
+                <figure class="image is-128x128 is-inline-block">
+                    <img class="profile-picture" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+                <span class="title is-block">{{ user.username }}</span>
+                <span class="subtitle is-5 is-block">{{ user.email }}</span>
+            </div>
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <span class="title is-4">Mes derniers commentaires</span>
+                    <p><i>coming soon</i></p>
+                </div>
+                <div class="vertical-separator"></div>
+                <div class="column">
+                    <span class="title is-4 has-text-right">Mes badges</span>
+                    <p><i>coming soon</i></p>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

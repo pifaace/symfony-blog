@@ -40,7 +40,15 @@
     }
 }
 
+.vertical-separator {
+    border-right: 1px solid $grey-light;
+}
+
 /** Override bulma class **/
+hr {
+    background-color: $grey-light;
+}
+
 .columns.is-gapless:not(:last-child) {
     height: 100%;
     margin-bottom: 0;

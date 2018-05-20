@@ -15,6 +15,8 @@ class UserSettingsController extends Controller
      */
     public function show()
     {
-        return $this->render('blog/user/profile/show.html.twig');
+        return $this->render('blog/user/profile/show.html.twig', [
+            'user' => $this->getUser()
+        ]);
     }
 }
