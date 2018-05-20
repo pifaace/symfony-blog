@@ -31,6 +31,7 @@ class ResetPassword
 
     /**
      * ResetPassword constructor.
+     *
      * @param EntityManagerInterface  $em
      * @param \Swift_Mailer           $mailer
      * @param \Twig_Environment       $templating
@@ -50,6 +51,7 @@ class ResetPassword
 
     /**
      * @param $user
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -61,7 +63,8 @@ class ResetPassword
     }
 
     /**
-     * Generate and add a temporary token to the target user
+     * Generate and add a temporary token to the target user.
+     *
      * @param $user
      */
     private function addToken($user)
@@ -74,6 +77,7 @@ class ResetPassword
 
     /**
      * @param $user
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -86,7 +90,7 @@ class ResetPassword
             ->setBody(
                 $this->templating->render('blog/security/password/email/_password_reset_email.html.twig', [
                     'username' => $user->getUsername(),
-                    'token' => $token
+                    'token' => $token,
                 ]),
                 'text/html'
             );

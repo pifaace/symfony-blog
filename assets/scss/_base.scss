@@ -1,5 +1,5 @@
 .bg-grey {
-    background-color: #F3F3F3;
+    background-color: $grey-lighter;
 }
 
 .bg-light {
@@ -7,11 +7,7 @@
 }
 
 .dark-grey-color {
-    color: $dark-grey;
-}
-
-.text-danger {
-    color: #FF7676;
+    color: $grey-dark;
 }
 
 .height-max {
@@ -30,31 +26,32 @@
     cursor: default;
 }
 
-/** form for registration/login/reset_passord **/
 .security-container {
     text-align: center;
-    margin-top: 15px;
     margin-bottom: 30px;
 
     .border-form {
         width: 350px;
         display: inline-block;
-        background: #FFFFFF;
+        background: $white;
         border: 0.5px solid #D9D9D9;
         border-radius: 7px;
         padding: 25px;
     }
 }
 
+.vertical-separator {
+    border-right: 1px solid $grey-light;
+}
+
 /** Override bulma class **/
+hr {
+    background-color: $grey-light;
+}
+
 .columns.is-gapless:not(:last-child) {
     height: 100%;
     margin-bottom: 0;
-}
-
-.menu-list a.is-active,
-.menu-list a.is-active:hover {
-    background-color: rgba(255, 255, 255, 0.23);
 }
 
 .navbar-brand {
@@ -68,10 +65,10 @@ a.navbar-item:hover {
 }
 
 .input-focus {
-    border-color: #80bdff;
+    border-color: $blue-light;
     outline: none;
 }
 
 .footer {
-    background-color: #DADADA;
+    background-color: $grey-footer;
 }

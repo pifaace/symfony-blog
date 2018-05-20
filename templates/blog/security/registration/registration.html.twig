@@ -1,10 +1,12 @@
 {% extends 'blog/layout-blog.html.twig' %}
 
 {% block security %}
-    <div class="registration">
-        <h1 class="title is-3">Inscription</h1>
-        <div class="border-form">
-            {% include('blog/security/registration/_registration_form.html.twig') %}
+    <div class="security-container">
+        <div class="registration">
+            <h1 class="title is-3">Inscription</h1>
+            <div class="border-form">
+                {% include('blog/security/registration/_registration_form.html.twig') %}
+            </div>
         </div>
     </div>
 {% endblock %}

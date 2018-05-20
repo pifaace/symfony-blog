@@ -3,12 +3,17 @@
   position: fixed;
   width: 280px;
   height: 100%;
-  background-color: #17a2b8;
+  background-color: $primary;
   padding-left: 0;
   padding-right: 0;
 
+  .menu-list a.is-active,
+  .menu-list a.is-active:hover {
+      background-color: $menu-list-link-and-hover;
+  }
+
   .sidebar-title {
-    color: #fff;
+    color: $white;
     font-size: 20px;
     text-align: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -16,13 +21,13 @@
   }
 
   .nav-link {
-    color: #fff;
+    color: $white;
     border-radius: 4px;
     text-align: center;
     margin: 5px 15px;
 
     &:hover {
-      color: #fff;
+      color: $white;
       background-color: rgba(255, 255, 255, 0.1);
       -webkit-transition: background-color 0.3s; /* Safari */
       transition: background-color 0.3s;

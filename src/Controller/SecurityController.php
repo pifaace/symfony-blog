@@ -72,6 +72,7 @@ class SecurityController extends Controller
      *
      * @param Request      $request
      * @param FlashMessage $flashMessage
+     *
      * @return Response
      */
     public function registration(Request $request, FlashMessage $flashMessage): Response
@@ -91,6 +92,7 @@ class SecurityController extends Controller
             $em->flush();
 
             $flashMessage->createMessage($request, 'info', 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
+
             return $this->redirectToRoute('homepage');
         }
 
@@ -100,15 +102,18 @@ class SecurityController extends Controller
     }
 
     /**
-     * Form to send a password reset request
+     * Form to send a password reset request.
      *
      * @Route("/password_reset/request", name="password_reset_request")
      * @Method({"GET", "POST"})
+     *
      * @param Request        $request
      * @param UserRepository $userRepository
      * @param ResetPassword  $resetPassword
      * @param FlashMessage   $flashMessage
+     *
      * @return Response
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -120,32 +125,35 @@ class SecurityController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $userRepository->findOneBy([
-                'email' => $form['email']->getData()
+                'email' => $form['email']->getData(),
             ]);
             if ($user) {
                 $resetPassword->reset($user);
-                $flashMessage->createMessage($request, 'info', "Un mail de réinitialisation a été envoyé à cette adresse mail");
+                $flashMessage->createMessage($request, 'info', 'Un mail de réinitialisation a été envoyé à cette adresse mail');
+
                 return $this->redirectToRoute('login');
             }
 
             $form->addError(new FormError("L'email renseigné n'est lié à aucun compte"));
         }
 
-        return $this->render("blog/security/password/password_reset_request.html.twig", [
-            'form' => $form->createView()
+        return $this->render('blog/security/password/password_reset_request.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * Form to create the new password
+     * Form to create the new password.
      *
      * @Route("/password_reset/new", name="password_reset_new")
      * @Method({"GET", "POST"})
+     *
      * @param Request                      $request
      * @param UserRepository               $userRepository
      * @param FlashMessage                 $flashMessage
      * @param UserPasswordEncoderInterface $encoder
      * @param EventDispatcherInterface     $eventDispatcher
+     *
      * @return Response
      */
     public function passwordResetNew(Request $request, UserRepository $userRepository, FlashMessage $flashMessage, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher): Response
@@ -167,14 +175,15 @@ class SecurityController extends Controller
                 $event = new GenericEvent($user);
                 $eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
                 $em->flush();
-                $flashMessage->createMessage($request, 'info', "Le mot de passe a été réinitialisé avec succès !");
+                $flashMessage->createMessage($request, 'info', 'Le mot de passe a été réinitialisé avec succès !');
+
                 return $this->redirectToRoute('login');
             }
-            $flashMessage->createMessage($request, 'error', "Le token est expiré. Veuillez effectuer une nouvelle demande.");
+            $flashMessage->createMessage($request, 'error', 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
         }
 
         return $this->render('blog/security/password/password_reset_new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 

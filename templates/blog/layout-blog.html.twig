@@ -3,14 +3,14 @@
 {% block wrapper %}
     <div class="wrapper">
         {{ parent() }}
-        <div class="container">
-            {% block flashmessage %}
-                {% include 'flashMessage/flashMessage.html.twig' %}
-            {% endblock %}
+        <div class="section">
+            <div class="container">
+                {% block flashmessage %}
+                    {% include 'flashMessage/flashMessage.html.twig' %}
+                {% endblock %}
 
-            {% block body %}{% endblock %}
+                {% block body %}{% endblock %}
 
-            <div class="security-container">
                 {% block security %}{% endblock %}
             </div>
         </div>
