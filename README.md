@@ -49,8 +49,8 @@ DATABASE_URL=mysql://root:secret@db:3306/symfony-blog
 #### Running containers
 ```
 $ docker-compose up -d
-$ start http://localhost/ # Windows
-$ open http://localhost/ # Mac
+$ start http://localhost:8000/ # Windows
+$ open http://localhost:8000/ # Mac
 ```
 
 #### Stopping containers
@@ -73,7 +73,7 @@ $ docker-compose exec blog-server php bin/console doctrine:fixtures:load
 ### Routes
 To access to the dashboard admin go to the following url :
 
-[http://localhost/admin/dashboard](http://localhost/admin/dashboard)
+[http://localhost:8000/admin/dashboard](http://localhost:8000/admin/dashboard)
 ```
 login : admin
 password : password
