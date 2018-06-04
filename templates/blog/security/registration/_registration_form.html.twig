@@ -4,7 +4,7 @@
             {{ form_label(form.username, 'Identifiant', {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
                 {{ form_widget(form.username, {'attr': {'class': 'input', 'placeholder': 'johnDoe'}}) }}
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-left">
                     <i class="fa fa-user" aria-hidden="true"></i>
                 </span>
             </div>
@@ -17,7 +17,7 @@
             {{ form_label(form.email, 'Email', {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
                 {{ form_widget(form.email, {'attr': {'class': 'input', 'placeholder': 'you@mail.com'}}) }}
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-left">
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                 </span>
             </div>
@@ -30,7 +30,7 @@
             {{ form_label(form.plainPassword.first, 'Mot de passe', {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
                 {{ form_widget(form.plainPassword.first, {'attr': {'class': 'input', 'placeholder': 'strong password'}}) }}
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-left">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
             </div>
@@ -40,7 +40,7 @@
             {{ form_label(form.plainPassword.second, 'Répétez le mot de passe', {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
                 {{ form_widget(form.plainPassword.second, {'attr': {'class': 'input', 'placeholder': 'repeat it'}}) }}
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-left">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
             </div>
