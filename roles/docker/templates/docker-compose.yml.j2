@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    networks:
+      - web
+      - symfony-blog
+    volumes:
+      - {{ app_dir }}/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./:/application
+    labels:
+      - "traefik.backend=symfony-blog"
+      - "traefik.frontend.rule=Host:{{ app_url }}"
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+
+  symfony-blog:
+    image: symfony-blog
+    restart: unless-stopped
+    networks:
+      - symfony-blog
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/application
+      - /etc/localtime:/etc/localtime
+      - {{ app_dir }}/storage/logs:/application/storage/logs
+    environnement:
+      - APP_ENV=prod
+      - APP_SECRET={{ app_key }}
+      - DATABASE_URL=mysql://root:{{ db_password }}@mysql/{{ db_database }}
+
+  mysql:
+    image: mysql:5.7
+    restart: unless-stopped
+    networks:
+      - symfony-blog
+    environment:
+      - MYSQL_DATABASE={{ db_database }}
+      - MYSQL_ROOT_PASSWORD={{ db_password }}
+    volumes:
+      - {{ app_dir }}/storage/db:/var/lib/mysql
+
+networks:
+  web:
+    external: true
+  symfony-blog:
+    external: true

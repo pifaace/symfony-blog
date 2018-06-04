@@ -1,0 +1,20 @@
+---
+- name: Pull docker images
+  docker_image:
+    name: "{{ item }}"
+  with_items:
+    - mysql:5.7
+    - nginx:latest
+    - php:7.2-fpm
+    - node:latest
+
+- name: Adding docker-compose.yml file
+  template:
+    src: ../templates/docker-compose.yml.j2
+    dest: "{{ app_dir }}/docker-compose.yml"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+- name: Create the symfony-blog network
+  docker_network:
+    name: symfony-blog

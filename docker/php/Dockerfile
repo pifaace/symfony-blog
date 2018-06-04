@@ -17,8 +17,6 @@ RUN docker-php-ext-install \
     pdo_mysql \
     zip
 
-COPY php.ini /usr/local/etc/php/php.ini
-
 # Setting locales
 RUN echo fr_FR.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
 
