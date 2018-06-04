@@ -8,6 +8,9 @@
     "composer/semver": {
         "version": "1.4.2"
     },
+    "composer/xdebug-handler": {
+        "version": "1.1.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -101,9 +104,6 @@
     "fzaninotto/faker": {
         "version": "v1.7.1"
     },
-    "gecko-packages/gecko-php-unit": {
-        "version": "v3.1.1"
-    },
     "gedmo/doctrine-extensions": {
         "version": "v2.4.33"
     },
@@ -112,6 +112,9 @@
     },
     "monolog/monolog": {
         "version": "1.23.0"
+    },
+    "nikic/php-parser": {
+        "version": "v4.0.2"
     },
     "ocramius/package-versions": {
         "version": "1.2.0"
@@ -298,6 +301,9 @@
     },
     "symfony/polyfill-apcu": {
         "version": "v1.6.0"
+    },
+    "symfony/polyfill-ctype": {
+        "version": "v1.8.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.6.0"
