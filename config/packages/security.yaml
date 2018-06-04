@@ -20,7 +20,6 @@ security:
             guard:
                 authenticator:
                     - App\Security\LoginAuthenticator
-            logout_on_user_change: true
 
             logout:
               path: /logout
