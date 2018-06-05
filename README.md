@@ -1,9 +1,10 @@
-# Symfony-blog 4.0
+# Symfony-blog 4.1
 
 My application to try some stuffs about Symfony 4
 In this project, I'm trying to use various components of Symfony like :
 * [Authentication](https://symfony.com/doc/current/security.html)
 * [Service container](http://symfony.com/doc/current/service_container.html)
+* [Listener](http://symfony.com/doc/current/doctrine/event_listeners_subscribers.html#creating-the-listener-class)
 * [Subscriber](http://symfony.com/doc/current/doctrine/event_listeners_subscribers.html)
 * [Data transormers](https://symfony.com/doc/current/form/data_transformers.html)
 * [Monolog](https://symfony.com/doc/current/logging.html)
@@ -41,11 +42,6 @@ $ gulp
 
 ### Running docker containers
 
-#### Update database configuration
-go to the .env file and put these paramaters into DATABASE_URL
-```
-DATABASE_URL=mysql://root:secret@db:3306/symfony-blog
-```
 #### Running containers
 ```
 $ docker-compose up -d
@@ -58,7 +54,7 @@ $ open http://localhost:8000/ # Mac
 $ docker-compose stop
 ```
 
-### Dump database
+### Migrations
 
 ```
 $ docker-compose exec blog-server php bin/console doctrine:migrations:migrate
@@ -70,16 +66,26 @@ And run datafixtures
 $ docker-compose exec blog-server php bin/console doctrine:fixtures:load
 ```
 
-### Routes
-To access to the dashboard admin go to the following url :
+### Account
+You can connect as admin with these infos :
 
-[http://localhost:8000/admin/dashboard](http://localhost:8000/admin/dashboard)
 ```
 login : admin
 password : password
 ```
 
+### SMTP
+To use features that implements swiftmailer, you need to add a MAILER_URL in .env
+You can use mailtrap for your developments, so your MAILER_URL should look like this :
+```
+MAILER_URL=smtp://smtp.mailtrap.io:25?encryption=&auth_mode=cram-md5&username=your_username&password=your_password
+```
+
+
 ### Running tests
 ```
 $ docker-compose run --rm blog-server ./vendor/bin/simple-phpunit
 ```
+
+##  License
+This project is released under the [MIT](https://opensource.org/licenses/MIT) license.
