@@ -93,7 +93,7 @@ class SecurityController extends Controller
 
             $flashMessage->createMessage($request, 'info', 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('blog/security/registration/registration.html.twig', [
