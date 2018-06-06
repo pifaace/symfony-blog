@@ -1,3 +1,11 @@
+.flex-co {
+    flex-direction: column;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
 .bg-grey {
     background-color: $grey-lighter;
 }
@@ -12,6 +20,10 @@
 
 .height-max {
     height: 100%;
+}
+
+.min-h-screen {
+    min-height: 100vh;
 }
 
 .mt-30 {

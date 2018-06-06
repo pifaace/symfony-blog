@@ -1,21 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block wrapper %}
-    <div class="wrapper">
-        {{ parent() }}
-        <div class="section">
-            <div class="container">
-                {% block flashmessage %}
-                    {% include 'flashMessage/flashMessage.html.twig' %}
-                {% endblock %}
+    {{ parent() }}
+    <div class="flex-1 section">
+        <div class="container">
+            {% block flashmessage %}
+                {% include 'flashMessage/flashMessage.html.twig' %}
+            {% endblock %}
 
-                {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
 
-                {% block security %}{% endblock %}
-            </div>
+            {% block security %}{% endblock %}
         </div>
-        {% block javascripts %}{% endblock %}
     </div>
+
+    {% block javascripts %}{% endblock %}
 
     {% block footer %}
         <footer class="footer">
