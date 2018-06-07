@@ -59,6 +59,13 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="provider_id", type="integer", nullable=true)
+     */
+    private $providerId;
+
+    /**
      * @var string
      *
      * @Assert\NotBlank(
@@ -262,5 +269,21 @@ class User implements UserInterface, \Serializable
         $date = new \DateTime();
         $date->add(new \DateInterval('PT1H'));
         $this->tokenExpirationDate = $date;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProviderId(): int
+    {
+        return $this->providerId;
+    }
+
+    /**
+     * @param int $providerId
+     */
+    public function setProviderId(int $providerId): void
+    {
+        $this->providerId = $providerId;
     }
 }
