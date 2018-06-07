@@ -11,11 +11,15 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Services\FlashMessage;
 use App\Services\ResetPassword;
+use EightPoints\Bundle\GuzzleBundle\Events\GuzzleEventListenerInterface;
+use GuzzleHttp\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\GuardAuthenticationFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,6 +68,27 @@ class SecurityController extends Controller
     }
 
     /**
+     * @Route("/login/github", name="login_github")
+     * @Method("GET")
+     *
+     * @return RedirectResponse
+     */
+    public function loginFromGithub()
+    {
+        return new RedirectResponse('https://github.com/login/oauth/authorize?scope=user:email&client_id=' . getenv('github_client_id'));
+    }
+
+    /**
+     * @Route("/login/github/callback", name="login_github_callback")
+     * @Method("GET")
+     *
+     */
+    public function loginFromGithubCallback()
+    {
+        return $this->redirectToRoute('homepage');
+    }
+
+    /**
      * User password is encoded in EventListener/EncoderUserPassword class
      * thanks to Doctrine listener 'prePersist'.
      *
@@ -91,7 +116,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $flashMessage->createMessage($request, 'info', 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
+            $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
 
             return $this->redirectToRoute('login');
         }
@@ -129,7 +154,7 @@ class SecurityController extends Controller
             ]);
             if ($user) {
                 $resetPassword->reset($user);
-                $flashMessage->createMessage($request, 'info', 'Un mail de réinitialisation a été envoyé à cette adresse mail');
+                $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, 'Un mail de réinitialisation a été envoyé à cette adresse mail');
 
                 return $this->redirectToRoute('login');
             }
@@ -175,11 +200,11 @@ class SecurityController extends Controller
                 $event = new GenericEvent($user);
                 $eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
                 $em->flush();
-                $flashMessage->createMessage($request, 'info', 'Le mot de passe a été réinitialisé avec succès !');
+                $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
 
                 return $this->redirectToRoute('login');
             }
-            $flashMessage->createMessage($request, 'error', 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
+            $flashMessage->createMessage($request, $flashMessage::ERROR_MESSAGE, 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
         }
 
         return $this->render('blog/security/password/password_reset_new.html.twig', [
