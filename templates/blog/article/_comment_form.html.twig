@@ -1,4 +1,4 @@
-{{ form_start(form, {'action': path('comment_new', {'slug': article.slug}) }) }}
+{{ form_start(form, {'action': path('comment_new', {'slug': article.slug}), 'attr': {'id': 'comment-form'} }) }}
         {{ form_errors(form) }}
 
 <div class="field">
@@ -9,5 +9,5 @@
 </div>
 
 {{ form_rest(form) }}
-<input type="submit" class="button is-primary" value="Poster">
+<button type="submit" class="button is-primary">Poster</button>
 {{ form_end(form) }}

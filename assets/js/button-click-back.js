@@ -13,3 +13,7 @@ $('#password-reset-request-form').on('submit', function () {
 $('#password-reset-new-form').on('submit', function () {
     $('button:submit.button').prop("disabled", true).html("Changement en cours...");
 });
+
+$('#comment-form').on('submit', function () {
+    $('button:submit.button').prop("disabled", true);
+});

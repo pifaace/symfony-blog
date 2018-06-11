@@ -19,7 +19,7 @@
 
     <div class="columns">
         <div class="column is-two-fifths">
-            <h3 class="title is-3">Postez un commentaire</h3>
+            <h3 class="title is-3">Poster un commentaire</h3>
             {% if is_granted('ROLE_USER') %}
                 {{ render(controller('App\\Controller\\BlogController::commentForm', {'article': article.id})) }}
             {% else %}
