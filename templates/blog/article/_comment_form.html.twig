@@ -1,25 +1,6 @@
 {{ form_start(form, {'action': path('comment_new', {'slug': article.slug}) }) }}
         {{ form_errors(form) }}
 
-<div class="field is-horizontal">
-    <div class="field-body">
-        <div class="field">
-            {{ form_label(form.username, 'Pseudo', {'label_attr': {'class': 'label'}}) }}
-            <div class="control">
-                {{ form_widget(form.username, {'attr': {'class': 'input'}}) }}
-                {{ form_errors(form.username) }}
-            </div>
-        </div>
-
-        <div class="field">
-            <div class="control">
-                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'label'}}) }}
-                {{ form_widget(form.email, {'attr': {'class': 'input'}}) }}
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="field">
     {{ form_label(form.content, 'Commentaire', {'label_attr': {'class': 'label'}}) }}
     <div class="control">

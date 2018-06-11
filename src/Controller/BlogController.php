@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Services\Paginator;
@@ -72,7 +73,9 @@ class BlogController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
             $article->addComment($comment);
+            $user->addComment($comment);
 
             $em->persist($comment);
             $em->flush();

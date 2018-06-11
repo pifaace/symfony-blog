@@ -12,7 +12,7 @@
     <h3 class="title is-3">{{ article.comments|length }} {{ article.comments|length <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
     {% for comment in article.comments %}
         <div class="comment">
-            <strong>{{ comment.username }}</strong>
+            <strong>{{ comment.user.username }}</strong>
             <p>{{ comment.content }}</p>
         </div>
     {% endfor %}
@@ -20,7 +20,14 @@
     <div class="columns">
         <div class="column is-two-fifths">
             <h3 class="title is-3">Postez un commentaire</h3>
-            {{ render(controller('App\\Controller\\BlogController::commentForm', {'article': article.id})) }}
+            {% if is_granted('ROLE_USER') %}
+                {{ render(controller('App\\Controller\\BlogController::commentForm', {'article': article.id})) }}
+            {% else %}
+                <div class="notification is-primary">
+                    Vous devez être connecté pour poster un commentaire. <br>
+                    <a href="{{ path('login') }}">Connectez-vous</a> ou <a href="{{ path('registration') }}">inscrivez-vous</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
