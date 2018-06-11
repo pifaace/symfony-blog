@@ -24,4 +24,19 @@ class UserRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * @param $providerId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getByProviderId($providerId)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->where('u.providerId = :providerId')
+            ->setParameter(':providerId', $providerId);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

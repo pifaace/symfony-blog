@@ -20,6 +20,8 @@ security:
             guard:
                 authenticator:
                     - App\Security\LoginAuthenticator
+                    - App\Security\LoginGithubAuthenticator
+                entry_point: App\Security\LoginAuthenticator
 
             logout:
               path: /logout

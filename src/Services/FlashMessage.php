@@ -6,6 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FlashMessage
 {
+    const INFO_MESSAGE = 'info';
+    const ERROR_MESSAGE = 'error';
+
     /**
      * Service to generate a flashmessage depends on type.
      *

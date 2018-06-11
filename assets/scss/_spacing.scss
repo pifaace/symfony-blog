@@ -1,0 +1,25 @@
+$sizes: (5, 10, 15, 20, 25, 30, 35, 40);
+$positions: (
+    ('t', 'top'),
+    ('b', 'bottom'),
+    ('l', 'left'),
+    ('r', 'right')
+);
+$separator: '-';
+$marginKey: 'm';
+$paddingKey: 'p';
+
+@each $size in $sizes {
+    @each $position in $positions {
+        $posKey: nth($position, 1);
+        $posValue: nth($position, 2);
+
+        .#{$marginKey}#{$posKey}#{$separator}#{$size} {
+            margin#{$separator}#{$posValue}: $size + px;
+        }
+
+        .#{$paddingKey}#{$posKey}#{$separator}#{$size} {
+            padding#{$separator}#{$posValue}: $size + px;
+        }
+    }
+}

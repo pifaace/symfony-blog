@@ -1,0 +1,7 @@
+eight_points_guzzle:
+    clients:
+        github_oauth:
+            base_url: "https://github.com"
+            options:
+                headers:
+                    Accept: "application/json"

@@ -2,40 +2,57 @@
 
 namespace App\Security;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Services\FlashMessage;
+use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
-class LoginAuthenticator extends AbstractGuardAuthenticator
+class LoginGithubAuthenticator extends AbstractGuardAuthenticator
 {
     /**
-     * @var EncoderFactoryInterface
+     * @var Client
      */
-    private $encoderFactory;
+    private $client;
 
-    /**
-     * @var RouterInterface
-     */
-    private $router;
     /**
      * @var FlashMessage
      */
     private $flashMessage;
 
-    public function __construct(EncoderFactoryInterface $encoderFactory, RouterInterface $router, FlashMessage $flashMessage)
+    /**
+     * @var Route
+     */
+    private $router;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepo;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(Client $client, FlashMessage $flashMessage, RouterInterface $router, UserRepository $userRepo, EntityManagerInterface $em)
     {
-        $this->encoderFactory = $encoderFactory;
-        $this->router = $router;
+        $this->client = $client;
         $this->flashMessage = $flashMessage;
+        $this->router = $router;
+        $this->userRepo = $userRepo;
+        $this->em = $em;
     }
 
     /**
@@ -45,14 +62,17 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * requires authentication. The job of this method is to return some
      * response that "helps" the user start into the authentication process.
      *
-     * @param Request                 $request       The request that resulted in an AuthenticationException
-     * @param AuthenticationException $authException The exception that started the authentication process
+     * Examples:
+     *  A) For a form login, you might redirect to the login page
+     *      return new RedirectResponse('/login');
+     *  B) For an API token authentication system, you return a 401 response
+     *      return new Response('Auth header required', 401);
      *
-     * @return Response
+     * @param Request                 $request The request that resulted in an AuthenticationException
+     * @param AuthenticationException $authException The exception that started the authentication process
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse('/login');
     }
 
     /**
@@ -66,7 +86,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function supports(Request $request)
     {
-        return 'login' === $request->attributes->get('_route') && $request->isMethod('POST');
+        return 'login_github_callback' === $request->attributes->get('_route');
     }
 
     /**
@@ -94,7 +114,19 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        return $request->request->get('login');
+        $code = $request->query->get('code');
+        $uri = 'https://github.com/login/oauth/access_token?client_id=' . getenv('github_client_id') . '&client_secret=' . getenv('github_secret_id') . '&code=' . $code;
+        $response = $this->client->post($uri);
+
+        $jsonResponse = $response->getBody()->getContents();
+
+        $token = json_decode($jsonResponse, true);
+
+        if (isset($token['error'])) {
+            throw new BadCredentialsException("No access_token returned by Github", 401);
+        }
+
+        return $token;
     }
 
     /**
@@ -111,10 +143,41 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * @throws AuthenticationException
      *
      * @return UserInterface|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        return $userProvider->loadUserByUsername($credentials['username']);
+        $response = $this->client->get('https://api.github.com/user?access_token=' . $credentials['access_token']);
+        $userDatas = json_decode($response->getBody()->getContents(), true);
+
+        if (null === $userDatas['email']) {
+            throw new AuthenticationException("Your account has no email, please fill in it", 401);
+        }
+
+        $user = $this->userRepo->getByProviderId($userDatas['id']);
+
+        if ($user) {
+            return $user;
+        }
+
+        if ($this->userRepo->findBy(['username' => $userDatas['login']])) {
+            throw new AuthenticationException("Your username from Github is already used on this app");
+        }
+
+        if ($this->userRepo->findBy(['email' => $userDatas['email']])) {
+            throw new AuthenticationException("Your email from Github is already used on this app");
+        }
+
+        $user = new User();
+        $user->setUsername($userDatas['login']);
+        $user->setEmail($userDatas['email']);
+        $user->setProviderId((int)$userDatas['id']);
+        $user->setRole(['ROLE_USER']);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
     }
 
     /**
@@ -130,14 +193,11 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      * @param UserInterface $user
      *
      * @return bool
+     *
+     * @throws AuthenticationException
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $encoded = $this->encoderFactory->getEncoder($user);
-        if (!$encoded->isPasswordValid($user->getPassword(), $credentials['password'], $user->getSalt())) {
-            return false;
-        }
-
         return true;
     }
 
@@ -157,8 +217,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-        $request->getSession()->set(Security::LAST_USERNAME, $request->request->get('login')['username']);
+        $this->flashMessage->createMessage($request, $this->flashMessage::ERROR_MESSAGE, $exception->getMessage());
 
         return new RedirectResponse($this->router->generate('login'));
     }
@@ -201,6 +260,6 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function supportsRememberMe()
     {
-        return false;
+        // TODO: Implement supportsRememberMe() method.
     }
 }

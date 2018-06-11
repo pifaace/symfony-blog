@@ -24,6 +24,11 @@ class EncoderUserPassword
         if (!$user instanceof User) {
             return;
         }
+
+        if (null === $user->getPlainPassword()) {
+            return;
+        }
+
         $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
     }
 }
