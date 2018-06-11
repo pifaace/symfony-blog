@@ -239,7 +239,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $this->flashMessage->createMessage($request, $this->flashMessage::INFO_MESSAGE, 'Vous êtes maintenant connecté');
+        $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Vous êtes maintenant connecté');
 
         return new RedirectResponse($this->router->generate('homepage'));
     }

@@ -46,7 +46,7 @@ class ArticleController extends Controller
             $em->persist($article);
             $em->flush();
 
-            $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, "L'article a été créé avec succès");
+            $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'article a été créé avec succès");
 
             return $this->redirectToRoute('admin-articles');
         }
@@ -92,7 +92,7 @@ class ArticleController extends Controller
             }
             $em->flush();
 
-            $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, "L'article a été mis à jour avec succès");
+            $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'article a été mis à jour avec succès");
 
             return $this->redirect($request->getUri());
         }
@@ -122,7 +122,7 @@ class ArticleController extends Controller
         $em->remove($article);
         $em->flush();
 
-        $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, "L'annonce été supprimé avec succès");
+        $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'annonce été supprimé avec succès");
 
         return $this->redirectToRoute('admin-articles');
     }

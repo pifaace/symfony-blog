@@ -116,7 +116,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
+            $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
 
             return $this->redirectToRoute('login');
         }
@@ -154,7 +154,7 @@ class SecurityController extends Controller
             ]);
             if ($user) {
                 $resetPassword->reset($user);
-                $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, 'Un mail de réinitialisation a été envoyé à cette adresse mail');
+                $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Un mail de réinitialisation a été envoyé à cette adresse mail');
 
                 return $this->redirectToRoute('login');
             }
@@ -200,11 +200,11 @@ class SecurityController extends Controller
                 $event = new GenericEvent($user);
                 $eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
                 $em->flush();
-                $flashMessage->createMessage($request, $flashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
+                $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
 
                 return $this->redirectToRoute('login');
             }
-            $flashMessage->createMessage($request, $flashMessage::ERROR_MESSAGE, 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
+            $flashMessage->createMessage($request, FlashMessage::ERROR_MESSAGE, 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
         }
 
         return $this->render('blog/security/password/password_reset_new.html.twig', [
