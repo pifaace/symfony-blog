@@ -26,22 +26,6 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $username;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="content", type="string", length=255)
      * @Assert\NotBlank()
      */
@@ -61,6 +45,12 @@ class Comment
     private $article;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $user;
+
+    /**
      * Get id.
      *
      * @return int
@@ -68,54 +58,6 @@ class Comment
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set username.
-     *
-     * @param string $username
-     *
-     * @return Comment
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username.
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email
-     *
-     * @return Comment
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**
@@ -184,5 +126,21 @@ class Comment
     public function getArticle()
     {
         return $this->article;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
     }
 }
