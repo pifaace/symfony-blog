@@ -27,7 +27,9 @@ class UserRepository extends ServiceEntityRepository
 
     /**
      * @param $providerId
+     *
      * @return mixed
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getByProviderId($providerId)

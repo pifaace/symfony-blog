@@ -68,7 +68,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *  B) For an API token authentication system, you return a 401 response
      *      return new Response('Auth header required', 401);
      *
-     * @param Request                 $request The request that resulted in an AuthenticationException
+     * @param Request                 $request       The request that resulted in an AuthenticationException
      * @param AuthenticationException $authException The exception that started the authentication process
      */
     public function start(Request $request, AuthenticationException $authException = null)
@@ -115,7 +115,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
     public function getCredentials(Request $request)
     {
         $code = $request->query->get('code');
-        $uri = 'https://github.com/login/oauth/access_token?client_id=' . getenv('github_client_id') . '&client_secret=' . getenv('github_secret_id') . '&code=' . $code;
+        $uri = 'https://github.com/login/oauth/access_token?client_id='.getenv('github_client_id').'&client_secret='.getenv('github_secret_id').'&code='.$code;
         $response = $this->client->post($uri);
 
         $jsonResponse = $response->getBody()->getContents();
@@ -123,7 +123,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
         $token = json_decode($jsonResponse, true);
 
         if (isset($token['error'])) {
-            throw new BadCredentialsException("No access_token returned by Github", 401);
+            throw new BadCredentialsException('No access_token returned by Github', 401);
         }
 
         return $token;
@@ -143,15 +143,16 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      * @throws AuthenticationException
      *
      * @return UserInterface|null
+     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $response = $this->client->get('https://api.github.com/user?access_token=' . $credentials['access_token']);
+        $response = $this->client->get('https://api.github.com/user?access_token='.$credentials['access_token']);
         $userDatas = json_decode($response->getBody()->getContents(), true);
 
         if (null === $userDatas['email']) {
-            throw new AuthenticationException("Your account has no email, please fill in it", 401);
+            throw new AuthenticationException('Your account has no email, please fill in it', 401);
         }
 
         $user = $this->userRepo->getByProviderId($userDatas['id']);
@@ -161,17 +162,17 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
         }
 
         if ($this->userRepo->findBy(['username' => $userDatas['login']])) {
-            throw new AuthenticationException("Your username from Github is already used on this app");
+            throw new AuthenticationException('Your username from Github is already used on this app');
         }
 
         if ($this->userRepo->findBy(['email' => $userDatas['email']])) {
-            throw new AuthenticationException("Your email from Github is already used on this app");
+            throw new AuthenticationException('Your email from Github is already used on this app');
         }
 
         $user = new User();
         $user->setUsername($userDatas['login']);
         $user->setEmail($userDatas['email']);
-        $user->setProviderId((int)$userDatas['id']);
+        $user->setProviderId((int) $userDatas['id']);
         $user->setRole(['ROLE_USER']);
 
         $this->em->persist($user);

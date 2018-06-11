@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Comment;
-use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Services\Paginator;

@@ -11,11 +11,8 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Services\FlashMessage;
 use App\Services\ResetPassword;
-use EightPoints\Bundle\GuzzleBundle\Events\GuzzleEventListenerInterface;
-use GuzzleHttp\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\GuardAuthenticationFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Form\FormError;
@@ -75,13 +72,12 @@ class SecurityController extends Controller
      */
     public function loginFromGithub()
     {
-        return new RedirectResponse('https://github.com/login/oauth/authorize?scope=user:email&client_id=' . getenv('github_client_id'));
+        return new RedirectResponse('https://github.com/login/oauth/authorize?scope=user:email&client_id='.getenv('github_client_id'));
     }
 
     /**
      * @Route("/login/github/callback", name="login_github_callback")
      * @Method("GET")
-     *
      */
     public function loginFromGithubCallback()
     {
