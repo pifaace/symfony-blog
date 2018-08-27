@@ -25,7 +25,7 @@ class ArticleRepository extends ServiceEntityRepository
      *
      * @return Paginator
      */
-    public function paginator($page, int $maxResults)
+    public function paginator($page, int $maxResults): Paginator
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -34,10 +34,9 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults($maxResults)
             ->orderBy('p.createAt', 'DESC');
 
-        $paginator = new Paginator($qb);
-
-        return $paginator;
+        return new Paginator($qb);
     }
+
 
     public function getArticlesWithComment()
     {

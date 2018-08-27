@@ -28,11 +28,11 @@ class UserActionSubscriber implements EventSubscriber
 
     public function postPersist(LifecycleEventArgs $args): void
     {
-        $this->logger->userAction(get_class($args->getObject()), 'created');
+        $this->logger->userAction(\get_class($args->getObject()), 'created');
     }
 
     public function postUpdate(LifecycleEventArgs $args): void
     {
-        $this->logger->userAction(get_class($args->getObject()), 'updated');
+        $this->logger->userAction(\get_class($args->getObject()), 'updated');
     }
 }

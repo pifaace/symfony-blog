@@ -146,7 +146,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         $response = $this->client->get('https://api.github.com/user?access_token='.$credentials['access_token']);
         $userDatas = json_decode($response->getBody()->getContents(), true);
@@ -190,14 +190,11 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed         $credentials
+     * @param               $credentials
      * @param UserInterface $user
-     *
      * @return bool
-     *
-     * @throws AuthenticationException
      */
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return true;
     }
@@ -216,7 +213,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response|null
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $this->flashMessage->createMessage($request, $this->flashMessage::ERROR_MESSAGE, $exception->getMessage());
 
@@ -238,7 +235,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response|null
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
         $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Vous êtes maintenant connecté');
 
@@ -259,7 +256,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * @return bool
      */
-    public function supportsRememberMe()
+    public function supportsRememberMe(): bool
     {
         // TODO: Implement supportsRememberMe() method.
     }

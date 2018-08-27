@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FlashMessage
 {
-    const INFO_MESSAGE = 'info';
-    const ERROR_MESSAGE = 'error';
+    public const INFO_MESSAGE = 'info';
+    public const ERROR_MESSAGE = 'error';
 
     /**
      * Service to generate a flashmessage depends on type.
@@ -18,7 +18,7 @@ class FlashMessage
      *
      * @return bool
      */
-    public function createMessage(Request $request, string $type, string $message)
+    public function createMessage(Request $request, string $type, string $message): bool
     {
         if (!$request instanceof Request) {
             return false;

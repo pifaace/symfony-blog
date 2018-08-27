@@ -18,16 +18,12 @@ class Paginator
 
     public function getItemList($repository, $page)
     {
-        $items = $repository->paginator($page, $this->itemPerPage);
-
-        return $items;
+        return $repository->paginator($page, $this->itemPerPage);
     }
 
-    public function countPage($items)
+    public function countPage($items): int
     {
-        $nbPage = ceil(count($items) / $this->itemPerPage);
-
-        return $nbPage;
+        return ceil(\count($items) / $this->itemPerPage);
     }
 
     public function getPage()

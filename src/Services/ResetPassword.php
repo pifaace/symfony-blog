@@ -56,7 +56,7 @@ class ResetPassword
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function reset($user)
+    public function reset($user): void
     {
         $this->addToken($user);
         $this->sendResetPasswordEmail($user, $this->token);
@@ -67,7 +67,7 @@ class ResetPassword
      *
      * @param $user
      */
-    private function addToken($user)
+    private function addToken($user): void
     {
         $this->token = $this->generateToken();
         $user->setResetPasswordToken($this->token);
@@ -82,7 +82,7 @@ class ResetPassword
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    private function sendResetPasswordEmail($user, $token)
+    private function sendResetPasswordEmail($user, $token): void
     {
         $message = (new \Swift_Message('Demande reinitialisation de mot de passe'))
             ->setFrom('no-remply@symfony-blog.com')
@@ -101,7 +101,7 @@ class ResetPassword
     /**
      * @return string
      */
-    private function generateToken()
+    private function generateToken(): string
     {
         return $this->generator->generateToken();
     }

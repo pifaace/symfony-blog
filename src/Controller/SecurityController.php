@@ -29,15 +29,26 @@ class SecurityController extends Controller
      * @var AuthenticationUtils
      */
     private $authenticationUtils;
+
     /**
      * @var AuthorizationCheckerInterface
      */
     private $checker;
 
-    public function __construct(AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $checker)
+    /**
+     * @var FlashMessage
+     */
+    private $flashMessage;
+
+    public function __construct(
+        AuthenticationUtils $authenticationUtils,
+        AuthorizationCheckerInterface $checker,
+        FlashMessage $flashMessage
+    )
     {
         $this->authenticationUtils = $authenticationUtils;
         $this->checker = $checker;
+        $this->flashMessage = $flashMessage;
     }
 
     /**
@@ -69,7 +80,9 @@ class SecurityController extends Controller
      */
     public function loginFromGithub(): RedirectResponse
     {
-        return new RedirectResponse('https://github.com/login/oauth/authorize?scope=user:email&client_id='.getenv('github_client_id'));
+        return new RedirectResponse(
+            'https://github.com/login/oauth/authorize?scope=user:email&client_id=' . getenv('github_client_id')
+        );
     }
 
     /**
@@ -86,12 +99,11 @@ class SecurityController extends Controller
      *
      * @Route("/registration", name="registration", methods={"GET", "POST"})
      *
-     * @param Request      $request
-     * @param FlashMessage $flashMessage
+     * @param Request $request
      *
      * @return Response
      */
-    public function registration(Request $request, FlashMessage $flashMessage): Response
+    public function registration(Request $request): Response
     {
         if ($this->isLogin()) {
             return $this->redirectToRoute('homepage');
@@ -107,7 +119,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
+            $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
 
             return $this->redirectToRoute('login');
         }
@@ -125,7 +137,6 @@ class SecurityController extends Controller
      * @param Request        $request
      * @param UserRepository $userRepository
      * @param ResetPassword  $resetPassword
-     * @param FlashMessage   $flashMessage
      *
      * @return Response
      *
@@ -133,7 +144,7 @@ class SecurityController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function passwordResetRequest(Request $request, UserRepository $userRepository, ResetPassword $resetPassword, FlashMessage $flashMessage): Response
+    public function passwordResetRequest(Request $request, UserRepository $userRepository, ResetPassword $resetPassword): Response
     {
         $form = $this->createForm(PasswordResetRequestType::class);
 
@@ -144,7 +155,7 @@ class SecurityController extends Controller
             ]);
             if ($user) {
                 $resetPassword->reset($user);
-                $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Un mail de réinitialisation a été envoyé à cette adresse mail');
+                $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Un mail de réinitialisation a été envoyé à cette adresse mail');
 
                 return $this->redirectToRoute('login');
             }
@@ -164,18 +175,17 @@ class SecurityController extends Controller
      *
      * @param Request                      $request
      * @param UserRepository               $userRepository
-     * @param FlashMessage                 $flashMessage
      * @param UserPasswordEncoderInterface $encoder
      * @param EventDispatcherInterface     $eventDispatcher
      *
      * @return Response
      */
-    public function passwordResetNew(Request $request, UserRepository $userRepository, FlashMessage $flashMessage, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher): Response
+    public function passwordResetNew(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher): Response
     {
         $token = $request->query->get('resetPasswordToken');
         $user = $userRepository->getByValidToken($token);
 
-        if (is_null($token) || empty($token) || is_null($user)) {
+        if (null === $token || empty($token) || null === $user) {
             return $this->redirectToRoute('login');
         }
 
@@ -189,11 +199,11 @@ class SecurityController extends Controller
                 $event = new GenericEvent($user);
                 $eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
                 $em->flush();
-                $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
+                $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
 
                 return $this->redirectToRoute('login');
             }
-            $flashMessage->createMessage($request, FlashMessage::ERROR_MESSAGE, 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
+            $this->flashMessage->createMessage($request, FlashMessage::ERROR_MESSAGE, 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
         }
 
         return $this->render('blog/security/password/password_reset_new.html.twig', [

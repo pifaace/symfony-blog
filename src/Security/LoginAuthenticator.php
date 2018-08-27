@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\User;
 use App\Services\FlashMessage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,7 +113,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return UserInterface|null
      */
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
         return $userProvider->loadUserByUsername($credentials['username']);
     }
@@ -131,7 +132,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return bool
      */
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         $encoded = $this->encoderFactory->getEncoder($user);
         if (!$encoded->isPasswordValid($user->getPassword(), $credentials['password'], $user->getSalt())) {
@@ -155,7 +156,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response|null
      */
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         $request->getSession()->set(Security::LAST_USERNAME, $request->request->get('login')['username']);
@@ -178,7 +179,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response|null
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
         $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Vous êtes maintenant connecté');
 
@@ -199,7 +200,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return bool
      */
-    public function supportsRememberMe()
+    public function supportsRememberMe(): bool
     {
         return false;
     }

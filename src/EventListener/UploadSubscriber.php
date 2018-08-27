@@ -30,46 +30,46 @@ class UploadSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         $this->preUploadFile($entity);
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Image && null != $entity->getFile()) {
+        if ($entity instanceof Image && null !== $entity->getFile()) {
             $this->uploadFile($entity->getFile(), $entity->getAlt());
         }
     }
 
-    public function postRemove(LifecycleEventArgs $args)
+    public function postRemove(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Article && null != $entity->getImage()) {
+        if ($entity instanceof Article && null !== $entity->getImage()) {
             $this->removeFile($entity->getImage()->getAlt());
         } elseif ($entity instanceof Image) {
             $this->removeFile($entity->getAlt());
         }
     }
 
-    public function preUploadFile($entity)
+    public function preUploadFile($entity): void
     {
-        if ($entity instanceof Image && null != $entity->getFile()) {
+        if ($entity instanceof Image && null !== $entity->getFile()) {
             $alt = $this->uploadFile->preUploadImage($entity->getFile());
             $entity->setAlt($alt);
         }
     }
 
-    public function uploadFile($file, $imageName)
+    public function uploadFile($file, $imageName): void
     {
         if ($file instanceof UploadedFile) {
             $this->uploadFile->uploaderImage($file, $imageName);
         }
     }
 
-    public function removeFile($imageName)
+    public function removeFile($imageName): void
     {
         $this->uploadFile->removeImage($imageName);
     }

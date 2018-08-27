@@ -15,19 +15,19 @@ class Uploader
         $this->targetDir = $targetDir;
     }
 
-    public function hasNewImage(Image $image)
+    public function hasNewImage(Image $image): bool
     {
-        if (null == !$image->getFile()) {
+        if (null === !$image->getFile()) {
             return true;
         }
 
         return false;
     }
 
-    public function noImage(Image $image)
+    public function noImage(Image $image): bool
     {
         if ($image instanceof Image) {
-            if (null != $image->getId() || null != $image->getFile()) {
+            if (null !== $image->getId() || null !== $image->getFile()) {
                 return false;
             }
         }
@@ -35,7 +35,7 @@ class Uploader
         return true;
     }
 
-    public function isDeleteImageChecked($formData)
+    public function isDeleteImageChecked($formData): bool
     {
         if ($formData->getImage()->isDeletedImage()) {
             return true;
@@ -44,28 +44,26 @@ class Uploader
         return false;
     }
 
-    public function preUploadImage(UploadedFile $file)
+    public function preUploadImage(UploadedFile $file): string
     {
-        $alt = md5(uniqid()).'.'.$file->guessExtension();
-
-        return $alt;
+        return md5(uniqid('', true)) . '.' . $file->guessExtension();
     }
 
-    public function uploaderImage(UploadedFile $file, $imageName)
+    public function uploaderImage(UploadedFile $file, $imageName): void
     {
         $file->move($this->getTargetDir(), $imageName);
     }
 
-    public function removeImage($imageName)
+    public function removeImage($imageName): void
     {
         $fs = new Filesystem();
 
-        if ($fs->exists($this->getTargetDir().$imageName)) {
-            unlink($this->getTargetDir().$imageName);
+        if ($fs->exists($this->getTargetDir() . $imageName)) {
+            unlink($this->getTargetDir() . $imageName);
         }
     }
 
-    public function getTargetDir()
+    public function getTargetDir(): string
     {
         return $this->targetDir;
     }
