@@ -3,29 +3,28 @@
 {% block body %}
     {% set titlePage = 'LES ARTICLES' %}
     <div id="article-list" class="section">
-        <div class="container">
-
-            <div class="columns">
-                <div class="column">
-                    <div class="title-tab">
-                        <h2 class="title is-3">{{ titlePage }}</h2>
-                    </div>
+        <div class="columns">
+            <div class="column">
+                <div class="title-tab">
+                    <h2 class="title is-3">{{ titlePage }}</h2>
                 </div>
             </div>
+        </div>
 
-            {% include 'flashMessage/flashMessage.html.twig' %}
+        {% include 'flashMessage/flashMessage.html.twig' %}
 
-            <hr>
+        <hr>
 
-            <div class="columns">
-                <div class="column">
-                    <a class="button is-primary" href="{{ path('article_new') }}">Nouvel article</a>
-                </div>
+        <div class="columns">
+            <div class="column">
+                <a class="button is-primary" href="{{ path('article_new') }}">Nouvel article</a>
             </div>
+        </div>
 
-            <div class="columns">
-                <div class="column">
-                    {% if articles is not empty %}
+        <div class="columns">
+            <div class="column">
+                {% if articles is not empty %}
+                    <div class="table-container">
                         <table class="table">
                             <thead>
                             <th><abbr title="Id">id</abbr></th>
@@ -59,12 +58,11 @@
                             {% endfor %}
                             </tbody>
                         </table>
-                    {% else %}
-                        <i>Pas d'article</i>
-                    {% endif %}
-                </div>
+                    </div>
+                {% else %}
+                    <i>Pas d'article</i>
+                {% endif %}
             </div>
         </div>
-
     </div>
 {% endblock %}

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block wrapper %}
+    {{ parent() }}
     <div class="wrapper">
         {% include 'backoffice/sidebar/sidebar.html.twig' %}
 
         <div class="main-panel">
-            {{ parent() }}
                 {% block body %}{% endblock %}
         </div>
     </div>

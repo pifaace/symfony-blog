@@ -1,4 +1,10 @@
 .main-panel {
   float: right;
   width: calc(100% - 280px);
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
+
+  @media screen and (max-width: 1024px){
+    width: calc(100% - 80px);
+  }
 }
