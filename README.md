@@ -18,6 +18,7 @@ Also, to improve this project, I'm using some tools like :
 * [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/API.md)
 * [Font-awesome](http://fontawesome.io/)
 * [Browserify](http://browserify.org/)
+* [Github OAuth](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 
 
 ## Getting Started
@@ -81,6 +82,16 @@ You can use mailtrap for your developments, so your MAILER_URL should look like 
 MAILER_URL=smtp://smtp.mailtrap.io:25?encryption=&auth_mode=cram-md5&username=your_username&password=your_password
 ```
 
+### Github OAuth
+For registration with Github, you should register your own OAuth app, follow 
+this [link](https://developer.github.com/apps/building-github-apps/creating-a-github-app/) for a quick tutorial.
+The authorization callback URL should be :
+```
+http://localhost:8000/login/github/callback
+```
+When your app created, you should get a __client ID__ and __client secret__, 
+remplace these informations in the .env file in the right section.
+and that's it !
 
 ### Running tests
 ```

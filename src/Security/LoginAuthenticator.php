@@ -50,7 +50,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return Response
      */
-    public function start(Request $request, AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException $authException = null): Response
     {
         return new RedirectResponse('/login');
     }
@@ -64,7 +64,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      *
      * @return bool
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return 'login' === $request->attributes->get('_route') && $request->isMethod('POST');
     }

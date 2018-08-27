@@ -70,7 +70,7 @@ class SecurityController extends Controller
      *
      * @return RedirectResponse
      */
-    public function loginFromGithub()
+    public function loginFromGithub(): RedirectResponse
     {
         return new RedirectResponse('https://github.com/login/oauth/authorize?scope=user:email&client_id='.getenv('github_client_id'));
     }

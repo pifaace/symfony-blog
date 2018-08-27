@@ -84,7 +84,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * @return bool
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return 'login_github_callback' === $request->attributes->get('_route');
     }
