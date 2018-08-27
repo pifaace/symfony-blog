@@ -18,7 +18,7 @@ class EncoderUserPassword
         $this->encoder = $encoder;
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $user = $args->getEntity();
         if (!$user instanceof User) {

@@ -13,13 +13,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
-    private $passwordEncoder;
-
     private $faker;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct()
     {
-        $this->passwordEncoder = $encoder;
         $this->faker = Faker\Factory::create();
     }
 
@@ -28,14 +25,14 @@ class AppFixtures extends Fixture
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadUsers($manager);
         $this->loadTags($manager);
         $this->loadArticles($manager);
     }
 
-    public function loadUsers(ObjectManager $manager)
+    public function loadUsers(ObjectManager $manager): void
     {
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
@@ -49,7 +46,7 @@ class AppFixtures extends Fixture
         $this->addReference('admin-user', $userAdmin);
     }
 
-    public function loadTags(ObjectManager $manager)
+    public function loadTags(ObjectManager $manager): void
     {
         foreach ($this->getTagsData() as $index => $name) {
             $tag = new Tag();
@@ -61,7 +58,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    public function loadArticles(ObjectManager $manager)
+    public function loadArticles(ObjectManager $manager): void
     {
         foreach ($this->getArticleData() as [$title, $content, $author, $tags]) {
             $article = new Article();
@@ -73,8 +70,7 @@ class AppFixtures extends Fixture
 
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();
-                $comment->setUsername($this->faker->name);
-                $comment->setEmail($this->faker->email);
+                $comment->setUser($this->getReference('admin-user'));
                 $comment->setContent($this->faker->text());
                 $comment->setCreateAt();
 
@@ -120,7 +116,7 @@ class AppFixtures extends Fixture
         ];
     }
 
-    private function getRandomTags()
+    private function getRandomTags(): array
     {
         $tags = $this->getTagsData();
         shuffle($tags);
