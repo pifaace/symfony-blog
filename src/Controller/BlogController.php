@@ -8,7 +8,6 @@ use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Services\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
-     * @Method("GET")
+     * @Route("/", name="homepage", methods={"GET"})
      * @Cache(smaxage="5")
      *
      * @param Paginator         $paginator
@@ -41,8 +39,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("article/{slug}", name="article_show")
-     * @Method({"GET", "POST"})
+     * @Route("article/{slug}", name="article_show", methods={"GET", "POST"})
      *
      * @param Article $article
      *
@@ -56,8 +53,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("article/{slug}/comment/new", name="comment_new")
-     * @Method("POST")
+     * @Route("article/{slug}/comment/new", name="comment_new", methods={"POST"})
      *
      * @param Request $request
      * @param Article $article

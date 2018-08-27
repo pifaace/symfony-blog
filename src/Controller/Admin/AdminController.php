@@ -2,15 +2,13 @@
 
 namespace App\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin/dashboard", name="admin-dashboard")
-     * @Method("GET")
+     * @Route("/admin/dashboard", name="admin-dashboard", methods={"GET"})
      */
     public function dashBoard()
     {
@@ -18,8 +16,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/admin/articles", name="admin-articles")
-     * @Method("GET")
+     * @Route("/admin/articles", name="admin-articles", methods={"GET"})
      */
     public function listArticle()
     {

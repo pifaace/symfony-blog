@@ -11,7 +11,7 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Services\FlashMessage;
 use App\Services\ResetPassword;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -19,7 +19,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -42,8 +41,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login", name="login")
-     * @Method({"GET", "POST"})
+     * @Route("/login", name="login", methods={"GET", "POST"})
      *
      * @return Response
      */
@@ -65,8 +63,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login/github", name="login_github")
-     * @Method("GET")
+     * @Route("/login/github", name="login_github", methods={"GET"})
      *
      * @return RedirectResponse
      */
@@ -76,10 +73,9 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login/github/callback", name="login_github_callback")
-     * @Method("GET")
+     * @Route("/login/github/callback", name="login_github_callback", methods={"GET"})
      */
-    public function loginFromGithubCallback()
+    public function loginFromGithubCallback(): Response
     {
         return $this->redirectToRoute('homepage');
     }
@@ -88,8 +84,7 @@ class SecurityController extends Controller
      * User password is encoded in EventListener/EncoderUserPassword class
      * thanks to Doctrine listener 'prePersist'.
      *
-     * @Route("/registration", name="registration")
-     * @Method({"GET", "POST"})
+     * @Route("/registration", name="registration", methods={"GET", "POST"})
      *
      * @param Request      $request
      * @param FlashMessage $flashMessage
@@ -125,8 +120,7 @@ class SecurityController extends Controller
     /**
      * Form to send a password reset request.
      *
-     * @Route("/password_reset/request", name="password_reset_request")
-     * @Method({"GET", "POST"})
+     * @Route("/password_reset/request", name="password_reset_request", methods={"GET", "POST"})
      *
      * @param Request        $request
      * @param UserRepository $userRepository
@@ -166,8 +160,7 @@ class SecurityController extends Controller
     /**
      * Form to create the new password.
      *
-     * @Route("/password_reset/new", name="password_reset_new")
-     * @Method({"GET", "POST"})
+     * @Route("/password_reset/new", name="password_reset_new", methods={"GET", "POST"})
      *
      * @param Request                      $request
      * @param UserRepository               $userRepository
@@ -208,12 +201,12 @@ class SecurityController extends Controller
         ]);
     }
 
-    private function isLogin()
+    private function isLogin(): bool
     {
         return $this->checker->isGranted('IS_AUTHENTICATED_FULLY');
     }
 
-    private function isTokenNotExpired(User $user)
+    private function isTokenNotExpired(User $user): bool
     {
         return $user->getTokenExpirationDate() > new \DateTime();
     }
