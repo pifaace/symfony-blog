@@ -11,7 +11,7 @@ services:
       - /application/var/sessions/
 
   db:
-    image: mysql
+    image: mysql:5.7
     ports:
       - '3306:3306'
     environment:
@@ -21,7 +21,7 @@ services:
       - ./tmp/db:/var/lib/mysql
 
   db-test:
-    image: mysql
+    image: mysql:5.7
     ports:
       - '3307:3306'
     environment:
