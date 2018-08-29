@@ -76,7 +76,7 @@ class ArticleController extends Controller
             if ($fileUploader->noImage($article->getImage())) {
                 $article->setImage(null);
             } elseif ($fileUploader->hasNewImage($article->getImage())) {
-                if (!null == $image) {
+                if (null !== $image) {
                     $em->remove($image);
                 }
 

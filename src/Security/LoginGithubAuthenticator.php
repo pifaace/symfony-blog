@@ -192,6 +192,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * @param               $credentials
      * @param UserInterface $user
+     *
      * @return bool
      */
     public function checkCredentials($credentials, UserInterface $user): bool

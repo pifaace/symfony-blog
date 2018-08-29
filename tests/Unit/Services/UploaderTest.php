@@ -37,6 +37,6 @@ class UploaderTest extends TestCase
      */
     private function mockedFile($fileName)
     {
-        return new UploadedFile(__FILE__, $fileName, null, null, null, true);
+        return new UploadedFile(__FILE__, $fileName);
     }
 }

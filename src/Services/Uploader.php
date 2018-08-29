@@ -17,7 +17,7 @@ class Uploader
 
     public function hasNewImage(Image $image): bool
     {
-        if (null === !$image->getFile()) {
+        if (null !== $image->getFile()) {
             return true;
         }
 
@@ -46,7 +46,7 @@ class Uploader
 
     public function preUploadImage(UploadedFile $file): string
     {
-        return md5(uniqid('', true)) . '.' . $file->guessExtension();
+        return md5(uniqid('', true)).'.'.$file->guessExtension();
     }
 
     public function uploaderImage(UploadedFile $file, $imageName): void
@@ -58,8 +58,8 @@ class Uploader
     {
         $fs = new Filesystem();
 
-        if ($fs->exists($this->getTargetDir() . $imageName)) {
-            unlink($this->getTargetDir() . $imageName);
+        if ($fs->exists($this->getTargetDir().$imageName)) {
+            unlink($this->getTargetDir().$imageName);
         }
     }
 

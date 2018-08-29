@@ -11,7 +11,6 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Services\FlashMessage;
 use App\Services\ResetPassword;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -19,6 +18,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -44,8 +44,7 @@ class SecurityController extends Controller
         AuthenticationUtils $authenticationUtils,
         AuthorizationCheckerInterface $checker,
         FlashMessage $flashMessage
-    )
-    {
+    ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->checker = $checker;
         $this->flashMessage = $flashMessage;
@@ -81,7 +80,7 @@ class SecurityController extends Controller
     public function loginFromGithub(): RedirectResponse
     {
         return new RedirectResponse(
-            'https://github.com/login/oauth/authorize?scope=user:email&client_id=' . getenv('github_client_id')
+            'https://github.com/login/oauth/authorize?scope=user:email&client_id='.getenv('github_client_id')
         );
     }
 

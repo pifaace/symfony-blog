@@ -25,7 +25,7 @@ class AdminController extends Controller
         return $this->render('backoffice/dashboard/dashboard.html.twig', [
             'countArticles' => $article->countArticles(),
             'countComments' => $comment->countComments(),
-            'countUsers'    => $user->countUsers(),
+            'countUsers' => $user->countUsers(),
         ]);
     }
 
