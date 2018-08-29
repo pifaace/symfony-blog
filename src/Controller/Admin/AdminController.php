@@ -38,10 +38,8 @@ class AdminController extends Controller
      */
     public function listArticle(ArticleRepository $articleRepository): Response
     {
-        $articles = $articleRepository->getArticlesWithComment();
-
         return $this->render('backoffice/article/list.html.twig', [
-            'articles' => $articles,
+            'articles' => $articleRepository->getArticlesWithComment(),
         ]);
     }
 }

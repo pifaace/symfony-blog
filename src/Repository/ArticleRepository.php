@@ -40,14 +40,11 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function getArticlesWithComment(): array
     {
-        $qb = $this->createQueryBuilder('a');
-
-        $qb
+        return $this->createQueryBuilder('a')
             ->leftJoin('a.comments', 'c')
             ->addSelect('c')
-            ->orderBy('a.createAt', 'DESC');
-
-        return $qb->getQuery()->getResult();
+            ->orderBy('a.createAt', 'DESC')
+            ->getQuery()->getResult();
     }
 
     public function countArticles()

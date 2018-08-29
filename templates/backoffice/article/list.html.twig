@@ -27,7 +27,6 @@
                     <div class="table-container">
                         <table class="table">
                             <thead>
-                            <th><abbr title="Id">id</abbr></th>
                             <th><abbr title="Titre">Titre</abbr></th>
                             <th><abbr title="Auteur">Auteur</abbr></th>
                             <th><abbr title="Date poste">Date poste</abbr></th>
@@ -38,7 +37,6 @@
                             <tbody>
                             {% for article in articles %}
                                 <tr>
-                                    <th>{{ article.id }}</th>
                                     <td>{{ article.title }}</td>
                                     <td>{{ article.author.username }}</td>
                                     <td>{{ article.createAt|date("d/m/Y") }}</td>
