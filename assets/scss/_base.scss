@@ -1,86 +1,92 @@
 .flex-co {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .flex-1 {
-    flex: 1;
+  flex: 1;
 }
 
 .bg-grey {
-    background-color: $grey-lighter;
+  background-color: $grey-lighter;
 }
 
 .bg-light {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dark-grey-color {
-    color: $grey-dark;
+  color: $grey-dark;
 }
 
 .height-max {
-    height: 100%;
+  height: 100%;
 }
 
 .min-h-screen {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .mt-30 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .button:disabled {
-    cursor: default;
+  cursor: default;
 }
 
 .security-container {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
 
-    .border-form {
-        width: 350px;
-        display: inline-block;
-        background: $white;
-        border: 0.5px solid #D9D9D9;
-        border-radius: 7px;
-        padding: 25px;
-    }
+  .border-form {
+    width: 350px;
+    display: inline-block;
+    background: $white;
+    border: 0.5px solid #D9D9D9;
+    border-radius: 7px;
+    padding: 25px;
+  }
 }
 
 .vertical-separator {
-    border-right: 1px solid $grey-light;
+  border-right: 1px solid $grey-light;
 }
 
 /** Override bulma class **/
 hr {
-    background-color: $grey-light;
+  background-color: $grey-light;
 }
 
 .columns.is-gapless:not(:last-child) {
-    height: 100%;
-    margin-bottom: 0;
+  height: 100%;
+  margin-bottom: 0;
 }
 
 .navbar-brand {
-    .navbar-item {
-        font-size: 18px;
-    }
+  .navbar-item {
+    font-size: 18px;
+  }
 }
 
 a.navbar-item:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .input-focus {
-    border-color: $blue-light;
-    outline: none;
+  border-color: $blue-light;
+  outline: none;
 }
 
 .footer {
-    background-color: $grey-footer;
+  background-color: $grey-footer;
 }
+
+/** Font awesome size icons extension **/
+.fa-8x {
+  font-size: 8em;
+}
+

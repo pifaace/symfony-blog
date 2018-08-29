@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +13,20 @@ class AdminController extends Controller
 {
     /**
      * @Route("/admin/dashboard", name="admin-dashboard", methods={"GET"})
+     *
+     * @param ArticleRepository $article
+     * @param CommentRepository $comment
+     * @param UserRepository    $user
+     *
+     * @return Response
      */
-    public function dashBoard(): Response
+    public function dashBoard(ArticleRepository $article, CommentRepository $comment, UserRepository $user): Response
     {
-        return $this->render('backoffice/dashboard/dashboard.html.twig');
+        return $this->render('backoffice/dashboard/dashboard.html.twig', [
+            'countArticles' => $article->countArticles(),
+            'countComments' => $comment->countComments(),
+            'countUsers'    => $user->countUsers(),
+        ]);
     }
 
     /**

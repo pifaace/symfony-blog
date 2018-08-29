@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -37,8 +38,7 @@ class ArticleRepository extends ServiceEntityRepository
         return new Paginator($qb);
     }
 
-
-    public function getArticlesWithComment()
+    public function getArticlesWithComment(): array
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -48,5 +48,13 @@ class ArticleRepository extends ServiceEntityRepository
             ->orderBy('a.createAt', 'DESC');
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function countArticles()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
