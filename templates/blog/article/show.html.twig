@@ -4,22 +4,61 @@
     {% if article.image is not null %}
         <img src="{{ asset(image_article_coverage_display ~ article.image.alt) }}" alt="{{ article.image.alt }}">
     {% endif %}
-    <div class="title-tab">
-        <h1 class="title is-1">{{ article.title }}</h1>
+
+    <h1 class="title is-1 has-text-grey-dark has-text-weight-bold">{{ article.title }}</h1>
+    <h2 class="subtitle is-6">
+        <ul class="article-infos">
+            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ article.createAt|date("d/m/Y") }}</li>
+            <li><i class="fa fa-user" aria-hidden="true"></i> par {{ article.author.username|capitalize }}</li>
+            <li><i class="fa fa-commenting" aria-hidden="true"></i> {{ article.comments.count }}
+                {{ article.comments.count <= 1 ? 'commentaire' : 'commentaires' }}</li>
+        </ul>
+
+
+    </h2>
+
+    <div class="article-content">
+        <p>{{ article.content }}</p>
     </div>
-    <p>{{ article.content }}</p>
+
     <hr>
-    <h3 class="title is-3">{{ article.comments|length }} {{ article.comments|length <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
-    {% for comment in article.comments %}
-        <div class="comment">
-            <strong>{{ comment.user.username }}</strong>
-            <p>{{ comment.content }}</p>
-        </div>
+    <h3 class="title is-4">{{ article.comments|length }} {{ article.comments|length <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
+
+
+    {% for comment in article.comments|sort|reverse %}
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-64x64">
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ comment.user.username }}</strong>
+                        <br>
+                        {{ comment.content }}
+                    </p>
+                </div>
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a class="level-item">
+                            <span class="icon is-small">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <a class="level-item">
+                            <small><a>Reply</a></small>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </article>
+        <hr class="comments-separator">
     {% endfor %}
 
     <div class="columns">
-        <div class="column is-two-fifths">
-            <h3 class="title is-3">Poster un commentaire</h3>
+        <div class="column">
             {% if is_granted('ROLE_USER') %}
                 {{ render(controller('App\\Controller\\BlogController::commentForm', {'article': article.id})) }}
             {% else %}

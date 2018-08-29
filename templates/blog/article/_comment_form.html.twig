@@ -1,13 +1,25 @@
 {{ form_start(form, {'action': path('comment_new', {'slug': article.slug}), 'attr': {'id': 'comment-form'} }) }}
-        {{ form_errors(form) }}
+{{ form_errors(form) }}
+<article class="media">
+    <figure class="media-left">
+        <p class="image is-64x64">
+            <img src="https://bulma.io/images/placeholders/128x128.png">
+        </p>
+    </figure>
+    <div class="media-content">
 
-<div class="field">
-    {{ form_label(form.content, 'Commentaire', {'label_attr': {'class': 'label'}}) }}
-    <div class="control">
-        {{ form_widget(form.content, {'attr': {'class': 'textarea'}}) }}
+        <div class="field">
+            {{ form_label(form.content, 'Commentaire', {'label_attr': {'class': 'label'}}) }}
+            <p class="control">
+                {{ form_widget(form.content, {'attr': {'class': 'textarea', 'placeholder': 'Ajouter un commentaire publique..'}}) }}
+            </p>
+        </div>
+        <div class="field">
+            <p class="control">
+                {{ form_rest(form) }}
+                <button type="submit" class="button is-primary">Poster un commentaire</button>
+            </p>
+        </div>
     </div>
-</div>
-
-{{ form_rest(form) }}
-<button type="submit" class="button is-primary">Poster</button>
+</article>
 {{ form_end(form) }}

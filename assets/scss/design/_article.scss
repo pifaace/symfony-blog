@@ -1,3 +1,8 @@
-.comment {
-  margin-bottom: 10px;
+ul.article-infos li {
+  display: inline-block;
+  @extend .mr-10;
+}
+
+.comments-separator {
+  height: 1px;
 }
