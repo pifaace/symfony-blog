@@ -68,7 +68,7 @@ class AppFixtures extends Fixture
             $article->setAuthor($author);
             $article->addTag(...$tags);
 
-            foreach (range(1, 5) as $i) {
+            foreach (range(1, 10) as $i) {
                 $comment = new Comment();
                 $comment->setUser($this->getReference('admin-user'));
                 $comment->setContent($this->faker->text());
@@ -86,9 +86,9 @@ class AppFixtures extends Fixture
     {
         $post = [];
 
-        foreach (range(1, 1) as $item => $value) {
+        foreach (range(1, 10) as $item => $value) {
             $post[] = [
-                'An article test for my blog',
+                $this->getTitle(),
                 $this->getContent(),
                 $this->getReference('admin-user'),
                 $this->getRandomTags(),
@@ -96,6 +96,11 @@ class AppFixtures extends Fixture
         }
 
         return $post;
+    }
+
+    private function getTitle(): string
+    {
+        return $this->faker->text($maxNbChars = 20);
     }
 
     private function getContent(): string
