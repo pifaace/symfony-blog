@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tag.
- *
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  */
@@ -28,41 +26,24 @@ class Tag
      */
     private $name;
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Tag
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

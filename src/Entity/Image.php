@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Image.
- *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
  */
@@ -31,6 +29,8 @@ class Image
     private $alt;
 
     /**
+     * @var UploadedFile
+     *
      * @Assert\Image(
      *     mimeTypes={"image/png", "image/jpg"},
      *     mimeTypesMessage="Le fichier n'est pas une image valide"
@@ -43,52 +43,31 @@ class Image
      */
     private $deletedImage;
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFile()
+    public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
-    /**
-     * @param mixed $file
-     */
-    public function setFile(UploadedFile $file = null)
+    public function setFile(UploadedFile $file = null): self
     {
         $this->file = $file;
+
+        return $this;
     }
 
-    /**
-     * Set alt.
-     *
-     * @param string $alt
-     *
-     * @return Image
-     */
-    public function setAlt($alt)
+    public function setAlt(string $alt): self
     {
         $this->alt = $alt;
 
         return $this;
     }
 
-    /**
-     * Get alt.
-     *
-     * @return string
-     */
-    public function getAlt()
+    public function getAlt(): string
     {
         return $this->alt;
     }
@@ -101,10 +80,7 @@ class Image
         return $this->deletedImage;
     }
 
-    /**
-     * @param bool $deletedImage
-     */
-    public function setDeletedImage(bool $deletedImage)
+    public function setDeletedImage(bool $deletedImage): void
     {
         $this->deletedImage = $deletedImage;
     }

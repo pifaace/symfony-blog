@@ -10,8 +10,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User.
- *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
@@ -38,6 +36,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=25, unique=true)
+     *
      * @Assert\NotBlank(
      *     message="L'identifiant est obligatoire"
      * )
@@ -96,23 +95,28 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var array
+     *
      * @ORM\Column(name="role", type="array")
      */
     private $role;
 
     /**
      * @var string
+     *
      * @ORM\Column(name="reset_password_token", type="string", unique=true, nullable=true)
      */
     private $resetPasswordToken;
 
     /**
      * @var \DateTime
+     *
      * @ORM\Column(name="token_expiration_date", type="datetime", nullable=true)
      */
     private $tokenExpirationDate;
 
     /**
+     * @var array
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", cascade={"persist", "remove"})
      */
     private $comments;
@@ -122,80 +126,52 @@ class User implements UserInterface, \Serializable
         $this->comments = new ArrayCollection();
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set username.
-     *
-     * @param string $username
-     */
-    public function setUsername($username): void
+    public function setUsername(string $username): void
     {
         $this->username = $username;
     }
 
-    /**
-     * Get username.
-     */
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    /**
-     * Set password.
-     *
-     * @param string $password
-     */
-    public function setPassword($password): void
+    public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
     }
 
-    /**
-     * Get password.
-     */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * Set email.
-     *
-     * @param string $email
-     */
-    public function setEmail($email): void
+    public function setEmail($email): self
     {
         $this->email = $email;
+
+        return $this;
     }
 
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setRole(array $role): void
+    public function setRole(array $role): self
     {
         $this->role = $role;
+
+        return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getRoles(): array
     {
         $role = $this->role;
@@ -224,9 +200,6 @@ class User implements UserInterface, \Serializable
             $this->password) = unserialize($serialized);
     }
 
-    /**
-     * @return string|null The salt
-     */
     public function getSalt(): ?string
     {
         return null;
@@ -236,64 +209,49 @@ class User implements UserInterface, \Serializable
     {
     }
 
-    /**
-     * @return string
-     */
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
-    /**
-     * @param string $plainPassword
-     */
-    public function setPlainPassword(string $plainPassword): void
+    public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getResetPasswordToken(): ?string
     {
         return $this->resetPasswordToken;
     }
 
-    /**
-     * @param string $resetPasswordToken
-     */
-    public function setResetPasswordToken(?string $resetPasswordToken = null): void
+    public function setResetPasswordToken(?string $resetPasswordToken = null): self
     {
         $this->resetPasswordToken = $resetPasswordToken;
+
+        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getTokenExpirationDate(): \DateTime
     {
         return $this->tokenExpirationDate;
     }
 
-    public function setTokenExpirationDate(): void
+    public function setTokenExpirationDate(): self
     {
         $date = new \DateTime();
         $date->add(new \DateInterval('PT1H'));
         $this->tokenExpirationDate = $date;
+
+        return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getProviderId(): int
     {
         return $this->providerId;
     }
 
-    /**
-     * @param int $providerId
-     */
     public function setProviderId(int $providerId): void
     {
         $this->providerId = $providerId;
@@ -304,9 +262,6 @@ class User implements UserInterface, \Serializable
         return $this->role;
     }
 
-    /**
-     * @return Collection|Comment[]
-     */
     public function getComments(): Collection
     {
         return $this->comments;

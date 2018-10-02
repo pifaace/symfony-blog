@@ -3,14 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * Article.
- *
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -37,6 +35,8 @@ class Article
     private $title;
 
     /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", unique=true)
      */
@@ -60,17 +60,23 @@ class Article
     private $content;
 
     /**
+     * @var string
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
+     * @var array
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", cascade={"persist", "remove"})
      */
     private $comments;
 
     /**
+     * @var Image
+     *
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      * @Assert\Valid
@@ -92,106 +98,63 @@ class Article
         $this->tags = new ArrayCollection();
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set title.
-     *
-     * @param string $title
-     *
-     * @return Article
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): Article
     {
         $this->title = $title;
 
         return $this;
     }
 
-    /**
-     * Get title.
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Set date.
-     *
      * @ORM\PrePersist
      */
-    public function setCreateAt()
+    public function setCreateAt(): self
     {
         $this->createAt = new \DateTime();
+
+        return $this;
     }
 
-    /**
-     * Get date.
-     *
-     * @return \DateTime
-     */
-    public function getCreateAt()
+    public function getCreateAt(): \DateTime
     {
         return $this->createAt;
     }
 
-    /**
-     * Set content.
-     *
-     * @param string $content
-     *
-     * @return Article
-     */
-    public function setContent($content)
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
         return $this;
     }
 
-    /**
-     * Get content.
-     *
-     * @return string
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
+    public function getAuthor(): string
     {
         return $this->author;
     }
 
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author)
+    public function setAuthor(string $author): self
     {
         $this->author = $author;
+
+        return $this;
     }
 
-    /**
-     * Add comment.
-     *
-     * @param Comment $comment
-     */
-    public function addComment(Comment $comment)
+    public function addComment(Comment $comment): void
     {
         $comment->setArticle($this);
         if (!$this->comments->contains($comment)) {
@@ -199,56 +162,29 @@ class Article
         }
     }
 
-    /**
-     * Remove comment.
-     *
-     * @param \App\Entity\Comment $comment
-     */
-    public function removeComment(Comment $comment)
+    public function removeComment(Comment $comment): void
     {
         $this->comments->removeElement($comment);
     }
 
-    /**
-     * Get comments.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getComments()
+    public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    /**
-     * Set image.
-     *
-     * @param Image $image
-     *
-     * @return Article
-     */
-    public function setImage(Image $image = null)
+    public function setImage(Image $image = null): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    /**
-     * Get image.
-     *
-     * @return Image
-     */
-    public function getImage()
+    public function getImage(): Image
     {
         return $this->image;
     }
 
-    /**
-     * Add tag.
-     *
-     * @param Tag[] $tags
-     */
-    public function addTag(Tag ...$tags)
+    public function addTag(Tag ...$tags): void
     {
         foreach ($tags as $tag) {
             if (!$this->tags->contains($tag)) {
@@ -257,30 +193,17 @@ class Article
         }
     }
 
-    /**
-     * Remove tag.
-     *
-     * @param Tag $tag
-     */
-    public function removeTag(Tag $tag)
+    public function removeTag(Tag $tag): void
     {
         $this->tags->removeElement($tag);
     }
 
-    /**
-     * Get tags.
-     *
-     * @return array
-     */
-    public function getTags()
+    public function getTags(): array
     {
         return $this->tags;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }

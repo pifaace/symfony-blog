@@ -6,8 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Comment.
- *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -39,54 +37,39 @@ class Comment
     private $createAt;
 
     /**
+     * @var Article
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $article;
 
     /**
+     * @var User
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set content.
-     *
-     * @param string $content
-     *
-     * @return Comment
-     */
-    public function setContent($content)
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
         return $this;
     }
 
-    /**
-     * Get content.
-     *
-     * @return string
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
     /**
-     * Set createAt.
-     *
      * @ORM\PrePersist()
      */
     public function setCreateAt()
@@ -94,52 +77,29 @@ class Comment
         $this->createAt = new \DateTime();
     }
 
-    /**
-     * Get createAt.
-     *
-     * @return \DateTime
-     */
-    public function getCreateAt()
+    public function getCreateAt(): \DateTime
     {
         return $this->createAt;
     }
 
-    /**
-     * Set article.
-     *
-     * @param Article $article
-     *
-     * @return Comment
-     */
-    public function setArticle(Article $article)
+    public function setArticle(Article $article): self
     {
         $this->article = $article;
 
         return $this;
     }
 
-    /**
-     * Get article.
-     *
-     * @return \App\Entity\Article
-     */
-    public function getArticle()
+    public function getArticle(): Article
     {
         return $this->article;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUser()
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user): void
+    public function setUser(User $user): void
     {
         $this->user = $user;
     }
