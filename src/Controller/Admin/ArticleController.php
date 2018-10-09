@@ -12,19 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Article controller.
- */
 class ArticleController extends Controller
 {
     /**
      * @Route("admin/article/new", name="article_new", methods={"GET", "POST"})
-     *
-     * @param Request      $request
-     * @param FlashMessage $flashMessage
-     * @param Uploader     $fileUploader
-     *
-     * @return Response
      */
     public function new(Request $request, FlashMessage $flashMessage, Uploader $fileUploader): Response
     {
@@ -56,13 +47,6 @@ class ArticleController extends Controller
 
     /**
      * @Route("admin/article/{id}/edit", name="article_edit", methods={"GET", "POST"})
-     *
-     * @param Request      $request
-     * @param int          $id
-     * @param FlashMessage $flashMessage
-     * @param Uploader     $fileUploader
-     *
-     * @return Response
      */
     public function edit(Request $request, int $id, FlashMessage $flashMessage, Uploader $fileUploader): Response
     {
@@ -89,7 +73,11 @@ class ArticleController extends Controller
             }
             $em->flush();
 
-            $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'article a été mis à jour avec succès");
+            $flashMessage->createMessage(
+                    $request,
+                    FlashMessage::INFO_MESSAGE,
+                    "L'article a été mis à jour avec succès"
+                );
 
             return $this->redirect($request->getUri());
         }
@@ -103,12 +91,6 @@ class ArticleController extends Controller
 
     /**
      * @Route("admin/article/{id}/delete", name="article_delete", methods={"GET", "POST"})
-     *
-     * @param Request      $request
-     * @param int          $id
-     * @param FlashMessage $flashMessage
-     *
-     * @return Response
      */
     public function delete(Request $request, int $id, FlashMessage $flashMessage): Response
     {
@@ -118,7 +100,11 @@ class ArticleController extends Controller
         $em->remove($article);
         $em->flush();
 
-        $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'annonce été supprimé avec succès");
+        $flashMessage->createMessage(
+            $request,
+            FlashMessage::INFO_MESSAGE,
+            "L'annonce été supprimé avec succès"
+        );
 
         return $this->redirectToRoute('admin-articles');
     }

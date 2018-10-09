@@ -52,8 +52,6 @@ class SecurityController extends Controller
 
     /**
      * @Route("/login", name="login", methods={"GET", "POST"})
-     *
-     * @return Response
      */
     public function login(): Response
     {
@@ -74,8 +72,6 @@ class SecurityController extends Controller
 
     /**
      * @Route("/login/github", name="login_github", methods={"GET"})
-     *
-     * @return RedirectResponse
      */
     public function loginFromGithub(): RedirectResponse
     {
@@ -97,10 +93,6 @@ class SecurityController extends Controller
      * thanks to Doctrine listener 'prePersist'.
      *
      * @Route("/registration", name="registration", methods={"GET", "POST"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function registration(Request $request): Response
     {
@@ -132,16 +124,6 @@ class SecurityController extends Controller
      * Form to send a password reset request.
      *
      * @Route("/password_reset/request", name="password_reset_request", methods={"GET", "POST"})
-     *
-     * @param Request        $request
-     * @param UserRepository $userRepository
-     * @param ResetPassword  $resetPassword
-     *
-     * @return Response
-     *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function passwordResetRequest(Request $request, UserRepository $userRepository, ResetPassword $resetPassword): Response
     {
@@ -171,15 +153,12 @@ class SecurityController extends Controller
      * Form to create the new password.
      *
      * @Route("/password_reset/new", name="password_reset_new", methods={"GET", "POST"})
-     *
-     * @param Request                      $request
-     * @param UserRepository               $userRepository
-     * @param UserPasswordEncoderInterface $encoder
-     * @param EventDispatcherInterface     $eventDispatcher
-     *
-     * @return Response
      */
-    public function passwordResetNew(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher): Response
+    public function passwordResetNew(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordEncoderInterface $encoder,
+        EventDispatcherInterface $eventDispatcher): Response
     {
         $token = $request->query->get('resetPasswordToken');
         $user = $userRepository->getByValidToken($token);

@@ -13,12 +13,6 @@ class AdminController extends Controller
 {
     /**
      * @Route("/admin/dashboard", name="admin-dashboard", methods={"GET"})
-     *
-     * @param ArticleRepository $article
-     * @param CommentRepository $comment
-     * @param UserRepository    $user
-     *
-     * @return Response
      */
     public function dashBoard(ArticleRepository $article, CommentRepository $comment, UserRepository $user): Response
     {
@@ -31,10 +25,6 @@ class AdminController extends Controller
 
     /**
      * @Route("/admin/articles", name="admin-articles", methods={"GET"})
-     *
-     * @param ArticleRepository $articleRepository
-     *
-     * @return Response
      */
     public function listArticle(ArticleRepository $articleRepository): Response
     {

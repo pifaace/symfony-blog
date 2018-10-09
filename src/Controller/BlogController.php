@@ -19,11 +19,6 @@ class BlogController extends Controller
     /**
      * @Route("/", name="homepage", methods={"GET"})
      * @Cache(smaxage="5")
-     *
-     * @param Paginator         $paginator
-     * @param ArticleRepository $articleRepository
-     *
-     * @return Response
      */
     public function index(Paginator $paginator, ArticleRepository $articleRepository): Response
     {
@@ -40,10 +35,6 @@ class BlogController extends Controller
 
     /**
      * @Route("article/{slug}", name="article_show", methods={"GET", "POST"})
-     *
-     * @param Article $article
-     *
-     * @return Response
      */
     public function show(Article $article): Response
     {
@@ -54,11 +45,6 @@ class BlogController extends Controller
 
     /**
      * @Route("article/{slug}/comment/new", name="comment_new", methods={"POST"})
-     *
-     * @param Request $request
-     * @param Article $article
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newComment(Request $request, Article $article): Response
     {
@@ -80,10 +66,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @param Article $article
      * @ParamConverter()
-     *
-     * @return Response
      */
     public function commentForm(Article $article): Response
     {
