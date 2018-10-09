@@ -7,9 +7,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-/**
- * AdvertRepository.
- */
 class ArticleRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
@@ -19,13 +16,8 @@ class ArticleRepository extends ServiceEntityRepository
 
     /**
      * List all object with paginator.
-     *
-     * @param int $page
-     * @param int $maxResults
-     *
-     * @return Paginator
      */
-    public function paginator($page, int $maxResults): Paginator
+    public function paginator(int $page, int $maxResults): Paginator
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -46,7 +38,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-    public function countArticles()
+    public function countArticles(): string
     {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a)')

@@ -6,9 +6,6 @@ use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-/**
- * ImageRepository.
- */
 class ImageRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
