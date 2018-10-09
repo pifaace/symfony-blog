@@ -6,8 +6,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Paginator
 {
+    /**
+     * @var int
+     */
     private $itemPerPage;
 
+    /**
+     * @var RequestStack
+     */
     private $requestStack;
 
     public function __construct(RequestStack $requestStack, $itemPerPage)
@@ -26,7 +32,7 @@ class Paginator
         return ceil(\count($items) / $this->itemPerPage);
     }
 
-    public function getPage()
+    public function getPage(): int
     {
         $request = $this->requestStack->getCurrentRequest();
 

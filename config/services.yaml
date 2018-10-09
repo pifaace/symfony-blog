@@ -4,7 +4,7 @@ parameters:
     locale: 'fr'
     image_articles_coverages_directory: '%kernel.project_dir%/public/uploads/articles/coverages/'
     image_articles_coverages_display: '/uploads/articles/coverages/'
-    itemperpage: '5'
+    itemperpage: 5
 
 services:
     # default configuration for services in *this* file

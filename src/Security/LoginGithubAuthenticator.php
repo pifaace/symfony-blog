@@ -46,8 +46,13 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      */
     private $em;
 
-    public function __construct(Client $client, FlashMessage $flashMessage, RouterInterface $router, UserRepository $userRepo, EntityManagerInterface $em)
-    {
+    public function __construct(
+        Client $client,
+        FlashMessage $flashMessage,
+        RouterInterface $router,
+        UserRepository $userRepo,
+        EntityManagerInterface $em
+    ) {
         $this->client = $client;
         $this->flashMessage = $flashMessage;
         $this->router = $router;

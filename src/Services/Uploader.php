@@ -10,7 +10,7 @@ class Uploader
 {
     private $targetDir;
 
-    public function __construct($targetDir)
+    public function __construct(string $targetDir)
     {
         $this->targetDir = $targetDir;
     }
@@ -49,12 +49,12 @@ class Uploader
         return md5(uniqid('', true)).'.'.$file->guessExtension();
     }
 
-    public function uploaderImage(UploadedFile $file, $imageName): void
+    public function uploaderImage(UploadedFile $file, string $imageName): void
     {
         $file->move($this->getTargetDir(), $imageName);
     }
 
-    public function removeImage($imageName): void
+    public function removeImage(string $imageName): void
     {
         $fs = new Filesystem();
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -60,7 +61,7 @@ class Article
     private $content;
 
     /**
-     * @var string
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
@@ -84,7 +85,7 @@ class Article
     private $image;
 
     /**
-     * @var array
+     * @var PersistentCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", cascade={"persist"})
      */
     private $tags;
@@ -142,7 +143,7 @@ class Article
         return $this->content;
     }
 
-    public function getAuthor(): string
+    public function getAuthor(): User
     {
         return $this->author;
     }
@@ -179,7 +180,7 @@ class Article
         return $this;
     }
 
-    public function getImage(): Image
+    public function getImage(): ?Image
     {
         return $this->image;
     }
@@ -198,7 +199,7 @@ class Article
         $this->tags->removeElement($tag);
     }
 
-    public function getTags(): array
+    public function getTags(): ?PersistentCollection
     {
         return $this->tags;
     }
