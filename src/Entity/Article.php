@@ -85,7 +85,7 @@ class Article
     private $image;
 
     /**
-     * @var PersistentCollection
+     * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", cascade={"persist"})
      */
     private $tags;
@@ -99,7 +99,7 @@ class Article
         $this->tags = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -111,7 +111,7 @@ class Article
         return $this;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -126,7 +126,7 @@ class Article
         return $this;
     }
 
-    public function getCreateAt(): \DateTime
+    public function getCreateAt(): ?\DateTime
     {
         return $this->createAt;
     }
@@ -138,12 +138,12 @@ class Article
         return $this;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
-    public function getAuthor(): User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
@@ -168,7 +168,7 @@ class Article
         $this->comments->removeElement($comment);
     }
 
-    public function getComments(): Collection
+    public function getComments(): ?Collection
     {
         return $this->comments;
     }
@@ -199,12 +199,12 @@ class Article
         $this->tags->removeElement($tag);
     }
 
-    public function getTags(): ?PersistentCollection
+    public function getTags(): ?ArrayCollection
     {
         return $this->tags;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

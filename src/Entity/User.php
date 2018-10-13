@@ -126,7 +126,7 @@ class User implements UserInterface, \Serializable
         $this->comments = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -136,7 +136,7 @@ class User implements UserInterface, \Serializable
         $this->username = $username;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -148,7 +148,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -160,7 +160,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -183,7 +183,7 @@ class User implements UserInterface, \Serializable
         return array_unique($role);
     }
 
-    public function serialize(): string
+    public function serialize(): ?string
     {
         return serialize([
             $this->id,
@@ -247,7 +247,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getProviderId(): int
+    public function getProviderId(): ?int
     {
         return $this->providerId;
     }
