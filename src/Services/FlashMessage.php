@@ -12,14 +12,8 @@ class FlashMessage
     /**
      * Service to generate a flashmessage depends on type.
      */
-    public function createMessage(Request $request, string $type, string $message): bool
+    public function createMessage(Request $request, string $type, string $message)
     {
-        if (!$request instanceof Request) {
-            return false;
-        }
-
         $request->getSession()->getFlashBag()->add($type, $message);
-
-        return true;
     }
 }
