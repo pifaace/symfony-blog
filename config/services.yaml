@@ -43,10 +43,6 @@ services:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
 
-    App\EventListener\EncoderUserPassword:
-        tags:
-          - { name: doctrine.event_listener, event: prePersist }
-
     App\EventListener\PasswordTokenReset:
         tags:
           - { name: kernel.event_listener, event: token.reseted, method: resetToken }

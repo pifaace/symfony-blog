@@ -13,7 +13,7 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function getByValidToken($token): ?User
+    public function getByValidToken(string $token): ?User
     {
         $qb = $this->createQueryBuilder('u');
         $qb->where('u.resetPasswordToken = :token');
@@ -22,7 +22,7 @@ class UserRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function getByProviderId($providerId): ?User
+    public function getByProviderId(string $providerId): ?User
     {
         $qb = $this->createQueryBuilder('u');
         $qb
@@ -38,5 +38,16 @@ class UserRepository extends ServiceEntityRepository
             ->select('COUNT(u)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function save(User $user): void
+    {
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
+
+    public function saveNewPassword()
+    {
+        $this->_em->flush();
     }
 }

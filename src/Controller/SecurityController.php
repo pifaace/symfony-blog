@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Events;
 use App\Form\LoginType;
 use App\Form\PasswordResetNewType;
 use App\Form\PasswordResetRequestType;
@@ -11,16 +10,14 @@ use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Services\FlashMessage;
 use App\Services\ResetPassword;
+use App\Services\User\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -40,14 +37,22 @@ class SecurityController extends Controller
      */
     private $flashMessage;
 
+    /**
+     * @var UserManager
+     */
+    private $manager;
+
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         AuthorizationCheckerInterface $checker,
+        UserManager $manager,
         FlashMessage $flashMessage
-    ) {
+    )
+    {
         $this->authenticationUtils = $authenticationUtils;
         $this->checker = $checker;
         $this->flashMessage = $flashMessage;
+        $this->manager = $manager;
     }
 
     /**
@@ -55,7 +60,7 @@ class SecurityController extends Controller
      */
     public function login(): Response
     {
-        if ($this->isLogin()) {
+        if ($this->manager->isLogin()) {
             return $this->redirectToRoute('homepage');
         }
 
@@ -76,7 +81,7 @@ class SecurityController extends Controller
     public function loginFromGithub(): RedirectResponse
     {
         return new RedirectResponse(
-            'https://github.com/login/oauth/authorize?scope=user:email&client_id='.getenv('github_client_id')
+            'https://github.com/login/oauth/authorize?scope=user:email&client_id=' . getenv('github_client_id')
         );
     }
 
@@ -89,14 +94,11 @@ class SecurityController extends Controller
     }
 
     /**
-     * User password is encoded in EventListener/EncoderUserPassword class
-     * thanks to Doctrine listener 'prePersist'.
-     *
      * @Route("/registration", name="registration", methods={"GET", "POST"})
      */
     public function registration(Request $request): Response
     {
-        if ($this->isLogin()) {
+        if ($this->manager->isLogin()) {
             return $this->redirectToRoute('homepage');
         }
 
@@ -104,13 +106,14 @@ class SecurityController extends Controller
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $user->setRole(['ROLE_USER']);
-            $em->persist($user);
-            $em->flush();
 
-            $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Compte créé avec succès. Vous pouvez maintenant vous connecter');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->manager->create($user);
+            $this->flashMessage->createMessage(
+                $request,
+                FlashMessage::INFO_MESSAGE,
+                'Compte créé avec succès. Vous pouvez maintenant vous connecter'
+            );
 
             return $this->redirectToRoute('login');
         }
@@ -125,7 +128,11 @@ class SecurityController extends Controller
      *
      * @Route("/password_reset/request", name="password_reset_request", methods={"GET", "POST"})
      */
-    public function passwordResetRequest(Request $request, UserRepository $userRepository, ResetPassword $resetPassword): Response
+    public function passwordResetRequest(
+        Request $request,
+        UserRepository $userRepository,
+        ResetPassword $resetPassword
+    ): Response
     {
         $form = $this->createForm(PasswordResetRequestType::class);
 
@@ -154,11 +161,7 @@ class SecurityController extends Controller
      *
      * @Route("/password_reset/new", name="password_reset_new", methods={"GET", "POST"})
      */
-    public function passwordResetNew(
-        Request $request,
-        UserRepository $userRepository,
-        UserPasswordEncoderInterface $encoder,
-        EventDispatcherInterface $eventDispatcher): Response
+    public function passwordResetNew(Request $request, UserRepository $userRepository): Response
     {
         $token = $request->query->get('resetPasswordToken');
         $user = $userRepository->getByValidToken($token);
@@ -169,14 +172,10 @@ class SecurityController extends Controller
 
         $form = $this->createForm(PasswordResetNewType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->isTokenNotExpired($user)) {
-                $em = $this->getDoctrine()->getManager();
-                $user->setPassword($encoder->encodePassword($user, $user->getPlainPassword()));
 
-                $event = new GenericEvent($user);
-                $eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->manager->isTokenNotExpired($user)) {
+                $this->manager->resetPassword($user);
                 $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
 
                 return $this->redirectToRoute('login');
@@ -187,15 +186,5 @@ class SecurityController extends Controller
         return $this->render('blog/security/password/password_reset_new.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    private function isLogin(): bool
-    {
-        return $this->checker->isGranted('IS_AUTHENTICATED_FULLY');
-    }
-
-    private function isTokenNotExpired(User $user): bool
-    {
-        return $user->getTokenExpirationDate() > new \DateTime();
     }
 }
