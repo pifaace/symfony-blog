@@ -3,10 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
-use App\Entity\Image;
 use App\Form\ArticleType;
+use App\Services\Article\Manager\ArticleManager;
 use App\Services\FlashMessage;
-use App\Services\Uploader;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,26 +14,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends Controller
 {
     /**
+     * @var ArticleManager
+     */
+    private $articleManager;
+
+    public function __construct(ArticleManager $articleManager)
+    {
+        $this->articleManager = $articleManager;
+    }
+
+    /**
      * @Route("admin/article/new", name="article_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, FlashMessage $flashMessage, Uploader $fileUploader): Response
+    public function new(Request $request, FlashMessage $flashMessage): Response
     {
-        $em = $this->getDoctrine()->getManager();
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setAuthor($this->getUser());
-
-            if ($fileUploader->noImage($article->getImage())) {
-                $article->setImage(null);
-            }
-
-            $em->persist($article);
-            $em->flush();
-
+            $this->articleManager->create($article);
             $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'article a été créé avec succès");
 
             return $this->redirectToRoute('admin-articles');
@@ -46,32 +46,16 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("admin/article/{id}/edit", name="article_edit", methods={"GET", "POST"})
+     * @Route("admin/article/{slug}/edit", name="article_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, int $id, FlashMessage $flashMessage, Uploader $fileUploader): Response
+    public function edit(Request $request, Article $article, FlashMessage $flashMessage): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('App:Article')->find($id);
         $image = $article->getImage();
         $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($fileUploader->noImage($article->getImage())) {
-                $article->setImage(null);
-            } elseif ($fileUploader->hasNewImage($article->getImage())) {
-                if (null !== $image) {
-                    $em->remove($image);
-                }
-
-                $image = new Image();
-                $image->setFile($article->getImage()->getFile());
-                $article->setImage($image);
-            } elseif ($fileUploader->isDeleteImageChecked($form->getData())) {
-                $article->setImage(null);
-                $em->remove($image);
-            }
-            $em->flush();
+            $this->articleManager->edit($article);
 
             $flashMessage->createMessage(
                     $request,
@@ -90,15 +74,11 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("admin/article/{id}/delete", name="article_delete", methods={"GET", "POST"})
+     * @Route("admin/article/{slug}/delete", name="article_delete", methods={"GET", "POST"})
      */
-    public function delete(Request $request, int $id, FlashMessage $flashMessage): Response
+    public function delete(Request $request, Article $article, FlashMessage $flashMessage): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('App:Article')->find($id);
-
-        $em->remove($article);
-        $em->flush();
+        $this->articleManager->remove($article);
 
         $flashMessage->createMessage(
             $request,

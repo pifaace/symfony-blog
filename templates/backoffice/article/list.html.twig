@@ -43,14 +43,17 @@
                                     <td>{{ article.comments.count }}</td>
                                     <td>
                                         <a href="{{ path('article_show', {'slug': article.slug}) }}"
-                                           class="button is-primary"><i
-                                                    class="fa fa-eye" aria-hidden="true"></i></a>
-                                        <a href="{{ path('article_edit', {'id': article.id}) }}"
-                                           class="button is-warning"><i
-                                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{{ path('article_delete', {'id': article.id}) }}"
-                                           class="button is-danger delete-article"><i class="fa fa-trash-o"
-                                                                                      aria-hidden="true"></i></a>
+                                           class="button is-primary">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ path('article_edit', {'slug': article.slug}) }}"
+                                           class="button is-warning">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{ path('article_delete', {'slug': article.slug}) }}"
+                                           class="button is-danger delete-article">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}

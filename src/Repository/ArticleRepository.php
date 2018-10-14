@@ -45,4 +45,21 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function saveNewArticle(Article $article): void
+    {
+        $this->_em->persist($article);
+        $this->_em->flush();
+    }
+
+    public function saveExistingArticle(): void
+    {
+        $this->_em->flush();
+    }
+
+    public function remove(Article $article): void
+    {
+        $this->_em->remove($article);
+        $this->_em->flush();
+    }
 }

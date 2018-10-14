@@ -17,39 +17,25 @@ class Uploader
 
     public function hasNewImage(Image $image): bool
     {
-        if (null !== $image->getFile()) {
-            return true;
-        }
-
-        return false;
+        return null !== $image->getFile() && $image->getFile() instanceof UploadedFile;
     }
 
-    public function noImage(Image $image): bool
+    public function hasActiveImage(Image $image): bool
     {
-        if ($image instanceof Image) {
-            if (null !== $image->getId() || null !== $image->getFile()) {
-                return false;
-            }
-        }
-
-        return true;
+        return null !== $image->getId();
     }
 
-    public function isDeleteImageChecked($formData): bool
+    public function isDeleteImageChecked(Image $image): bool
     {
-        if ($formData->getImage()->isDeletedImage()) {
-            return true;
-        }
-
-        return false;
+        return $image->isDeletedImage();
     }
 
-    public function preUploadImage(UploadedFile $file): string
+    public function generateAlt(UploadedFile $file): string
     {
         return md5(uniqid('', true)).'.'.$file->guessExtension();
     }
 
-    public function uploaderImage(UploadedFile $file, string $imageName): void
+    public function uploadImage(UploadedFile $file, string $imageName): void
     {
         $file->move($this->getTargetDir(), $imageName);
     }
@@ -63,7 +49,7 @@ class Uploader
         }
     }
 
-    public function getTargetDir(): string
+    private function getTargetDir(): string
     {
         return $this->targetDir;
     }

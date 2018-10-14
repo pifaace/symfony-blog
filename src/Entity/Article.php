@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -148,7 +147,7 @@ class Article
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(User $author): self
     {
         $this->author = $author;
 
@@ -199,7 +198,7 @@ class Article
         $this->tags->removeElement($tag);
     }
 
-    public function getTags(): ?ArrayCollection
+    public function getTags(): ?Collection
     {
         return $this->tags;
     }

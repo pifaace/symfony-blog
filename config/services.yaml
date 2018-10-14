@@ -39,10 +39,6 @@ services:
     App\Security\LoginGithubAuthenticator:
         arguments: ["@eight_points_guzzle.client.github_oauth"]
 
-    App\EventListener\UploadSubscriber:
-        tags:
-          - { name: doctrine.event_subscriber, connection: default }
-
     App\EventListener\UserActionSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }

@@ -16,7 +16,6 @@ class AdminController extends Controller
      */
     public function dashBoard(ArticleRepository $article, CommentRepository $comment, UserRepository $user): Response
     {
-        dd($article->countArticles());
         return $this->render('backoffice/dashboard/dashboard.html.twig', [
             'countArticles' => $article->countArticles(),
             'countComments' => $comment->countComments(),
