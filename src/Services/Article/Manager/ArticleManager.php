@@ -46,10 +46,10 @@ class ArticleManager
     {
         $article->setAuthor($this->tokenStorage->getToken()->getUser());
 
-        if ($this->uploader->hasNewImage($article->getImage())) {
-            $this->uploadImage($article);
-        } else {
-            $article->setImage(null);
+        if (null !== $article->getImage()) {
+            if ($this->uploader->hasNewImage($article->getImage())) {
+                $this->uploadImage($article);
+            }
         }
 
         $this->repository->saveNewArticle($article);
@@ -59,20 +59,19 @@ class ArticleManager
     {
         $image = $article->getImage();
 
-        if ($this->uploader->hasNewImage($image)) {
-            if ($this->uploader->hasActiveImage($image)) {
-                $this->uploader->removeImage($image->getAlt());
+        if (null !== $image) {
+            if ($this->uploader->hasNewImage($image)) {
+                if ($this->uploader->hasActiveImage($image)) {
+                    $this->uploader->removeImage($image->getAlt());
+                }
+                $this->uploadImage($article);
+            } else {
+                if ($this->uploader->hasActiveImage($image) && $this->uploader->isDeleteImageChecked($image)) {
+                    $this->uploader->removeImage($image->getAlt());
+                    $this->em->remove($image);
+                    $article->setImage(null);
+                }
             }
-            $this->uploadImage($article);
-        } else {
-            if (
-                $this->uploader->hasActiveImage($image) &&
-                $this->uploader->isDeleteImageChecked($image)
-            ) {
-                $this->uploader->removeImage($image->getAlt());
-                $this->em->remove($image);
-            }
-            $article->setImage(null);
         }
 
         $this->repository->saveExistingArticle();
