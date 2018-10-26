@@ -21,7 +21,7 @@ class ArticleType extends AbstractType
             ->add('content', TextareaType::class, ['label' => false])
             ->add('image', ImageType::class, [
                 'required' => false,
-                'label' => false
+                'label' => false,
             ])
             ->add('tags', TagsType::class, ['required' => false]);
     }

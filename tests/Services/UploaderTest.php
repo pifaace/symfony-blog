@@ -5,7 +5,6 @@ namespace App\Tests\Services;
 use App\Entity\Image;
 use App\Services\Uploader;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploaderTest extends TestCase

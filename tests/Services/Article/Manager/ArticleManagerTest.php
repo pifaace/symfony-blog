@@ -18,7 +18,7 @@ class ArticleManagerTest extends TestCase
 {
     public function testCreateArticleWithNoImage()
     {
-        $user = new User;
+        $user = new User();
         $token = $this->getTokenMock();
         $token
             ->expects($this->once())
@@ -68,7 +68,7 @@ class ArticleManagerTest extends TestCase
 
     public function testCreateArticleWithImage()
     {
-        $user = new User;
+        $user = new User();
         $token = $this->getTokenMock();
         $token
             ->expects($this->once())
