@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-use App\Entity\User;
 use App\Services\FlashMessage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,9 +10,12 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class LoginAuthenticator extends AbstractGuardAuthenticator
@@ -32,14 +34,21 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     private $flashMessage;
 
+    /**
+     * @var CsrfTokenManagerInterface
+     */
+    private $csrfTokenManager;
+
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
         RouterInterface $router,
-        FlashMessage $flashMessage
+        FlashMessage $flashMessage,
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->encoderFactory = $encoderFactory;
         $this->router = $router;
         $this->flashMessage = $flashMessage;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     /**
@@ -96,6 +105,11 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
+        $token = new CsrfToken('login_authenticate', $credentials['_token']);
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
+        }
+
         return $userProvider->loadUserByUsername($credentials['username']);
     }
 

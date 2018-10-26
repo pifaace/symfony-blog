@@ -23,7 +23,7 @@
 
     {% if (error) %}
         <div class="login-message">
-                Identifiant ou mot de passe incorrecte
+                {{ error.messageKey }}
         </div>
     {% endif %}
 
