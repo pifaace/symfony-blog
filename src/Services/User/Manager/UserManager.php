@@ -43,20 +43,18 @@ class UserManager
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function create(User $user)
+    public function create(User $user): void
     {
         $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
         $this->repository->save($user);
     }
 
-    public function resetPassword(User $user)
+    public function resetPassword(User $user): void
     {
         $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
         $event = new GenericEvent($user);
         $this->eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
         $this->repository->saveNewPassword();
-
-
     }
 
     public function isLogin(): bool
@@ -64,8 +62,8 @@ class UserManager
         return $this->checker->isGranted('IS_AUTHENTICATED_FULLY');
     }
 
-    public function isTokenNotExpired(User $user): bool
+    public function isTokenExpired(User $user): bool
     {
-        return $user->getTokenExpirationDate() > new \DateTime();
+        return $user->getTokenExpirationDate() < new \DateTime();
     }
 }

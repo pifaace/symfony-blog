@@ -47,8 +47,7 @@ class SecurityController extends Controller
         AuthorizationCheckerInterface $checker,
         UserManager $manager,
         FlashMessage $flashMessage
-    )
-    {
+    ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->checker = $checker;
         $this->flashMessage = $flashMessage;
@@ -81,7 +80,7 @@ class SecurityController extends Controller
     public function loginFromGithub(): RedirectResponse
     {
         return new RedirectResponse(
-            'https://github.com/login/oauth/authorize?scope=user:email&client_id=' . getenv('github_client_id')
+            'https://github.com/login/oauth/authorize?scope=user:email&client_id='.getenv('github_client_id')
         );
     }
 
@@ -132,8 +131,7 @@ class SecurityController extends Controller
         Request $request,
         UserRepository $userRepository,
         ResetPassword $resetPassword
-    ): Response
-    {
+    ): Response {
         $form = $this->createForm(PasswordResetRequestType::class);
 
         $form->handleRequest($request);
@@ -174,7 +172,7 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->manager->isTokenNotExpired($user)) {
+            if (!$this->manager->isTokenExpired($user)) {
                 $this->manager->resetPassword($user);
                 $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
 
