@@ -1,0 +1,22 @@
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - ./bin/.phpunit
+
+php:
+  - '7.2'
+install:
+  - composer install
+  - ./bin/phpunit install
+
+script:
+  # run tests
+  - ./bin/phpunit
+  # this checks that the YAML config files contain no syntax errors
+  - ./bin/console lint:yaml config
+  # this checks that the Twig template files contain no syntax errors
+  - ./bin/console lint:twig templates
+  # this checks that Doctrine's mapping configurations are valid
+  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
