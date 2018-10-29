@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pifaace/symfony-blog.svg?branch=master)](https://travis-ci.org/pifaace/symfony-blog)
+
 # Symfony-blog 4.1
 
 My application to try some stuffs about Symfony 4
@@ -95,7 +97,7 @@ and that's it !
 
 ### Running tests
 ```
-$ docker-compose run --rm blog-server ./vendor/bin/simple-phpunit
+$ docker-compose run --rm blog-server ./bin/phpunit
 ```
 
 ##  License
