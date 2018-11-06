@@ -9,9 +9,9 @@
     <h2 class="subtitle is-6">
         <ul class="article-infos">
             <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ article.createAt|date("d/m/Y") }}</li>
-            <li><i class="fa fa-user" aria-hidden="true"></i> par {{ article.author.username|capitalize }}</li>
+            <li><i class="fa fa-user" aria-hidden="true"></i> {{ 'generic.by'|trans }} {{ article.author.username|capitalize }}</li>
             <li><i class="fa fa-commenting" aria-hidden="true"></i> {{ article.comments.count }}
-                {{ article.comments.count <= 1 ? 'commentaire' : 'commentaires' }}</li>
+                {{ article.comments.count <= 1 ? 'article.comment'|trans : 'article.comments'|trans }}</li>
         </ul>
 
 
@@ -22,8 +22,9 @@
     </div>
 
     <hr>
-    <h3 class="title is-4">{{ article.comments|length }} {{ article.comments|length <= 1 ? 'Commentaire' : 'Commentaires' }}</h3>
-
+    <h3 class="title is-4">
+        {{ article.comments|length }} {{ article.comments|length <= 1 ? 'article.comment'|trans : 'article.comments'|trans }}
+    </h3>
 
     {% for comment in article.comments|sort|reverse %}
         <article class="media">
@@ -63,8 +64,10 @@
                 {{ render(controller('App\\Controller\\BlogController::commentForm', {'article': article.id})) }}
             {% else %}
                 <div class="notification is-primary">
-                    Vous devez être connecté pour poster un commentaire. <br>
-                    <a href="{{ path('login') }}">Connectez-vous</a> ou <a href="{{ path('registration') }}">inscrivez-vous</a>
+                    {{ 'article.not_authenticate'|trans }} <br>
+                    <a href="{{ path('login') }}">{{ 'article.login'|trans }}</a>
+                    {{ 'generic.or'|trans }}
+                    <a href="{{ path('registration') }}">{{ 'article.signin'|trans }}</a>
                 </div>
             {% endif %}
         </div>

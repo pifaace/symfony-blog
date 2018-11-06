@@ -2,7 +2,7 @@
     {{ form_errors(form) }}
 
     <div class="field">
-        {{ form_label(form.username, 'Identifiant', {'label_attr': {'class': 'label has-text-left'}}) }}
+        {{ form_label(form.username, 'login.form.username'|trans, {'label_attr': {'class': 'label has-text-left'}}) }}
         <div class="control has-icons-left">
             {{ form_widget(form.username, {'value': lastUserName, 'attr': {'class': 'input'}}) }}
             <span class="icon is-small is-left">
@@ -12,7 +12,7 @@
     </div>
 
     <div class="field">
-        {{ form_label(form.password, 'Mot de passe', {'label_attr': {'class': 'label has-text-left'}}) }}
+        {{ form_label(form.password, 'login.form.password'|trans, {'label_attr': {'class': 'label has-text-left'}}) }}
         <div class="control has-icons-left">
             {{ form_widget(form.password, {'attr': {'class': 'input'}}) }}
             <span class="icon is-small is-left">
@@ -23,9 +23,11 @@
 
     {% if (error) %}
         <div class="login-message">
-                {{ error.messageKey }}
+            {{ error.messageKey|trans(error.messageData, 'messages') }}
         </div>
     {% endif %}
 
-    <button type="submit" class="button is-primary">Connexion</button>
+    <button type="submit" class="button is-primary" data-trans="{{ 'login.form.submitted'|trans }}">
+        {{ 'login.login'|trans }}
+    </button>
 {{ form_end(form) }}

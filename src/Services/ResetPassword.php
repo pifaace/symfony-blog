@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ResetPassword
 {
@@ -33,16 +35,30 @@ class ResetPassword
      */
     private $token;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private $trans;
+
+    /**
+     * @var RequestStack
+     */
+    private $request;
+
     public function __construct(
         EntityManagerInterface $em,
         \Swift_Mailer $mailer,
         \Twig_Environment $templating,
-        TokenGeneratorInterface $generator
+        TokenGeneratorInterface $generator,
+        TranslatorInterface $trans,
+        RequestStack $request
     ) {
         $this->em = $em;
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->generator = $generator;
+        $this->trans = $trans;
+        $this->request = $request;
     }
 
     public function reset(User $user): void
@@ -64,11 +80,14 @@ class ResetPassword
 
     private function sendResetPasswordEmail(User $user, string $token): void
     {
-        $message = (new \Swift_Message('Demande reinitialisation de mot de passe'))
+        $message = (new \Swift_Message($this->trans->trans('reset_password.title', [], 'emails')))
             ->setFrom('no-remply@symfony-blog.com')
             ->setTo($user->getEmail())
             ->setBody(
-                $this->templating->render('blog/security/password/email/_password_reset_email.html.twig', [
+                $this
+                    ->templating
+                    ->render('blog/security/password/email/_password_reset_email_'.
+                        $this->request->getMasterRequest()->getLocale().'.html.twig', [
                     'username' => $user->getUsername(),
                     'token' => $token,
                 ]),

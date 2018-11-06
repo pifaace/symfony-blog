@@ -13,14 +13,14 @@
                     <div class="content">
                         {{ article.content|truncate(50) }}
                         <br>
-                        Publié le
-                        <time datetime="2016-1-1">{{ article.createAt|date("d/m/Y") }}
-                            à {{ article.createAt|date("h:i:s") }}</time>
+                        <time datetime="2016-1-1">{{ article.createAt|date("d/m/Y") }}</time>
+                        {{ 'generic.by'|trans }} {{ article.author.username }}
                     </div>
                 </div>
                 <footer class="card-footer">
-                    <a href="{{ path('article_show', {'slug': article.slug}) }}" class="card-footer-item is-primary">Lire
-                        l'article</a>
+                    <a href="{{ path('article_show', {'slug': article.slug}) }}" class="card-footer-item is-primary">
+                        {{ 'home.read_more'|trans }}
+                    </a>
                 </footer>
             </div>
         {% endfor %}
@@ -28,7 +28,7 @@
         {% include 'paginator/paginator.html.twig' %}
     {% else %}
         <div class="has-text-centered">
-            <h1 class="title is-4">Aucun article actuellement :(</h1>
+            <h1 class="title is-4">{{ 'home.no_article'|trans }}</h1>
         </div>
     {% endif %}
 {% endblock %}

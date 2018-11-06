@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class LoginAuthenticator extends AbstractGuardAuthenticator
 {
@@ -39,16 +40,23 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
      */
     private $csrfTokenManager;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private $trans;
+
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
         RouterInterface $router,
         FlashMessage $flashMessage,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        TranslatorInterface $trans
     ) {
         $this->encoderFactory = $encoderFactory;
         $this->router = $router;
         $this->flashMessage = $flashMessage;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->trans = $trans;
     }
 
     /**
@@ -162,7 +170,8 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     {
         $this->flashMessage->createMessage(
             $request,
-            FlashMessage::INFO_MESSAGE, 'Vous êtes maintenant connecté'
+            FlashMessage::INFO_MESSAGE,
+            $this->trans->trans('login.flashmessage_success')
         );
 
         return new RedirectResponse($this->router->generate('homepage'));

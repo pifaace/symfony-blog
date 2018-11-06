@@ -1,0 +1,81 @@
+generic:
+  or: ou
+  by: par
+
+navbar:
+  login: Connexion
+  signin: Inscription
+  profile: Profil
+  logout: Déconnexion
+  dashboard: Tableau de bord
+
+home:
+  read_more: Lire l'article
+  no_article: Aucune article :(
+
+article:
+  comment: Commentaire
+  comments: Commentaires
+  not_authenticate: Vous devez être connecté pour poster un commentaire.
+  login: Connectez-vous
+  signin: Inscrivez-vous
+  form:
+    post_comment: Poster un commentaire
+    comment_placeholder: Ajouter un commentaire publique..
+
+login:
+  login: Connexion
+  login_with: Connectez-vous avec
+  forgot_password: Mot de passe oublié ?
+  not_registered: Pas encore inscrit ?
+  create_account: Créer un compte
+  form:
+    username: Identifiant
+    password: Mot de passe
+    submitted: Connexion en cours...
+  flashmessage_success: Vous êtes maintenant connecté
+
+"Username could not be found.": Utilisateur ou mot de passe incorrect
+
+signin:
+  signin: Inscription
+  signin_with: Inscrivez-vous avec
+  form:
+    username: Identifiant
+    email: Email
+    password: Mot de passe
+    password_placeholder: mot de passe robuste
+    repeat_password: Répéter le mot de passe
+    repeat_password_placeholder: encore une fois
+    submitted: Inscription en cours...
+  flashmessage_success: Compte créé avec succès. Vous pouvez maintenant vous connecter
+
+forgot_password:
+  forgot_password: Mot de passe oublié
+  instruction: Remplissez le champs avec l'adresse mail de votre compte pour recevoir un lien de réinitialisation
+  send: Envoyer l'email
+  submitted: Envoi en cours...
+  flashmessage_success: Un mail de réinitialisation a été envoyé à cette adresse mail
+
+reset_password:
+  reset_password: Reset password
+  form:
+    new_password: Nouveau mot de passe
+    password_placeholder: mot de passe robuste
+    repeat_password: Répétez le nouveau mot de passe
+    repeat_password_placeholder: encore une fois
+    submit: Valider
+    submitted: Changement en cours...
+  flashmessage_success: Le mot de passe a été réinitialisé avec succès !
+  flashmessage_token_expired: Le token est expiré. Veuillez effectuer une nouvelle demande
+
+profile:
+  sidebar:
+    profile: Profil
+    security: Security
+    my_profile: Mon profil
+    edit_profile: Editer mon profil
+    change_password: Changer le mot de passe
+  last_comments: Mes derniers commentaires
+  badges: Mes badges
+

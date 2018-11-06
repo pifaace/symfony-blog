@@ -3,19 +3,20 @@
 {% block security %}
     <div class="security-container">
         <div class="login">
-            <h1 class="title is-3">Connexion</h1>
+            <h1 class="title is-3">{{ 'login.login'|trans }}</h1>
             <div class="border-form">
                 {% include('blog/security/login/_login_form.html.twig') %}
                 <div class="login-subtitle">
                     <div class="mb-10">
-                        Connectez vous avec :
+                        {{ 'login.login_with'|trans }} :
                         <a href="{{ path('login_github') }}">
                             <i class="fa fa-github fa-2x" aria-hidden="true"></i>
                         </a>
                     </div>
 
-                    <a href="{{ path('password_reset_request') }}">Mot de passe oublié ?</a><br/>
-                    Pas encore inscrit ? <a href="{{ path('registration') }}">Créer un compte</a>
+                    <a href="{{ path('password_reset_request') }}">{{ 'login.forgot_password'|trans }}</a><br/>
+                    {{ 'login.not_registered'|trans }}
+                    <a href="{{ path('registration') }}">{{ 'login.create_account'|trans }}</a>
                 </div>
             </div>
         </div>

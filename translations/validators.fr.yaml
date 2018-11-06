@@ -1,0 +1,18 @@
+signin:
+  unique_username: l'identifiant est déjà utilisé
+  required_username: l'identifiant est obligatoire
+  min_char_username: l'identifiant doit contenir 3 caractères minimum
+  wrong_char_username: l'identifiant contient des caractères interdits
+  unique_email: l'email est déjà utilisé
+  required_email: l'email est obligatoire
+  wrong_format_email: le format de l'email n'est pas valide
+  required_password: Le mot de passe est obligatoire
+  min_char_password: Le mot de passe doit contenir 6 caractères minimum
+  same_password: les mots de passe doivent être identiques
+
+forgot_password:
+  email_required: l'email est obligatoire
+  email_not_exist: L'email renseigné n'est lié à aucun compte
+
+reset_password:
+  same_password: Les mots de passe doivent être identiques

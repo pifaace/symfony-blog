@@ -16,7 +16,7 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="navbar-start">
                     <a href="{{ path('admin-dashboard') }}" class="navbar-item">
-                        Dashboard
+                        {{ 'navbar.dashboard'|trans }}
                     </a>
                 </div>
             {% endif %}
@@ -28,17 +28,21 @@
                         </a>
                         <div class="navbar-dropdown is-right">
                             <a class="navbar-item" href="{{ path('user_profile') }}">
-                                Profil
+                                {{ 'navbar.profile'|trans }}
                             </a>
                             <a class="navbar-item" href="{{ path('logout') }}">
-                                Déconnexion
+                                {{ 'navbar.logout'|trans }}
                             </a>
                         </div>
                     </div>
                 {% else %}
-                    <a href="{{ path('login') }}" class="navbar-item navbar-action bold">Connexion</a>
-                    <p class="navbar-item navbar-action">ou</p>
-                    <a href="{{ path('registration') }}" class="navbar-item navbar-action bold">Inscription</a>
+                    <a href="{{ path('login') }}" class="navbar-item navbar-action bold">
+                        {{ 'navbar.login'|trans }}
+                    </a>
+                    <p class="navbar-item navbar-action">{{ 'generic.or'|trans }}</p>
+                    <a href="{{ path('registration') }}" class="navbar-item navbar-action bold">
+                        {{ 'navbar.signin'|trans }}
+                    </a>
                 {% endif %}
             </div>
         </div>

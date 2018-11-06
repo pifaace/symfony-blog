@@ -1,7 +1,7 @@
 {{ form_start(form, {'attr': {'id': 'registration-form'}}) }}
     {{ form_errors(form) }}
         <div class="field">
-            {{ form_label(form.username, 'Identifiant', {'label_attr': {'class': 'label has-text-left'}}) }}
+            {{ form_label(form.username, 'signin.form.username'|trans, {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
                 {{ form_widget(form.username, {'attr': {'class': 'input', 'placeholder': 'johnDoe'}}) }}
                 <span class="icon is-small is-left">
@@ -14,7 +14,7 @@
         </div>
 
         <div class="field">
-            {{ form_label(form.email, 'Email', {'label_attr': {'class': 'label has-text-left'}}) }}
+            {{ form_label(form.email, 'signin.form.email'|trans, {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
                 {{ form_widget(form.email, {'attr': {'class': 'input', 'placeholder': 'you@mail.com'}}) }}
                 <span class="icon is-small is-left">
@@ -27,9 +27,9 @@
             </div>
 
         <div class="field">
-            {{ form_label(form.plainPassword.first, 'Mot de passe', {'label_attr': {'class': 'label has-text-left'}}) }}
+            {{ form_label(form.plainPassword.first, 'signin.form.password'|trans, {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
-                {{ form_widget(form.plainPassword.first, {'attr': {'class': 'input', 'placeholder': 'strong password'}}) }}
+                {{ form_widget(form.plainPassword.first, {'attr': {'class': 'input', 'placeholder': 'signin.form.password_placeholder'|trans}}) }}
                 <span class="icon is-small is-left">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
@@ -37,9 +37,9 @@
         </div>
 
         <div class="field">
-            {{ form_label(form.plainPassword.second, 'Répétez le mot de passe', {'label_attr': {'class': 'label has-text-left'}}) }}
+                {{ form_label(form.plainPassword.second, 'signin.form.repeat_password'|trans, {'label_attr': {'class': 'label has-text-left'}}) }}
             <div class="control has-icons-left">
-                {{ form_widget(form.plainPassword.second, {'attr': {'class': 'input', 'placeholder': 'repeat it'}}) }}
+                {{ form_widget(form.plainPassword.second, {'attr': {'class': 'input', 'placeholder': 'signin.form.repeat_password_placeholder'|trans}}) }}
                 <span class="icon is-small is-left">
                     <i class="fa fa-lock" aria-hidden="true"></i>
                 </span>
@@ -49,5 +49,7 @@
             </div>
         </div>
 
-        <button type="submit" class="button is-large is-primary is-fullwidth">Inscription</button>
+        <button type="submit" class="button is-large is-primary is-fullwidth" data-trans="{{ 'signin.form.submitted'|trans }}">
+            {{ 'signin.signin'|trans }}
+        </button>
 {{ form_end(form) }}

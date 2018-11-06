@@ -1,19 +1,19 @@
 <aside class="menu">
     <p class="menu-label">
-        Profil
+        {{ 'profile.sidebar.profile'|trans }}
     </p>
     <ul class="menu-list">
         <li><a class="{{ (app.request.attributes.get('_route') == 'user_profile') ? 'is-active' : '' }}">
                 <i class="fa fa-user" aria-hidden="true"></i>
-                Mon profil
+                {{ 'profile.sidebar.my_profile'|trans }}
             </a>
         </li>
-        <li><a><i class="fa fa-pencil" aria-hidden="true"></i> Editer mon profil</a></li>
+        <li><a><i class="fa fa-pencil" aria-hidden="true"></i> {{ 'profile.sidebar.edit_profile'|trans }}</a></li>
     </ul>
     <p class="menu-label">
-        Securité
+        {{ 'profile.sidebar.security'|trans }}
     </p>
     <ul class="menu-list">
-        <li><a><i class="fa fa-lock" aria-hidden="true"></i> Changer le mot de passe</a></li>
+        <li><a><i class="fa fa-lock" aria-hidden="true"></i> {{ 'profile.sidebar.change_password'|trans }}</a></li>
     </ul>
 </aside>

@@ -1,0 +1,18 @@
+signin:
+  unique_username: username is already used
+  required_username: username is required
+  min_char_username: username must have 3 characters at least
+  wrong_char_username: username has wrong characters
+  unique_email: email is already used
+  required_email: email is required
+  wrong_format_email: email format must be valid
+  required_password: password is required
+  min_char_password: password must have 6 characters at least
+  same_password: passwords must be the same
+
+forgot_password:
+  email_required: email is required
+  email_not_exist: email doesn't exist
+
+reset_password:
+  same_password: passwords must be the same

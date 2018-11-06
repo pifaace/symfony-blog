@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class LoginGithubAuthenticator extends AbstractGuardAuthenticator
 {
@@ -46,18 +47,25 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      */
     private $em;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private $trans;
+
     public function __construct(
         Client $client,
         FlashMessage $flashMessage,
         RouterInterface $router,
         UserRepository $userRepo,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        TranslatorInterface $trans
     ) {
         $this->client = $client;
         $this->flashMessage = $flashMessage;
         $this->router = $router;
         $this->userRepo = $userRepo;
         $this->em = $em;
+        $this->trans = $trans;
     }
 
     /**
@@ -243,7 +251,11 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
-        $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Vous êtes maintenant connecté');
+        $this->flashMessage->createMessage(
+            $request,
+            FlashMessage::INFO_MESSAGE,
+            $this->trans->trans('login.flashmessage_success')
+        );
 
         return new RedirectResponse($this->router->generate('homepage'));
     }

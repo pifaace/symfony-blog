@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\PasswordReset;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +14,7 @@ class PasswordResetRequestType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'constraints' => new NotBlank(['message' => "L'email est obligatoire"]),
+                'constraints' => new NotBlank(['message' => "forgot_password.email_required"]),
             ])
         ;
     }

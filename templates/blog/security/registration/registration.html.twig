@@ -3,11 +3,11 @@
 {% block security %}
     <div class="security-container">
         <div class="registration">
-            <h1 class="title is-3">Inscription</h1>
+            <h1 class="title is-3">{{ 'signin.signin'|trans }}</h1>
             <div class="border-form">
                 {% include('blog/security/registration/_registration_form.html.twig') %}
                 <div class="mt-15">
-                    Inscrivez-vous avec :
+                    {{ 'signin.signin_with'|trans }} :
                     <a href="{{ path('login_github') }}">
                         <i class="fa fa-github fa-2x" aria-hidden="true"></i>
                     </a>

@@ -16,9 +16,7 @@ class PasswordResetNewType extends AbstractType
         $builder
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent être identiques',
-                'first_options' => ['label' => 'Nouveau mot de passe'],
-                'second_options' => ['label' => 'Répétez le nouveau mot de passe'],
+                'invalid_message' => 'reset_password.same_password',
             ]);
     }
 

@@ -1,0 +1,90 @@
+generic:
+  or: or
+  by: by
+
+navbar:
+  login: Log in
+  signin: Sign in
+  profile: Profile
+  logout: Logout
+  dashboard: Dashboard
+
+home:
+  read_more: Read more
+  no_article: No article :(
+
+article:
+  comment: Comment
+  comments: Comments
+  not_authenticate: You must be login to leave a comment
+  login: Log in
+  signin: Sign in
+  form:
+    post_comment: Leave a comment
+    comment_placeholder: Leave a public comment..
+
+login:
+  login: Log in
+  login_with: Log in with
+  forgot_password: Forgot password ?
+  not_registered: Not registered ?
+  create_account: Create an account
+  form:
+    username: Username
+    password: Password
+    submitted: Log in...
+  flashmessage_success: You are now log in
+
+
+"Username could not be found.": User or password could not be found
+
+signin:
+  signin: Sign in
+  signin_with: Sign in with
+  form:
+    username: Username
+    email: Email
+    password: Password
+    password_placeholder: strong password
+    repeat_password: Repeat it
+    repeat_password_placeholder: once again
+    submitted: Sign in...
+  flashmessage_success: Your account has been created. You can now log in
+
+
+forgot_password:
+  forgot_password: Forgot password
+  instruction: Fill in the field with you email account to get a reset link
+  send: Send email
+  submitted: Send...
+  flashmessage_success: An email has been sent to this email address
+
+reset_password:
+  reset_password: Reset password
+  form:
+    new_password: New password
+    new_password_placeholder: strong password
+    repeat_password: Repeat the new password
+    repeat_password_placeholder: once again
+    submit: Save
+    submitted: Save in progress...
+  flashmessage_success: Password has been reseted !
+  flashmessage_token_expired: Token is expired. Get a new password request
+
+profile:
+  sidebar:
+    profile: Profile
+    security: Security
+    my_profile: My profile
+    edit_profile: Edit my profile
+    change_password: Change my password
+  last_comments: Last comments
+  badges: My badges
+
+
+
+
+
+
+
+

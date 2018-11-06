@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SecurityController extends Controller
 {
@@ -42,16 +43,23 @@ class SecurityController extends Controller
      */
     private $manager;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private $trans;
+
     public function __construct(
         AuthenticationUtils $authenticationUtils,
         AuthorizationCheckerInterface $checker,
         UserManager $manager,
-        FlashMessage $flashMessage
+        FlashMessage $flashMessage,
+        TranslatorInterface $trans
     ) {
         $this->authenticationUtils = $authenticationUtils;
         $this->checker = $checker;
         $this->flashMessage = $flashMessage;
         $this->manager = $manager;
+        $this->trans = $trans;
     }
 
     /**
@@ -111,7 +119,7 @@ class SecurityController extends Controller
             $this->flashMessage->createMessage(
                 $request,
                 FlashMessage::INFO_MESSAGE,
-                'Compte créé avec succès. Vous pouvez maintenant vous connecter'
+                $this->trans->trans('signin.flashmessage_success')
             );
 
             return $this->redirectToRoute('login');
@@ -141,12 +149,19 @@ class SecurityController extends Controller
             ]);
             if ($user) {
                 $resetPassword->reset($user);
-                $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Un mail de réinitialisation a été envoyé à cette adresse mail');
+                $this->flashMessage->createMessage(
+                    $request,
+                    FlashMessage::INFO_MESSAGE, $this->trans->trans('forgot_password.flashmessage_success')
+                );
 
                 return $this->redirectToRoute('login');
             }
 
-            $form->addError(new FormError("L'email renseigné n'est lié à aucun compte"));
+            $form->addError(
+                new FormError(
+                    $this->trans->trans('forgot_password.email_not_exist', [], 'validators')
+                )
+            );
         }
 
         return $this->render('blog/security/password/password_reset_request.html.twig', [
@@ -174,11 +189,17 @@ class SecurityController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$this->manager->isTokenExpired($user)) {
                 $this->manager->resetPassword($user);
-                $this->flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, 'Le mot de passe a été réinitialisé avec succès !');
+                $this->flashMessage->createMessage(
+                    $request,
+                    FlashMessage::INFO_MESSAGE,
+                    $this->trans->trans('reset_password.flashmessage_success'));
 
                 return $this->redirectToRoute('login');
             }
-            $this->flashMessage->createMessage($request, FlashMessage::ERROR_MESSAGE, 'Le token est expiré. Veuillez effectuer une nouvelle demande.');
+            $this->flashMessage->createMessage(
+                $request,
+                FlashMessage::ERROR_MESSAGE, 
+                $this->trans->trans('reset_password.flashmessage_token_expired'));
         }
 
         return $this->render('blog/security/password/password_reset_new.html.twig', [

@@ -14,11 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  *     fields={"email"},
- *     message="L'email est déjà utilisé"
+ *     message="signin.unique_email"
  * )
  * @UniqueEntity(
  *     fields={"username"},
- *     message="L'identifiant n'est pas disponible"
+ *     message="signin.unique_username"
  * )
  */
 class User implements UserInterface, \Serializable
@@ -38,16 +38,16 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="username", type="string", length=25, unique=true)
      *
      * @Assert\NotBlank(
-     *     message="L'identifiant est obligatoire"
+     *     message="signin.required_username"
      * )
      * @Assert\Length(
      *     min=3,
-     *     minMessage="L'identifiant doit contenir 3 caractères minimum"
+     *     minMessage="signin.min_char_username"
      * )
      * @Assert\Regex(
      *     pattern="/^[\pL\pM\pN_-]+$/u",
      *     match=true,
-     *     message="L'identifiant contient des caractères interdits"
+     *     message="signin.wrong_char_username"
      * )
      */
     private $username;
@@ -70,12 +70,12 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @Assert\NotBlank(
-     *     message="Le mot de passe est obligatoire"
+     *     message="signin.required_password"
      * )
      * @Assert\Length(
      *     min=6,
      *     max=4096,
-     *     minMessage="Le mot de passe doit contenir 6 caractères minimum"
+     *     minMessage="signin.min_char_password"
      * )
      */
     private $plainPassword;
@@ -85,10 +85,10 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(name="email", type="string", unique=true)
      * @Assert\NotBlank(
-     *     message="L'email est obligatoire"
+     *     message="signin.required_email"
      * )
      * @Assert\Email(
-     *     message="Le format de l'email n'est pas valide"
+     *     message="signin.wrong_format_email"
      * )
      */
     private $email;

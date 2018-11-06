@@ -9,15 +9,15 @@
     <div class="media-content">
 
         <div class="field">
-            {{ form_label(form.content, 'Commentaire', {'label_attr': {'class': 'label'}}) }}
+            {{ form_label(form.content, 'article.comment'|trans, {'label_attr': {'class': 'label'}}) }}
             <p class="control">
-                {{ form_widget(form.content, {'attr': {'class': 'textarea', 'placeholder': 'Ajouter un commentaire publique..'}}) }}
+                {{ form_widget(form.content, {'attr': {'class': 'textarea', 'placeholder': 'article.form.comment_placeholder'|trans}}) }}
             </p>
         </div>
         <div class="field">
             <p class="control">
                 {{ form_rest(form) }}
-                <button type="submit" class="button is-primary">Poster un commentaire</button>
+                <button type="submit" class="button is-primary">{{ 'article.form.post_comment'|trans }}</button>
             </p>
         </div>
     </div>
