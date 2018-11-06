@@ -7,7 +7,10 @@ use App\Services\ResetPassword;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Provider\DateTime;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ResetPasswordTest extends TestCase
 {
@@ -30,10 +33,23 @@ class ResetPasswordTest extends TestCase
             ->method('generateToken')
             ->willReturn('token-genereted')
         ;
+        $trans = $this->getTransMock();
+        $masterRequest = $this->getRequestMock();
+        $masterRequest
+            ->expects($this->once())
+            ->method('getLocale')
+            ->willReturn('en')
+        ;
+        $request = $this->getRequestStackMock();
+        $request
+            ->expects($this->once())
+            ->method('getMasterRequest')
+            ->willReturn($masterRequest)
+        ;
 
         $user = new User();
 
-        $resetPassword = new ResetPassword($em, $swiftMailer, $twig, $tokenGenerator);
+        $resetPassword = new ResetPassword($em, $swiftMailer, $twig, $tokenGenerator, $trans, $request);
         $resetPassword->reset($user);
 
         $this->assertEquals('token-genereted', $user->getResetPasswordToken());
@@ -68,6 +84,30 @@ class ResetPasswordTest extends TestCase
     {
         return $this
             ->getMockBuilder(TokenGeneratorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    private function getTransMock()
+    {
+        return $this
+            ->getMockBuilder(TranslatorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    private function getRequestStackMock()
+    {
+        return $this
+            ->getMockBuilder(RequestStack::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    private function getRequestMock()
+    {
+        return $this
+            ->getMockBuilder(Request::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
