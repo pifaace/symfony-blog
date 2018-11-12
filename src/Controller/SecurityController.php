@@ -151,7 +151,8 @@ class SecurityController extends Controller
                 $resetPassword->reset($user);
                 $this->flashMessage->createMessage(
                     $request,
-                    FlashMessage::INFO_MESSAGE, $this->trans->trans('forgot_password.flashmessage_success')
+                    FlashMessage::INFO_MESSAGE,
+                    $this->trans->trans('forgot_password.flashmessage_success')
                 );
 
                 return $this->redirectToRoute('login');

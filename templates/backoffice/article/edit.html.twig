@@ -1,7 +1,7 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
 
 {% block body %}
-    {% set titlePage = 'Editer un article' %}
+    {% set titlePage = 'backoffice.articles.edit.title'|trans %}
 
     <div class="section">
         <div class="title-tab">
@@ -13,26 +13,30 @@
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        <span class="form-part">Actualité</span>
+        <span class="form-part">{{ 'backoffice.articles.add_edit_form.actuality'|trans }}</span>
 
         <div class="field">
-            {{ form_label(form.title, 'Titre', {'label_attr': {'class': 'label'}}) }}
+            {{ form_label(form.title, 'backoffice.articles.add_edit_form.article_title'|trans, {'label_attr': {'class': 'label'}}) }}
             <div class="control">
                 {{ form_widget(form.title, {'attr': {'class': 'input'}}) }}
             </div>
-            {{ form_errors(form.title) }}
+            <div class="help is-danger has-text-left">
+                {{ form_errors(form.title) }}
+            </div>
         </div>
 
         <div class="field">
-            {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'label'}}) }}
+            {{ form_label(form.content, 'backoffice.articles.add_edit_form.article_content'|trans, {'label_attr': {'class': 'label'}}) }}
             <div class="control">
                 {{ form_widget(form.content, {'attr': {'class': 'textarea'}}) }}
             </div>
-            {{ form_errors(form.content) }}
+            <div class="help is-danger has-text-left">
+                {{ form_errors(form.content) }}
+            </div>
         </div>
 
         <div class="field">
-            {{ form_label(form.tags) }}
+            {{ form_label(form.tags, 'backoffice.articles.add_edit_form.article_tags'|trans, {'label_attr': {'class': 'label'}}) }}
             <div class="control">
                 {{ form_widget(form.tags, {'attr': {'class': 'hidden-tag-input'}}) }}
             </div>
@@ -46,47 +50,44 @@
                 <input type="text" class="tag-input" placeholder="Ajouter un tag">
             </div>
             {{ form_errors(form.tags) }}
-            <i>Séparez vos tags par une virgule</i>
+            <i>{{ 'backoffice.articles.add_edit_form.article_tags_helper'|trans }}</i>
         </div>
 
-        <span class="form-part">Médias</span>
+        <span class="form-part">{{ 'backoffice.articles.add_edit_form.article_media'|trans }}</span>
 
         <div class="field">
-            <div class="file has-name">
-                <label class="file-label">
-                    {{ form_widget(form.image, {'attr': {'class': 'file-input coverage-input', 'name': 'resume'}}) }}
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fa fa-upload"></i>
-                        </span>
-                        <span class="file-label">Image de couverture...</span>
-                    </span>
-                    <span id="coverage-name" class="file-name">Aucun fichier</span>
-                </label>
+            {{ form_widget(form.image) }}
+            <div class="help is-danger has-text-left">
+                {{ form_errors(form.image) }}
             </div>
-            <span><i>Format : jpg, png</i></span>
-            {{ form_errors(form.image) }}
         </div>
 
         <div class="field">
-            <h5 class="title is-5">Image de couverture actuelle</h5>
+            <h5 class="title is-5">{{ 'backoffice.articles.edit.cover_image'|trans }}</h5>
             {% if currentImage is not null %}
                 <div class="img-coverage-container">
                     <img src="{{ asset(image_article_coverage_display ~ currentImage.alt) }}"
                          alt="{{ currentImage.alt }} "
                          class="img-thumbnail img-coverage" width="270" height="150">
                     <div class="overlay">
-                        <span class="button is-danger delete-image">Supprimer l'image</span>
+                        <span class="button is-danger delete-image"
+                              data-trans="{{ 'backoffice.articles.edit.delete_cover_image_confirm'|trans }}">
+                            {{ 'backoffice.articles.edit.delete_cover_image'|trans }}
+                        </span>
                     </div>
                 </div>
             {% else %}
-                <i>Aucune image de couverture</i>
+                <i>{{ 'backoffice.articles.edit.no_cover_image'|trans }}</i>
             {% endif %}
         </div>
 
         {{ form_rest(form) }}
 
-        <input type="submit" class="button is-primary">
+        <div class="control">
+            <button type="submit" class="button is-primary">
+                {{ 'backoffice.articles.add_edit_form.submit_button'|trans }}
+            </button>
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}

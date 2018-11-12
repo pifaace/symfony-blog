@@ -4,14 +4,14 @@
             <a href="{{ path('admin-dashboard') }}"
                class="nav-link {{ (app.request.attributes.get('_route') == 'admin-dashboard') ? 'is-active' : '' }}">
                 <i class="fa fa-tachometer" aria-hidden="true"></i>
-                <span class="sidebar-item-title">DASHBOARD</span>
+                <span class="sidebar-item-title">{{ 'backoffice.sidebar.dashboard'|trans }}</span>
             </a>
         </li>
         <li>
             <a href="{{ path('admin-articles') }}"
                class="nav-link {{ (app.request.requestUri matches '/article/' ? 'is-active' : '') }}">
                 <i class="fa fa-file" aria-hidden="true"></i>
-                <span class="sidebar-item-title">ARTICLES</span>
+                <span class="sidebar-item-title">{{ 'backoffice.sidebar.articles'|trans }}</span>
             </a>
         </li>
     </ul>

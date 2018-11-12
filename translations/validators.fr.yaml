@@ -16,3 +16,8 @@ forgot_password:
 
 reset_password:
   same_password: Les mots de passe doivent être identiques
+
+backoffice:
+  article:
+    title_required: le titre est obligatoire
+    content_required: le contenu est obligatoire

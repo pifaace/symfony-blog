@@ -29,7 +29,7 @@ class Article
      *
      * @ORM\Column(name="title", type="string", length=255)
      * @Assert\NotBlank(
-     *     message="Ce champs est obligatoire"
+     *     message="backoffice.article.title_required"
      * )
      */
     private $title;
@@ -54,7 +54,7 @@ class Article
      *
      * @ORM\Column(name="content", type="text")
      * @Assert\NotBlank(
-     *     message="Ce champs est obligatoire"
+     *     message="backoffice.article.content_required"
      * )
      */
     private $content;

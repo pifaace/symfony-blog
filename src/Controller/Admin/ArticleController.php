@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ArticleController extends Controller
 {
@@ -18,9 +19,15 @@ class ArticleController extends Controller
      */
     private $articleManager;
 
-    public function __construct(ArticleManager $articleManager)
+    /**
+     * @var TranslatorInterface
+     */
+    private $trans;
+
+    public function __construct(ArticleManager $articleManager, TranslatorInterface $trans)
     {
         $this->articleManager = $articleManager;
+        $this->trans = $trans;
     }
 
     /**
@@ -35,7 +42,10 @@ class ArticleController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->articleManager->create($article);
-            $flashMessage->createMessage($request, FlashMessage::INFO_MESSAGE, "L'article a été créé avec succès");
+            $flashMessage->createMessage(
+                $request,
+                FlashMessage::INFO_MESSAGE,
+                $this->trans->trans('backoffice.articles.flashmessage_publish'));
 
             return $this->redirectToRoute('admin-articles');
         }
@@ -60,7 +70,7 @@ class ArticleController extends Controller
             $flashMessage->createMessage(
                     $request,
                     FlashMessage::INFO_MESSAGE,
-                    "L'article a été mis à jour avec succès"
+                    $this->trans->trans('backoffice.articles.flashmessage_edit')
                 );
 
             return $this->redirect($request->getUri());
@@ -83,7 +93,7 @@ class ArticleController extends Controller
         $flashMessage->createMessage(
             $request,
             FlashMessage::INFO_MESSAGE,
-            "L'annonce été supprimé avec succès"
+            $this->trans->trans('backoffice.articles.flashmessage_deleted_article')
         );
 
         return $this->redirectToRoute('admin-articles');

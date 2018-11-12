@@ -16,3 +16,8 @@ forgot_password:
 
 reset_password:
   same_password: passwords must be the same
+
+backoffice:
+  article:
+    title_required: title is required
+    content_required: content is required

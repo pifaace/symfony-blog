@@ -79,3 +79,44 @@ profile:
   last_comments: Mes derniers commentaires
   badges: Mes badges
 
+backoffice:
+  sidebar:
+    dashboard: DASHBOARD
+    articles: ARTICLES
+  dashboard:
+    article: Article
+    articles: Articles
+    comment: Commentaire
+    comments: Commentaires
+    user: Utilisateur
+    users: Utilisateurs
+  articles:
+    list:
+      title: LES ARTICLES
+      new_article: Nouvel article
+      article_title: Titre
+      article_author: Auteur
+      article_posted_at: Date poste
+      article_comment: Commentaires
+      articlr_action: Actions
+      no_article: Pas d'article
+      deleted_confirm: Voulez vous vraiment supprimer cet article ?
+    add:
+      title: AJOUTER UN ARTICLE
+    edit:
+      title: EDITER UN ARTICLE
+      cover_image: Image de couverture actuelle
+      delete_cover_image: Supprimer l'image
+      delete_cover_image_confirm: Voulez vous vraiment supprimer cette image ?
+      no_cover_image: Aucune image de couverture
+    add_edit_form:
+      actuality: Actualité
+      article_title: Titre
+      article_content: Contenu
+      article_tags: Tags
+      article_tags_helper: Séparez vos tags par une virgule
+      article_media: Médias
+      submit_button: Publier
+    flashmessage_publish: L'article a été créé avec succès
+    flashmessage_edit: L'article a été mis à jour avec succès
+    flashmessage_deleted_article: L'annonce été supprimé avec succès

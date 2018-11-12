@@ -1,7 +1,7 @@
 {% extends 'backoffice/layout-backoffice.html.twig' %}
 
 {% block body %}
-    {% set titlePage = 'LES ARTICLES' %}
+    {% set titlePage = 'backoffice.articles.list.title'|trans %}
     <div id="article-list" class="section">
         <div class="columns">
             <div class="column">
@@ -17,7 +17,9 @@
 
         <div class="columns">
             <div class="column">
-                <a class="button is-primary" href="{{ path('article_new') }}">Nouvel article</a>
+                <a class="button is-primary" href="{{ path('article_new') }}">
+                    {{ 'backoffice.articles.list.new_article'|trans }}
+                </a>
             </div>
         </div>
 
@@ -27,11 +29,11 @@
                     <div class="table-container">
                         <table class="table">
                             <thead>
-                            <th><abbr title="Titre">Titre</abbr></th>
-                            <th><abbr title="Auteur">Auteur</abbr></th>
-                            <th><abbr title="Date poste">Date poste</abbr></th>
-                            <th><abbr title="Commentaire">Commentaire</abbr></th>
-                            <th><abbr title="Actions">Actions</abbr></th>
+                            <th><abbr title="Titre">{{ 'backoffice.articles.list.article_title'|trans }}</abbr></th>
+                            <th><abbr title="Auteur">{{ 'backoffice.articles.list.article_author'|trans }}</abbr></th>
+                            <th><abbr title="Date poste">{{ 'backoffice.articles.list.article_posted_at'|trans }}</abbr></th>
+                            <th><abbr title="Commentaire">{{ 'backoffice.articles.list.article_comment'|trans }}</abbr></th>
+                            <th><abbr title="Actions">{{ 'backoffice.articles.list.articlr_action'|trans }}</abbr></th>
                             </thead>
 
                             <tbody>
@@ -51,7 +53,8 @@
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                         <a href="{{ path('article_delete', {'slug': article.slug}) }}"
-                                           class="button is-danger delete-article">
+                                           class="button is-danger delete-article"
+                                        data-trans="{{ 'backoffice.articles.list.deleted_confirm'|trans }}">
                                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                                         </a>
                                     </td>
@@ -61,7 +64,7 @@
                         </table>
                     </div>
                 {% else %}
-                    <i>Pas d'article</i>
+                    <i>{{ 'backoffice.articles.list.no_article'|trans }}</i>
                 {% endif %}
             </div>
         </div>

@@ -1,10 +1,10 @@
 $('.delete-article').on('click', function() {
-    var message = "Voulez vous vraiment supprimer cette annonce ?";
+    var message = $('.delete-article').data('trans');
     return confirm(message);
 });
 
 $('.delete-image').on('click', function() {
-    var message = "Voulez vous vraiment supprimer cette image ?";
+    var message = $('.delete-image').data('trans');
     if (confirm(message)) {
         $('.delete-img-confirm').prop('checked', true);
         $(this).parents("form").submit();

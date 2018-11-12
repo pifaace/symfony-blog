@@ -81,10 +81,45 @@ profile:
   last_comments: Last comments
   badges: My badges
 
-
-
-
-
-
-
+backoffice:
+  sidebar:
+    dashboard: DASHBOARD
+    articles: ARTICLES
+  dashboard:
+    article: Article
+    articles: Articles
+    comment: Comment
+    comments: Comments
+    user: User
+    users: Users
+  articles:
+    list:
+      title: THE ARTICLES
+      new_article: New article
+      article_title: Title
+      article_author: Author
+      article_posted_at: Posted at
+      article_comment: Comments
+      articlr_action: Actions
+      no_article: No article
+      deleted_confirm: Do you want to delete this article ?
+    add:
+      title: ADD ARTICLE
+    edit:
+      title: EDIT ARTICLE
+      cover_image: Cover image
+      delete_cover_image: Delete image
+      delete_cover_image_confirm: Do you want to delete this image ?
+      no_cover_image: No cover image
+    add_edit_form:
+      actuality: Actuality
+      article_title: Title
+      article_content: Content
+      article_tags: Tags
+      article_tags_helper: Split your tags with a comma
+      article_media: Media
+      submit_button: Publish
+    flashmessage_publish: The article has been successfully created
+    flashmessage_edit: The article has been successfully edited
+    flashmessage_deleted_article: The article has been successfully deleted
 
