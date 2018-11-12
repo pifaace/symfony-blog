@@ -77,4 +77,14 @@ class BlogController extends Controller
             'article' => $article,
         ]);
     }
+
+    /**
+     * @Route("/switch-locale/{locale}", name="switch_locale", methods={"GET"})
+     */
+    public function switchLocale(Request $request, string $locale)
+    {
+        $request->getSession()->set('locale', $locale);
+
+        return $this->redirectToRoute('homepage');
+    }
 }

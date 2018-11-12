@@ -5,6 +5,9 @@ parameters:
     image_articles_coverages_directory: '%kernel.project_dir%/public/uploads/articles/coverages/'
     image_articles_coverages_display: '/uploads/articles/coverages/'
     itemperpage: 5
+    supportedLocales:
+        - en
+        - fr
 
 services:
     # default configuration for services in *this* file
@@ -18,6 +21,8 @@ services:
             $userActionLogger: '@monolog.logger.user_action'
             $itemPerPage: '%itemperpage%'
             $targetDir: '%image_articles_coverages_directory%'
+            $supportedLocales: '%supportedLocales%'
+            $locale: '%locale%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

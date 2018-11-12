@@ -44,6 +44,14 @@
                         {{ 'navbar.signin'|trans }}
                     </a>
                 {% endif %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">{{ app.request.locale|upper }}</a>
+
+                    <div class="navbar-dropdown">
+                        <a href="{{ path('switch_locale', {'locale': 'fr'}) }}" class="navbar-item">FR</a>
+                        <a href="{{ path('switch_locale', {'locale': 'en'}) }}" class="navbar-item">EN</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
