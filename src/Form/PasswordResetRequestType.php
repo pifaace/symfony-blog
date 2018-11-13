@@ -14,7 +14,7 @@ class PasswordResetRequestType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'constraints' => new NotBlank(['message' => "forgot_password.email_required"]),
+                'constraints' => new NotBlank(['message' => 'forgot_password.email_required']),
             ])
         ;
     }

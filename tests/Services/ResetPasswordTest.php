@@ -5,7 +5,6 @@ namespace App\Tests\Services;
 use App\Entity\User;
 use App\Services\ResetPassword;
 use Doctrine\ORM\EntityManagerInterface;
-use Faker\Provider\DateTime;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

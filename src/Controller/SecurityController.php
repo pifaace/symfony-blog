@@ -199,7 +199,7 @@ class SecurityController extends Controller
             }
             $this->flashMessage->createMessage(
                 $request,
-                FlashMessage::ERROR_MESSAGE, 
+                FlashMessage::ERROR_MESSAGE,
                 $this->trans->trans('reset_password.flashmessage_token_expired'));
         }
 
