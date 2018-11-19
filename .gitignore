@@ -1,6 +1,4 @@
 tmp
-node_modules
-public/build
 public/uploads
 ###> symfony/framework-bundle ###
 .env
@@ -16,3 +14,10 @@ public/uploads
 .phpunit
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
