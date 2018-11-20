@@ -17,9 +17,7 @@ this list should evolve.
 Also, to improve this project, I'm using some tools like :
 * [Bulma.io](https://bulma.io/)
 * [SASS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html)
-* [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/API.md)
 * [Font-awesome](http://fontawesome.io/)
-* [Browserify](http://browserify.org/)
 * [Github OAuth](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 
 
@@ -39,9 +37,20 @@ $ git clone https://github.com/pifaace/symfony-blog.git
 #### Run dependencies
 ```
 $ docker-compose run --rm --no-deps blog-server composer install
-$ npm install
-$ gulp
+$ docker run --rm -it -v $(pwd):/application -w /application node yarn run install
 ```
+
+#### Assets
+I'm using [Webpack encore](https://symfony.com/doc/current/frontend.html) to build assets.
+Some commands are available, you can run those in a container like :
+```
+$ docker run --rm -it -v $(pwd):/application -w /application node yarn encore dev
+$ docker run --rm -it -v $(pwd):/application -w /application node yarn encore dev --watch
+$ docker run --rm -it -v $(pwd):/application -w /application node yarn encore production --progress
+```
+Just notice that, running those in a container do not trigger webpack-notifier.
+You should run these commands directly on your host to use it. In this case be 
+sure you have yarn installed.
 
 ### Running docker containers
 
