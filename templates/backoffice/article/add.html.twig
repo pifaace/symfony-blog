@@ -65,3 +65,8 @@
         {{ form_end(form) }}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/tags.js') }}"></script>
+{% endblock %}
