@@ -11,6 +11,7 @@ In this project, I'm trying to use various components of Symfony like :
 * [Data transormers](https://symfony.com/doc/current/form/data_transformers.html)
 * [Monolog](https://symfony.com/doc/current/logging.html)
 * [Guard Authentication](https://symfony.com/doc/current/security/guard_authentication.html)
+* [Webpack Encore](https://symfony.com/doc/current/frontend.html)
 
 this list should evolve.
 
