@@ -1,5 +1,5 @@
-window.$ = window.jQuery = require('jquery');
-require('./delete-confirmation');
-require('./tags');
+const $ = require('jquery');
+global.$ = $;
+
 require('./delete-notification');
 require('./button-click-back');

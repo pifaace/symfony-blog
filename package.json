@@ -10,6 +10,8 @@
     },
     "devDependencies": {
         "@symfony/webpack-encore": "^0.22.0",
+        "node-sass": "^4.10.0",
+        "sass-loader": "^7.1.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "MIT",
