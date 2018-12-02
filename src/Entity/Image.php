@@ -33,7 +33,7 @@ class Image
      *
      * @Assert\Image(
      *     mimeTypes={"image/png", "image/jpg"},
-     *     mimeTypesMessage="Le fichier n'est pas une image valide"
+     *     mimeTypesMessage="backoffice.article.image_extension"
      * )
      */
     private $file;

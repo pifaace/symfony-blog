@@ -21,3 +21,5 @@ backoffice:
   article:
     title_required: title is required
     content_required: content is required
+    image_extension: file is not a valid image
+
