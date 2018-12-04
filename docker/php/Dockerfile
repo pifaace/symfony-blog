@@ -1,4 +1,4 @@
-FROM php:7.2.0-fpm
+FROM php:7.2-fpm
 
 # Installing dependencies
 RUN apt-get update && apt-get install -y \
@@ -7,7 +7,15 @@ RUN apt-get update && apt-get install -y \
     openssl \
     locales \
     zip \
-    zlib1g-dev
+    zlib1g-dev \
+    libicu-dev
+
+RUN curl -sS -o /tmp/icu.tgz -L http://download.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz \
+  && tar -zxf /tmp/icu.tgz -C /tmp \
+  && cd /tmp/icu/source \
+  && ./configure --prefix=/usr/local \
+  && make \
+  && make install
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -15,7 +23,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Installing extensions
 RUN docker-php-ext-install \
     pdo_mysql \
-    zip
+    zip \
+    intl
+
+RUN docker-php-ext-configure intl --with-icu-dir=/usr/local
 
 COPY php.ini /usr/local/etc/php/php.ini
 

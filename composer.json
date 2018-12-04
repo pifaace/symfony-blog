@@ -9,7 +9,6 @@
     "doctrine/orm": "^2.5.11",
     "eightpoints/guzzle-bundle": "^7.3",
     "sensio/framework-extra-bundle": "^5.1",
-    "sensiolabs/security-checker": "^4.1",
     "stof/doctrine-extensions-bundle": "^1.3",
     "symfony/asset": "^4.0",
     "symfony/cache": "^3.3|^4.0",
@@ -19,6 +18,7 @@
     "symfony/framework-bundle": "^4.0",
     "symfony/monolog-bundle": "^3.1",
     "symfony/polyfill-apcu": "^1.6",
+    "symfony/requirements-checker": "^1.1",
     "symfony/security-bundle": "^4.0",
     "symfony/serializer": "^3.3|^4.0",
     "symfony/swiftmailer-bundle": "^3.1",
@@ -60,8 +60,7 @@
   "scripts": {
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
-      "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-      "security-checker security:check": "script"
+      "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
     },
     "post-install-cmd": [
       "@auto-scripts"

@@ -2,9 +2,6 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
-    "composer/ca-bundle": {
-        "version": "1.1.0"
-    },
     "composer/semver": {
         "version": "1.4.2"
     },
@@ -170,15 +167,6 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
-    "sensiolabs/security-checker": {
-        "version": "4.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.0",
-            "ref": "576d653444dade07f272c889d52fe4594caa4fc3"
-        }
-    },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
         "recipe": {
@@ -337,6 +325,15 @@
     },
     "symfony/property-access": {
         "version": "v4.0.1"
+    },
+    "symfony/requirements-checker": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "93d0ec48679f5e240d265088305c1ad775723f93"
+        }
     },
     "symfony/routing": {
         "version": "3.3",
