@@ -32,7 +32,7 @@ class Image
      * @var UploadedFile
      *
      * @Assert\Image(
-     *     mimeTypes={"image/png", "image/jpg"},
+     *     mimeTypes={"image/png", "image/jpeg"},
      *     mimeTypesMessage="backoffice.article.image_extension"
      * )
      */

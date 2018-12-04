@@ -103,7 +103,7 @@ class Article
         return $this->id;
     }
 
-    public function setTitle(string $title): Article
+    public function setTitle(?string $title): Article
     {
         $this->title = $title;
 
@@ -130,7 +130,7 @@ class Article
         return $this->createAt;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 
