@@ -3,7 +3,7 @@
 namespace App\Tests\Services;
 
 use App\Entity\User;
-use App\Services\ResetPassword;
+use App\Services\TokenPassword;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class ResetPasswordTest extends TestCase
 
         $user = new User();
 
-        $resetPassword = new ResetPassword($em, $swiftMailer, $twig, $tokenGenerator, $trans, $request);
+        $resetPassword = new TokenPassword($em, $swiftMailer, $twig, $tokenGenerator, $trans, $request);
         $resetPassword->reset($user);
 
         $this->assertEquals('token-genereted', $user->getResetPasswordToken());
