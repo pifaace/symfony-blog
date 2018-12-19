@@ -4,37 +4,36 @@ namespace App\Test\Services\User\Manager;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Services\Mailer;
 use App\Services\User\Manager\UserManager;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class UserManagerTest extends TestCase
 {
     public function testCreateUser()
     {
-        $userRepository = $this->getUserRepositoryMock();
+        list(
+            $userManager,
+            $userRepository,
+            ,
+            $passwordEncoder,
+            ) = $this->createUserManager();
+
         $userRepository
             ->expects($this->once())
             ->method('save')
             ->with($this->isInstanceOf(User::class))
         ;
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
-        $passwordEncoder = $this->getUserPasswordEncoderMock();
         $passwordEncoder
             ->expects($this->once())
             ->method('encodePassword')
             ->willReturn('encoded-password')
         ;
-        $eventDispatcher = $this->getEventDispatcherMock();
-
-        $userManager = new UserManager(
-            $userRepository,
-            $authorizationChecker,
-            $passwordEncoder,
-            $eventDispatcher
-        );
 
         $user = new User();
         $user->setPlainPassword('password');
@@ -44,106 +43,133 @@ class UserManagerTest extends TestCase
 
     public function testResetPassword()
     {
-        $userRepository = $this->getUserRepositoryMock();
+        list(
+            $userManager,
+            $userRepository,
+            ,
+            $passwordEncoder,
+            $eventDispatcher,
+            ) = $this->createUserManager();
+
         $userRepository
             ->expects($this->once())
             ->method('saveNewPassword')
         ;
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
-        $passwordEncoder = $this->getUserPasswordEncoderMock();
         $passwordEncoder
             ->expects($this->once())
             ->method('encodePassword')
             ->willReturn('encoded-password')
         ;
-        $eventDispatcher = $this->getEventDispatcherMock();
         $eventDispatcher
             ->expects($this->once())
             ->method('dispatch')
         ;
 
-        $userManager = new UserManager(
-            $userRepository,
-            $authorizationChecker,
-            $passwordEncoder,
-            $eventDispatcher
-        );
-
         $user = new User();
         $user->setPlainPassword('password');
 
         $userManager->resetPassword($user);
+
+        $this->assertEquals('encoded-password', $user->getPassword());
     }
 
     public function testIsLogin()
     {
-        $userRepository = $this->getUserRepositoryMock();
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
+        list(
+            $userManager,
+            ,
+            $authorizationChecker,
+            ,
+            ) = $this->createUserManager();
+
         $authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
             ->willReturn(true)
         ;
-        $passwordEncoder = $this->getUserPasswordEncoderMock();
-        $eventDispatcher = $this->getEventDispatcherMock();
 
-        $userManager = new UserManager(
-            $userRepository,
-            $authorizationChecker,
-            $passwordEncoder,
-            $eventDispatcher
-        );
         $this->assertTrue($userManager->isLogin());
     }
 
     public function testTokenIsNotExpired()
     {
-        $userRepository = $this->getUserRepositoryMock();
-        $authorizationChecker = $this->getAuthorizationCheckerMock();
-        $passwordEncoder = $this->getUserPasswordEncoderMock();
-        $eventDispatcher = $this->getEventDispatcherMock();
+        list(
+            $userManager,
+            ) = $this->createUserManager();
 
-        $userManager = new UserManager(
-            $userRepository,
-            $authorizationChecker,
-            $passwordEncoder,
-            $eventDispatcher
-        );
         $user = new User();
         $user->setTokenExpirationDate();
         $expired = $userManager->isTokenExpired($user);
         $this->assertFalse($expired);
     }
 
-    private function getUserRepositoryMock()
+    /**
+     * @return UserManager[]|\PHPUnit_Framework_MockObject_MockObject[]
+     */
+    public function createUserManager()
     {
-        return $this
+        $userRepository = $this
             ->getMockBuilder(UserRepository::class)
             ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function getAuthorizationCheckerMock()
-    {
-        return $this
+            ->getMock()
+        ;
+        $authorizationChecker = $this
             ->getMockBuilder(AuthorizationCheckerInterface::class)
             ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function getUserPasswordEncoderMock()
-    {
-        return $this
+            ->getMock()
+        ;
+        $passwordEncoder = $this
             ->getMockBuilder(UserPasswordEncoderInterface::class)
             ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function getEventDispatcherMock()
-    {
-        return $this
+            ->getMock()
+        ;
+        $eventDispatcher = $this
             ->getMockBuilder(EventDispatcherInterface::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
+        $mailer = $this
+            ->getMockBuilder(Mailer::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $translator = $this
+            ->getMockBuilder(TranslatorInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $templating = $this
+            ->getMockBuilder(\Twig_Environment::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $requestStack = $this
+            ->getMockBuilder(RequestStack::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $userManager = new UserManager(
+            $userRepository,
+            $authorizationChecker,
+            $passwordEncoder,
+            $eventDispatcher,
+            $mailer,
+            $translator,
+            $templating,
+            $requestStack
+        );
+
+        return [
+            $userManager,
+            $userRepository,
+            $authorizationChecker,
+            $passwordEncoder,
+            $eventDispatcher,
+            $mailer,
+            $translator,
+            $templating,
+            $requestStack
+        ];
     }
 }
