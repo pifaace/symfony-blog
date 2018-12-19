@@ -9,7 +9,7 @@ use App\Form\PasswordResetRequestType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
 use App\Services\FlashMessage;
-use App\Services\ResetPassword;
+use App\Services\TokenPassword;
 use App\Services\User\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
@@ -138,7 +138,7 @@ class SecurityController extends Controller
     public function passwordResetRequest(
         Request $request,
         UserRepository $userRepository,
-        ResetPassword $resetPassword
+        TokenPassword $tokenPassword
     ): Response {
         $form = $this->createForm(PasswordResetRequestType::class);
 
@@ -147,8 +147,11 @@ class SecurityController extends Controller
             $user = $userRepository->findOneBy([
                 'email' => $form['email']->getData(),
             ]);
+
             if ($user) {
-                $resetPassword->reset($user);
+                $tokenPassword->addToken($user);
+                $this->manager->sendPasswordRequestEmail($user);
+
                 $this->flashMessage->createMessage(
                     $request,
                     FlashMessage::INFO_MESSAGE,
@@ -193,14 +196,17 @@ class SecurityController extends Controller
                 $this->flashMessage->createMessage(
                     $request,
                     FlashMessage::INFO_MESSAGE,
-                    $this->trans->trans('reset_password.flashmessage_success'));
+                    $this->trans->trans('reset_password.flashmessage_success')
+                );
 
                 return $this->redirectToRoute('login');
             }
+
             $this->flashMessage->createMessage(
                 $request,
                 FlashMessage::ERROR_MESSAGE,
-                $this->trans->trans('reset_password.flashmessage_token_expired'));
+                $this->trans->trans('reset_password.flashmessage_token_expired')
+            );
         }
 
         return $this->render('blog/security/password/password_reset_new.html.twig', [
