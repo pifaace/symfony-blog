@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/pifaace/symfony-blog.svg?branch=master)](https://travis-ci.org/pifaace/symfony-blog)
 
-# Symfony-blog 4.1
+# Symfony-blog 4.2
 
 My application to try some stuffs about Symfony 4
 In this project, I'm trying to use various components of Symfony like :
