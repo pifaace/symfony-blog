@@ -11,7 +11,7 @@ use App\Repository\UserRepository;
 use App\Services\FlashMessage;
 use App\Services\TokenPassword;
 use App\Services\User\Manager\UserManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +21,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
     /**
      * @var AuthenticationUtils

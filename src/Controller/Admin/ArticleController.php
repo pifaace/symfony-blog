@@ -6,13 +6,14 @@ use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Services\Article\Manager\ArticleManager;
 use App\Services\FlashMessage;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class ArticleController extends Controller
+class ArticleController extends AbstractController
 {
     /**
      * @var ArticleManager

@@ -9,12 +9,12 @@ use App\Repository\ArticleRepository;
 use App\Services\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BlogController extends Controller
+class BlogController extends AbstractController
 {
     /**
      * @Route("/", name="homepage", methods={"GET"})

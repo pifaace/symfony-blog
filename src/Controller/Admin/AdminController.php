@@ -5,11 +5,12 @@ namespace App\Controller\Admin;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
     /**
      * @Route("/admin/dashboard", name="admin-dashboard", methods={"GET"})
