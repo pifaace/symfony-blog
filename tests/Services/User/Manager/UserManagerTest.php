@@ -21,8 +21,7 @@ class UserManagerTest extends TestCase
             $userManager,
             $userRepository,
             ,
-            $passwordEncoder,
-            ) = $this->createUserManager();
+            $passwordEncoder) = $this->createUserManager();
 
         $userRepository
             ->expects($this->once())
@@ -48,8 +47,7 @@ class UserManagerTest extends TestCase
             $userRepository,
             ,
             $passwordEncoder,
-            $eventDispatcher,
-            ) = $this->createUserManager();
+            $eventDispatcher) = $this->createUserManager();
 
         $userRepository
             ->expects($this->once())
@@ -78,9 +76,7 @@ class UserManagerTest extends TestCase
         list(
             $userManager,
             ,
-            $authorizationChecker,
-            ,
-            ) = $this->createUserManager();
+            $authorizationChecker) = $this->createUserManager();
 
         $authorizationChecker
             ->expects($this->once())
@@ -94,8 +90,7 @@ class UserManagerTest extends TestCase
     public function testTokenIsNotExpired()
     {
         list(
-            $userManager,
-            ) = $this->createUserManager();
+            $userManager) = $this->createUserManager();
 
         $user = new User();
         $user->setTokenExpirationDate();
@@ -169,7 +164,7 @@ class UserManagerTest extends TestCase
             $mailer,
             $translator,
             $templating,
-            $requestStack
+            $requestStack,
         ];
     }
 }

@@ -8,7 +8,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * This service should be called to set a token for a target user.
- * This token is necessary to request a password change
+ * This token is necessary to request a password change.
  */
 class TokenPassword
 {
@@ -36,7 +36,7 @@ class TokenPassword
     }
 
     /**
-     * Generate and add a temporary token to the target user to allow a reset password
+     * Generate and add a temporary token to the target user to allow a reset password.
      */
     public function addToken(User $user): void
     {
