@@ -6,17 +6,27 @@ use App\Entity\Article;
 use App\Entity\Comment;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Services\User\Manager\UserManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @var Faker\Generator
+     */
     private $faker;
 
-    public function __construct()
+    /**
+     * @var UserManager
+     */
+    private $userManager;
+
+    public function __construct(UserManager $userManager)
     {
         $this->faker = Faker\Factory::create();
+        $this->userManager = $userManager;
     }
 
     /**
@@ -24,12 +34,12 @@ class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $this->loadUsers($manager);
+        $this->loadUsers();
         $this->loadTags($manager);
         $this->loadArticles($manager);
     }
 
-    public function loadUsers(ObjectManager $manager): void
+    public function loadUsers(): void
     {
         $userAdmin = new User();
         $userAdmin->setUsername('admin');
@@ -37,8 +47,10 @@ class AppFixtures extends Fixture
         $userAdmin->setEmail('admin@admin.fr');
         $userAdmin->setRole(['ROLE_ADMIN']);
 
-        $manager->persist($userAdmin);
-        $manager->flush();
+        /**
+         * UserManager is using to encode the password easily
+         */
+        $this->userManager->create($userAdmin);
 
         $this->addReference('admin-user', $userAdmin);
     }
