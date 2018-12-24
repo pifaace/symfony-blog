@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,7 +26,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="text")
      * @Assert\NotBlank()
      */
     private $content;
@@ -48,9 +50,20 @@ class Comment
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ChildComment", mappedBy="comment")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $childComments;
+
+    public function __construct()
+    {
+        $this->childComments = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -102,5 +115,36 @@ class Comment
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return Collection|ChildComment[]
+     */
+    public function getChildComments(): Collection
+    {
+        return $this->childComments;
+    }
+
+    public function addChildComment(ChildComment $childComment): self
+    {
+        if (!$this->childComments->contains($childComment)) {
+            $this->childComments[] = $childComment;
+            $childComment->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChildComment(ChildComment $childComment): self
+    {
+        if ($this->childComments->contains($childComment)) {
+            $this->childComments->removeElement($childComment);
+            // set the owning side to null (unless already changed)
+            if ($childComment->getComment() === $this) {
+                $childComment->setComment(null);
+            }
+        }
+
+        return $this;
     }
 }

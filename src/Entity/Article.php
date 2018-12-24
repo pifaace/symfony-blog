@@ -63,7 +63,7 @@ class Article
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="user_id")
      */
     private $author;
 
