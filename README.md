@@ -76,7 +76,7 @@ $ docker-compose exec blog-server php bin/console doctrine:migrations:migrate
 And run datafixtures
 
 ```
-$ docker-compose exec blog-server php bin/console doctrine:fixtures:load
+$ docker-compose exec blog-server bin/console hautelook:fixtures:load
 ```
 
 ### Account
@@ -84,7 +84,7 @@ You can connect as admin with these infos :
 
 ```
 login : admin
-password : password
+password : azerty
 ```
 
 ### SMTP
