@@ -54,17 +54,6 @@ class Comment
      */
     private $user;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ChildComment", mappedBy="comment")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $childComments;
-
-    public function __construct()
-    {
-        $this->childComments = new ArrayCollection();
-    }
-
     public function getId(): int
     {
         return $this->id;

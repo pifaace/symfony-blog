@@ -89,9 +89,6 @@ class Article
      */
     private $tags;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();

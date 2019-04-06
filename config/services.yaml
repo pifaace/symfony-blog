@@ -10,7 +10,6 @@ parameters:
         - fr
 
 services:
-    # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
@@ -39,15 +38,19 @@ services:
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
-          - { name: twig.extension }
+            - { name: twig.extension }
 
     App\Security\LoginGithubAuthenticator:
         arguments: ["@eight_points_guzzle.client.github_oauth"]
 
-    App\EventListener\UserActionSubscriber:
+    App\EventSubscriber\UserActionSubscriber:
         tags:
-          - { name: doctrine.event_subscriber, connection: default }
+            - { name: doctrine.event_subscriber, connection: default }
 
-    App\EventListener\PasswordTokenReset:
+    App\EventSubscriber\UserPasswordEncoderSubscriber:
         tags:
-          - { name: kernel.event_listener, event: token.reseted, method: resetToken }
+            - { name: doctrine.event_subscriber, connection: default }
+
+    App\EventSubscriber\PasswordTokenReset:
+        tags:
+            - { name: kernel.event_listener, event: token.reseted, method: resetToken }

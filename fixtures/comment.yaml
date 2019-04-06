@@ -1,0 +1,5 @@
+App\Entity\Comment:
+    comment_{1..10}:
+        content: '<text()>'
+        article: '@article_<current()>'
+        user: '@johnDoe'

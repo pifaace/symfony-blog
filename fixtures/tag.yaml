@@ -1,0 +1,3 @@
+App\Entity\Tag:
+    tag_{0..20}:
+        name: '<word()>'

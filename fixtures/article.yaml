@@ -1,0 +1,6 @@
+App\Entity\Article:
+    article_{1..10}:
+        title: '<realText(100)>'
+        content: '<text(1500)>'
+        author: '@admin'
+        tags: '<numberBetween(1, 5)>x @tag*'
