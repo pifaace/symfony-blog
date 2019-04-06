@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class UserManagerTest extends TestCase
@@ -19,23 +18,15 @@ class UserManagerTest extends TestCase
     {
         list(
             $userManager,
-            $userRepository,
-            ,
-            $passwordEncoder) = $this->createUserManager();
+            $userRepository) = $this->createUserManager();
 
         $userRepository
             ->expects($this->once())
             ->method('save')
             ->with($this->isInstanceOf(User::class))
         ;
-        $passwordEncoder
-            ->expects($this->once())
-            ->method('encodePassword')
-            ->willReturn('encoded-password')
-        ;
 
         $user = new User();
-        $user->setPlainPassword('password');
 
         $userManager->create($user);
     }
@@ -46,17 +37,11 @@ class UserManagerTest extends TestCase
             $userManager,
             $userRepository,
             ,
-            $passwordEncoder,
             $eventDispatcher) = $this->createUserManager();
 
         $userRepository
             ->expects($this->once())
             ->method('saveNewPassword')
-        ;
-        $passwordEncoder
-            ->expects($this->once())
-            ->method('encodePassword')
-            ->willReturn('encoded-password')
         ;
         $eventDispatcher
             ->expects($this->once())
@@ -64,11 +49,8 @@ class UserManagerTest extends TestCase
         ;
 
         $user = new User();
-        $user->setPlainPassword('password');
 
         $userManager->resetPassword($user);
-
-        $this->assertEquals('encoded-password', $user->getPassword());
     }
 
     public function testIsLogin()
@@ -113,11 +95,6 @@ class UserManagerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $passwordEncoder = $this
-            ->getMockBuilder(UserPasswordEncoderInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
         $eventDispatcher = $this
             ->getMockBuilder(EventDispatcherInterface::class)
             ->disableOriginalConstructor()
@@ -147,7 +124,6 @@ class UserManagerTest extends TestCase
         $userManager = new UserManager(
             $userRepository,
             $authorizationChecker,
-            $passwordEncoder,
             $eventDispatcher,
             $mailer,
             $translator,
@@ -159,7 +135,6 @@ class UserManagerTest extends TestCase
             $userManager,
             $userRepository,
             $authorizationChecker,
-            $passwordEncoder,
             $eventDispatcher,
             $mailer,
             $translator,

@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 use App\Services\UserActionLogger;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 
 class UserActionSubscriber implements EventSubscriber
 {
@@ -21,8 +22,8 @@ class UserActionSubscriber implements EventSubscriber
     public function getSubscribedEvents(): array
     {
         return [
-            'postPersist',
-            'postUpdate',
+            Events::postPersist,
+            Events::postUpdate,
         ];
     }
 
