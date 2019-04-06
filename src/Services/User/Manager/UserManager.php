@@ -76,7 +76,6 @@ class UserManager
 
     public function create(User $user): void
     {
-        $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
         $this->repository->save($user);
     }
 
