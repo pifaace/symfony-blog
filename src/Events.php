@@ -10,4 +10,11 @@ final class Events
      * @var string
      */
     public const TOKEN_RESET = 'token.reseted';
+
+    /**
+     * @Event("App\Event\PasswordEncoderEvent")
+     *
+     * @var string
+     */
+    public const PASSWORD_ENCODER = 'password.encoder';
 }

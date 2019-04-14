@@ -10,6 +10,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class UserManager
@@ -49,6 +50,11 @@ class UserManager
      */
     private $requestStack;
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
+
     public function __construct(
         UserRepository $repository,
         AuthorizationCheckerInterface $checker,
@@ -56,7 +62,8 @@ class UserManager
         Mailer $mailer,
         TranslatorInterface $trans,
         \Twig_Environment $templating,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        UserPasswordEncoderInterface $encoder
     ) {
         $this->repository = $repository;
         $this->checker = $checker;
@@ -65,17 +72,21 @@ class UserManager
         $this->trans = $trans;
         $this->templating = $templating;
         $this->requestStack = $requestStack;
+        $this->encoder = $encoder;
     }
 
     public function create(User $user): void
     {
+        $user->setPassword($this->encodePassword($user));
         $this->repository->save($user);
     }
 
     public function resetPassword(User $user): void
     {
-        $event = new GenericEvent($user);
-        $this->eventDispatcher->dispatch(Events::TOKEN_RESET, $event);
+        $genericEvent = new GenericEvent($user);
+        $this->eventDispatcher->dispatch(Events::TOKEN_RESET, $genericEvent);
+
+        $user->setPassword($this->encodePassword($user));
         $this->repository->saveNewPassword();
     }
 
@@ -102,5 +113,10 @@ class UserManager
     public function isTokenExpired(User $user): bool
     {
         return $user->getTokenExpirationDate() < new \DateTime();
+    }
+
+    private function encodePassword(User $user): string
+    {
+        return $this->encoder->encodePassword($user, $user->getPlainPassword());
     }
 }

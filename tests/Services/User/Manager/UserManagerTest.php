@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class UserManagerTest extends TestCase
@@ -18,17 +19,30 @@ class UserManagerTest extends TestCase
     {
         list(
             $userManager,
-            $userRepository) = $this->createUserManager();
+            $userRepository,
+            ,
+            ,
+            ,
+            ,
+            ,
+            ,
+            $encoder) = $this->createUserManager();
 
         $userRepository
             ->expects($this->once())
             ->method('save')
             ->with($this->isInstanceOf(User::class))
         ;
+        $encoder
+            ->expects($this->once())
+            ->method('encodePassword')
+            ->willReturn('password-encoded')
+        ;
 
         $user = new User();
 
         $userManager->create($user);
+        $this->assertEquals('password-encoded', $user->getPassword());
     }
 
     public function testResetPassword()
@@ -37,7 +51,12 @@ class UserManagerTest extends TestCase
             $userManager,
             $userRepository,
             ,
-            $eventDispatcher) = $this->createUserManager();
+            $eventDispatcher,
+            ,
+            ,
+            ,
+            ,
+            $encoder) = $this->createUserManager();
 
         $userRepository
             ->expects($this->once())
@@ -47,10 +66,16 @@ class UserManagerTest extends TestCase
             ->expects($this->once())
             ->method('dispatch')
         ;
+        $encoder
+            ->expects($this->once())
+            ->method('encodePassword')
+            ->willReturn('new-password')
+        ;
 
         $user = new User();
 
         $userManager->resetPassword($user);
+        $this->assertEquals('new-password', $user->getPassword());
     }
 
     public function testIsLogin()
@@ -120,6 +145,11 @@ class UserManagerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
+        $encoder = $this
+            ->getMockBuilder(UserPasswordEncoderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
         $userManager = new UserManager(
             $userRepository,
@@ -128,7 +158,8 @@ class UserManagerTest extends TestCase
             $mailer,
             $translator,
             $templating,
-            $requestStack
+            $requestStack,
+            $encoder
         );
 
         return [
@@ -140,6 +171,7 @@ class UserManagerTest extends TestCase
             $translator,
             $templating,
             $requestStack,
+            $encoder,
         ];
     }
 }

@@ -47,10 +47,10 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    App\EventSubscriber\UserPasswordEncoderSubscriber:
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-
     App\EventSubscriber\PasswordTokenReset:
         tags:
             - { name: kernel.event_listener, event: token.reseted, method: resetToken }
+
+    App\Services\Faker\Provider\EncodePasswordProvider:
+        tags:
+            - { name: nelmio_alice.faker.provider }
