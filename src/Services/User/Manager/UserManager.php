@@ -11,7 +11,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class UserManager
 {
@@ -41,7 +42,7 @@ class UserManager
     private $trans;
 
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $templating;
 
@@ -61,7 +62,7 @@ class UserManager
         EventDispatcherInterface $eventDispatcher,
         Mailer $mailer,
         TranslatorInterface $trans,
-        \Twig_Environment $templating,
+        Environment $templating,
         RequestStack $requestStack,
         UserPasswordEncoderInterface $encoder
     ) {
