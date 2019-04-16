@@ -27,6 +27,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: symfony-blog-test
+      MYSQL_USER: gandalf
+      MYSQL_PASSWORD: secret_test
     volumes:
       - ./tmp/test:/var/lib/mysql
 
