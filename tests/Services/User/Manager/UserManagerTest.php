@@ -11,7 +11,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class UserManagerTest extends TestCase
 {
@@ -136,7 +137,7 @@ class UserManagerTest extends TestCase
             ->getMock()
         ;
         $templating = $this
-            ->getMockBuilder(\Twig_Environment::class)
+            ->getMockBuilder(Environment::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
