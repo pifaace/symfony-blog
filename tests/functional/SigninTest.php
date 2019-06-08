@@ -4,7 +4,7 @@ namespace App\Tests;
 
 use Symfony\Component\Panther\PantherTestCase;
 
-class SignInTest extends PantherTestCase
+class SigninTest extends PantherTestCase
 {
     public function testUserNameAlreadyUsed()
     {
