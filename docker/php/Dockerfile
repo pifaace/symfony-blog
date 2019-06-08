@@ -8,7 +8,9 @@ RUN apt-get update && apt-get install -y \
     locales \
     zip \
     zlib1g-dev \
-    libicu-dev
+    libicu-dev \
+    libzip-dev \
+    chromium
 
 RUN curl -sS -o /tmp/icu.tgz -L http://download.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz \
   && tar -zxf /tmp/icu.tgz -C /tmp \
@@ -39,6 +41,8 @@ RUN curl -sS https://getcomposer.org/installer | \
 
 # Changing Workdir
 WORKDIR /application
+
+ENV PANTHER_NO_SANDBOX 1
 
 RUN mkdir -p \
 		var/sessions \
