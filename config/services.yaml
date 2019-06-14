@@ -7,7 +7,7 @@ parameters:
     itemperpage: 5
     supportedLocales:
         - en
-        - fr
+#        - fr
 
 services:
     _defaults:
