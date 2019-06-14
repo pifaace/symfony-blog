@@ -1,0 +1,7 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+  base_path: "build/ckeditor"
+  js_path:   "build/ckeditor/ckeditor.js"
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Form\Type\TagsType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +19,7 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, ['label' => false])
-            ->add('content', TextareaType::class, ['label' => false])
+            ->add('content', CKEditorType::class, ['label' => false])
             ->add('image', ImageType::class, [
                 'required' => false,
                 'label' => false,
