@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Functional;
 
-use Symfony\Component\Panther\PantherTestCase;
+use App\Tests\BaseTestCase;
 
-class RouteTest extends PantherTestCase
+class RouteTest extends BaseTestCase
 {
     public function testIndexPage()
     {

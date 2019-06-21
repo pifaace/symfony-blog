@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Services;
+namespace App\Tests\Unit\Services;
 
 use App\Entity\Image;
 use App\Services\Uploader;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test\Services\Article\Manager;
+namespace App\Tests\Unit\Services\Article\Manager;
 
 use App\Entity\Article;
 use App\Entity\Image;
