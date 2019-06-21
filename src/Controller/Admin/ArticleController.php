@@ -73,7 +73,7 @@ class ArticleController extends AbstractController
                     $this->trans->trans('backoffice.articles.flashmessage_edit')
                 );
 
-            return $this->redirect($request->getUri());
+            return $this->redirectToRoute('article_edit', ['slug' => $article->getSlug()]);
         }
 
         return $this->render('backoffice/article/edit.html.twig', [
