@@ -20,8 +20,8 @@ class ArticleActionTest extends BaseTestCase
         $form = $crawler->selectButton('Publish')->form();
 
         $form['App_article[title]'] = 'An awesome new article';
-        $form['App_article[content]'] = 'This is an article wrote by panthere';
-        $form['app_tag_input'] = 'symfony,panthere,';
+        $form['App_article[content]'] = 'This is an article wrote by panther';
+        $form['app_tag_input'] = 'symfony,panther,';
         $crawler = $client->submit($form);
 
         $client->waitFor('.notification');
@@ -43,7 +43,7 @@ class ArticleActionTest extends BaseTestCase
 
         $form = $crawler->selectButton('Publish')->form();
 
-        $form['App_article[title]'] = 'Edited by panthere';
+        $form['App_article[title]'] = 'Edited by panther';
 
         $crawler = $client->submit($form);
 

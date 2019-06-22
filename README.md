@@ -12,6 +12,7 @@ In this project, I'm trying to use various components of Symfony like :
 * [Monolog](https://symfony.com/doc/current/logging.html)
 * [Guard Authentication](https://symfony.com/doc/current/security/guard_authentication.html)
 * [Webpack Encore](https://symfony.com/doc/current/frontend.html)
+* [Panther](https://symfony.com/blog/introducing-symfony-panther-a-browser-testing-and-web-scrapping-library-for-php)
 
 this list should evolve.
 
