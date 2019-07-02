@@ -26,6 +26,8 @@ class ArticleActionTest extends BaseTestCase
 
         $client->waitFor('.notification');
         $this->assertContains('The article has been successfully created', $crawler->filter('.notification')->text());
+
+        $this->logout($client);
     }
 
     public function testEditAnArticle()
@@ -35,10 +37,8 @@ class ArticleActionTest extends BaseTestCase
         $crawler = $client->request('GET', '/');
 
         $crawler = $this->loginAs($client, $crawler, 'admin', 'azerty');
-
         $crawler = $client->click($crawler->selectLink('Dashboard')->link());
         $crawler = $client->click($crawler->selectLink('ARTICLES')->link());
-
         $crawler = $client->click($crawler->filter('a.is-warning')->eq(3)->link());
 
         $form = $crawler->selectButton('Publish')->form();
@@ -49,6 +49,8 @@ class ArticleActionTest extends BaseTestCase
 
         $client->waitFor('.notification');
         $this->assertContains('The article has been successfully edited', $crawler->filter('.notification')->text());
+
+        $this->logout($client);
     }
 
     // Todo: https://github.com/symfony/panther/issues/203

@@ -104,35 +104,4 @@ class Comment
     {
         $this->user = $user;
     }
-
-    /**
-     * @return Collection|ChildComment[]
-     */
-    public function getChildComments(): Collection
-    {
-        return $this->childComments;
-    }
-
-    public function addChildComment(ChildComment $childComment): self
-    {
-        if (!$this->childComments->contains($childComment)) {
-            $this->childComments[] = $childComment;
-            $childComment->setComment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChildComment(ChildComment $childComment): self
-    {
-        if ($this->childComments->contains($childComment)) {
-            $this->childComments->removeElement($childComment);
-            // set the owning side to null (unless already changed)
-            if ($childComment->getComment() === $this) {
-                $childComment->setComment(null);
-            }
-        }
-
-        return $this;
-    }
 }
