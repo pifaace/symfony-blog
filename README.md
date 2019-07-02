@@ -39,7 +39,7 @@ $ git clone https://github.com/pifaace/symfony-blog.git
 #### Run dependencies
 ```
 $ docker-compose run --rm --no-deps blog-server composer install
-$ docker run --rm -it -v $(pwd):/application -w /application node yarn run install
+$ docker run --rm -it -v $(pwd):/application -w /application node yarn install
 ```
 
 #### Assets
