@@ -22,6 +22,19 @@
             {% endif %}
             <div class="navbar-end">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a id="bell" class="navbar-item">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    </a>
+
+                    <div class="bell-container">
+                        <div class="bell-header">
+                            Notifications
+                        </div>
+                        <div class="bell-body">
+                            <span>Aucune notification</span>
+                        </div>
+                    </div>
+
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
                             {{ app.user.username }}

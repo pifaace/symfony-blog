@@ -5,5 +5,59 @@
         .navbar-action {
             padding: 0 4px 0 0;
         }
+
+        .bell {
+            position: relative;
+
+            &:hover {
+                background-color: $navbar-item-hover-background-color;
+            }
+        }
+
+        .bell-active {
+            color: #17a2b8;
+            background-color: #fafafa;
+        }
+
+        .bell-container {
+            display: none;
+            position: absolute;
+            top: 52px;
+            right: 157px;
+            width: 380px;
+            min-height: 215px;
+            border-right: 1px solid #ABA9A9;
+            border-bottom: 1px solid #ABA9A9;
+            border-left: 1px solid #ABA9A9;
+            box-shadow: 4px 8px 12px 0 rgba(0, 0, 0, 0.3);
+            background: white;
+            color: #666;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            z-index: 2;
+
+            .bell-header {
+                background-color: $primary;
+                color: white;
+                text-align: center;
+                padding: 10px 20px;
+                height: 40px;
+                font-size: 16px;
+                transition: all 0.3s ease-in-out;
+                font-weight: bold;
+            }
+
+            .bell-body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: calc(215px - 40px);
+            }
+        }
+
+        .bell-open {
+            display: block;
+        }
     }
 }
