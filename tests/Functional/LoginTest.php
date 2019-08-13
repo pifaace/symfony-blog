@@ -33,7 +33,7 @@ class LoginTest extends BaseTestCase
 
         $crawler = $client->submit($form);
 
-        $client->waitFor('.notification-container');
-        $this->assertContains('You are now log in', $crawler->filter('.notification-container')->text());
+        $client->waitFor('.flash-notification-container');
+        $this->assertContains('You are now log in', $crawler->filter('.flash-notification-container')->text());
     }
 }

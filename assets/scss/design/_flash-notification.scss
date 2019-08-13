@@ -1,4 +1,4 @@
-.notification-container {
+.flash-notification-container {
   position: fixed;
   width: 380px;
   right: -380px;
@@ -15,13 +15,6 @@
 @-webkit-keyframes slide-on {
   10%   {transform: translateX(-107%)}
   11%, 90% {transform: translateX(-107%)}
-  100% {transform: translateX(380px)}
-}
-
-/* Standard syntax */
-@keyframes example {
-  10%   {transform: translateX(-107%)}
-  11%, 80% {transform: translateX(-107%)}
   100% {transform: translateX(380px)}
 }
 

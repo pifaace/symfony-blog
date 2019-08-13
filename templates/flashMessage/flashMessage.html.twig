@@ -1,5 +1,5 @@
 {% for flashMessage in app.session.flashbag.get('info') %}
-    <div class="notification-container">
+    <div class="flash-notification-container">
         <div class="notification is-primary">
             <button class="delete"></button>
             <i class="fa fa-bell" aria-hidden="true"></i>
@@ -9,7 +9,7 @@
 {% endfor %}
 
 {% for flashMessage in app.session.flashbag.get('error') %}
-    <div class="notification-container">
+    <div class="flash-notification-container">
         <div class="notification is-danger">
             <button class="delete"></button>
             <i class="fa fa-bell" aria-hidden="true"></i>
