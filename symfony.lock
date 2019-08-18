@@ -317,6 +317,12 @@
             "ref": "c0fdace641ed81c02668d6bfc0fc76a2b39ee7c9"
         }
     },
+    "symfony/http-client": {
+        "version": "v4.3.3"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v1.1.5"
+    },
     "symfony/http-foundation": {
         "version": "v4.0.1"
     },
@@ -337,6 +343,21 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
+    },
+    "symfony/mercure": {
+        "version": "v0.2.0"
+    },
+    "symfony/mercure-bundle": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "0.1",
+            "ref": "edaaf1e286e97909e0bb1e0ec42cc937c15a8825"
+        },
+        "files": [
+            "config/packages/mercure.yaml"
+        ]
     },
     "symfony/mime": {
         "version": "v4.3.0"
