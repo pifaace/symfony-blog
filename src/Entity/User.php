@@ -233,7 +233,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getTokenExpirationDate(): \DateTime
+    public function getTokenExpirationDate(): ?\DateTime
     {
         return $this->tokenExpirationDate;
     }

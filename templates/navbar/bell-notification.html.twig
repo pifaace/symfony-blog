@@ -1,40 +1,28 @@
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div id="bell" class="navbar-item">
-        <i class="fa fa-bell-o" aria-hidden="true"></i>
-    </div>
+<div id="bell" class="navbar-item {{ notifications.getNotifications|length == 0 ? 'notification-vued' }}"
+     data-notification-count="{{ notifications.getNotifications|length }}"
+     data-update="{{ path('notification-status-update', {'id': app.user.id}) }}">
+    <i class="fa fa-bell-o" aria-hidden="true"></i>
+</div>
 
-    <div class="bell-container">
-        <div class="bell-header">
-            Notifications
-        </div>
-        <div class="bell-body">
-            <span class="no-notification">Aucune notification</span>
-            {#<div class="bell-notification-item pb-10 pt-10 pr-20 pl-15">#}
-                {#<i class="fa fa-check-circle bell-notification-icon" aria-hidden="true"></i>#}
-                {#<span class="bell-notification-content ml-20"><b>Admin</b> a publié un nouvel article</span>#}
-            {#</div>#}
-        </div>
+<div class="bell-container">
+    <div class="bell-header">
+        Notifications
     </div>
-
-    <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-            {{ app.user.username }}
-        </a>
-        <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="{{ path('user_profile') }}">
-                {{ 'navbar.profile'|trans }}
-            </a>
-            <a class="navbar-item" href="{{ path('logout') }}">
-                {{ 'navbar.logout'|trans }}
-            </a>
-        </div>
+    <div id="notification-center" class="{{ (notifications.getNotifications is empty) ? 'bell-empty-content' : 'bell-content' }}">
+        {% if notifications.getNotifications is not empty %}
+            {% for notification in notifications.getNotifications %}
+                {% set timer =  date('now').diff(date(notification.createdAt)) %}
+                <a href="{{ absolute_url(notification.targetLink) }}" class="no-link-color">
+                    <div class="bell-notification-item pb-10 pt-10 pr-20 pl-15">
+                        <i class="fa fa-check-circle bell-notification-icon" aria-hidden="true"></i>
+                        <span class="bell-notification-content ml-20">
+                            <b>{{ notification.createdBy.username }}</b> {{ 'navbar.notification.article_created'|trans }}
+                        </span>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <span>{{ 'navbar.notification.no-notification'|trans }}</span>
+        {% endif %}
     </div>
-{% else %}
-    <a href="{{ path('login') }}" class="navbar-item navbar-action bold">
-        {{ 'navbar.login'|trans }}
-    </a>
-    <p class="navbar-item navbar-action">{{ 'generic.or'|trans }}</p>
-    <a href="{{ path('registration') }}" class="navbar-item navbar-action bold">
-        {{ 'navbar.signin'|trans }}
-    </a>
-{% endif %}
+</div>

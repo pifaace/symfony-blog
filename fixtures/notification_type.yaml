@@ -1,0 +1,3 @@
+App\Entity\NotificationType:
+    article_created_type:
+        name: 'article_created'

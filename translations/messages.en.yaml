@@ -8,6 +8,9 @@ navbar:
   profile: Profile
   logout: Logout
   dashboard: Dashboard
+  notification:
+      no-notification: No notification
+      article_created: published a new article
 
 home:
   read_more: Read more

@@ -8,6 +8,9 @@ navbar:
   profile: Profil
   logout: Déconnexion
   dashboard: Tableau de bord
+  notification:
+      no-notification: Aucune notification
+      article_created: a publié un nouvel article
 
 home:
   read_more: Lire l'article

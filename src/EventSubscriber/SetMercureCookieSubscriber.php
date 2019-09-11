@@ -39,8 +39,6 @@ class SetMercureCookieSubscriber implements EventSubscriberInterface
             return;
         }
 
-//        dump($event->getResponse()->headers->getCookies());
-
         $cookie = $this->cookieGenerator->generate();
 
         $event->getResponse()->headers->set(

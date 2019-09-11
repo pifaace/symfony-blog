@@ -56,6 +56,10 @@
   border-right: 1px solid $grey-light;
 }
 
+.no-link-color {
+  color: #363636 !important;
+}
+
 /** Override bulma class **/
 hr {
   background-color: $grey-light;

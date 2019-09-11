@@ -26,7 +26,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install \
     pdo_mysql \
     zip \
-    intl
+    intl \
+    opcache
 
 RUN docker-php-ext-configure intl --with-icu-dir=/usr/local
 

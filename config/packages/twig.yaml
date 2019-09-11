@@ -5,3 +5,4 @@ twig:
     globals:
       image_article_coverage_directory: '%image_articles_coverages_directory%'
       image_article_coverage_display: '%image_articles_coverages_display%'
+      notifications: '@App\Twig\NotificationExtension'

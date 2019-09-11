@@ -1,12 +1,30 @@
 let bell = $('#bell');
 let bellContainer = $('.bell-container');
+let updateNotificationRoute = bell.data('update');
 
 bell.click(function () {
-   if (bell.hasClass('bell-active')) {
-      hideBellNotification()
-   } else {
-       showBellNotification()
-   }
+    if (bell.hasClass('bell-active')) {
+        hideBellNotification()
+    } else {
+        showBellNotification()
+    }
+
+    bell.addClass('notification-vued');
+
+    console.log(bell.data('notification-count'));
+
+    if (bell.data('notification-count') > 0) {
+        $.ajax({
+            url: updateNotificationRoute,
+            type: 'POST',
+            error: function(xhr) {
+                let err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        });
+
+        bell.data('notification-count', 0)
+    }
 });
 
 $(document).click(function(){

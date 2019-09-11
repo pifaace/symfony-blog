@@ -21,8 +21,32 @@
                 </div>
             {% endif %}
             <div class="navbar-end">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                {% include 'navbar/bell-notification.html.twig' %}
+                    {% include 'navbar/bell-notification.html.twig' %}
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            {{ app.user.username }}
+                        </a>
+                        <div class="navbar-dropdown is-right">
+                            <a class="navbar-item" href="{{ path('user_profile') }}">
+                                {{ 'navbar.profile'|trans }}
+                            </a>
+                            <a class="navbar-item" href="{{ path('logout') }}">
+                                {{ 'navbar.logout'|trans }}
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{{ path('login') }}" class="navbar-item navbar-action bold">
+                        {{ 'navbar.login'|trans }}
+                    </a>
+                    <p class="navbar-item navbar-action">{{ 'generic.or'|trans }}</p>
+                    <a href="{{ path('registration') }}" class="navbar-item navbar-action bold">
+                        {{ 'navbar.signin'|trans }}
+                    </a>
+                {% endif %}
 
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">{{ app.request.locale|upper }}</a>
