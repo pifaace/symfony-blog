@@ -9,6 +9,8 @@ use App\Services\FlashMessage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\Publisher;
+use Symfony\Component\Mercure\Update;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -33,7 +35,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("admin/article/new", name="article_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, FlashMessage $flashMessage): Response
+    public function new(Request $request, FlashMessage $flashMessage, Publisher $publisher): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -42,6 +44,13 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->articleManager->create($article);
+            $update = new Update(
+                'http://symfony-blog.fr/new/article',
+                json_encode(['event' => 'newArticle']),
+                ['http://symfony-blog.fr/group/users']
+            );
+            $publisher($update);
+
             $flashMessage->createMessage(
                 $request,
                 FlashMessage::INFO_MESSAGE,

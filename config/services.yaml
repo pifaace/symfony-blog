@@ -10,6 +10,7 @@ parameters:
         - fr
     env(MERCURE_PUBLISH_URL): ''
     env(MERCURE_JWT_SECRET): ''
+    mercure_secret_key: symfonyBlogJwtToken
 
 services:
     _defaults:
@@ -56,3 +57,7 @@ services:
     App\Services\Faker\Provider\EncodePasswordProvider:
         tags:
             - { name: nelmio_alice.faker.provider }
+
+    App\Services\MercureCookieGenerator:
+        arguments:
+            - '%mercure_secret_key%'

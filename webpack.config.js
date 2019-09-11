@@ -19,6 +19,7 @@ Encore
      */
     .addEntry('/js/app', './assets/js/app.js')
     .addEntry('/js/delete-confirmation', './assets/js/delete-confirmation.js')
+    .addEntry('/js/mercure-subscribe', './assets/js/mercure-subscribe.js')
     .addEntry('/js/tags', './assets/js/tags.js')
     .addStyleEntry('/css/app', ['./assets/scss/app.scss'])
 
