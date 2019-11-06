@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "0ee1b1fb7f6b5488542367f353272b52",
@@ -6881,16 +6881,16 @@
         },
         {
             "name": "hautelook/alice-bundle",
-            "version": "2.5.0",
+            "version": "v2.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hautelook/AliceBundle.git",
-                "reference": "b9fa7985a522a7aed335976c168019cadb07396e"
+                "reference": "a4d25ba319b551d14082cd7e9916f5ddcd8bc0f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/b9fa7985a522a7aed335976c168019cadb07396e",
-                "reference": "b9fa7985a522a7aed335976c168019cadb07396e",
+                "url": "https://api.github.com/repos/hautelook/AliceBundle/zipball/a4d25ba319b551d14082cd7e9916f5ddcd8bc0f2",
+                "reference": "a4d25ba319b551d14082cd7e9916f5ddcd8bc0f2",
                 "shasum": ""
             },
             "require": {
@@ -6945,7 +6945,7 @@
                 "orm",
                 "symfony"
             ],
-            "time": "2019-04-10T10:32:44+00:00"
+            "time": "2019-08-04T18:39:27+00:00"
         },
         {
             "name": "myclabs/deep-copy",
