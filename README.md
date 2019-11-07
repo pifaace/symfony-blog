@@ -1,27 +1,16 @@
 [![Build Status](https://travis-ci.org/pifaace/symfony-blog.svg?branch=master)](https://travis-ci.org/pifaace/symfony-blog)
 
-# Symfony-blog 4.2
+# Symfony-blog 4.3
 
-My application to try some stuffs about Symfony 4
-In this project, I'm trying to use various components of Symfony like :
-* [Authentication](https://symfony.com/doc/current/security.html)
-* [Service container](http://symfony.com/doc/current/service_container.html)
-* [Listener](http://symfony.com/doc/current/doctrine/event_listeners_subscribers.html#creating-the-listener-class)
-* [Subscriber](http://symfony.com/doc/current/doctrine/event_listeners_subscribers.html)
-* [Data transormers](https://symfony.com/doc/current/form/data_transformers.html)
-* [Monolog](https://symfony.com/doc/current/logging.html)
-* [Guard Authentication](https://symfony.com/doc/current/security/guard_authentication.html)
-* [Webpack Encore](https://symfony.com/doc/current/frontend.html)
-* [Panther](https://symfony.com/blog/introducing-symfony-panther-a-browser-testing-and-web-scrapping-library-for-php)
-
-this list should evolve.
+## What's Symfony-blog ?
+This project is like a sandbox. The purpose is to implement some cool features to improve my symfony skills
+but also to help people. This app should be a very good example to show how I implement things like Panther or Mercure !
 
 Also, to improve this project, I'm using some tools like :
 * [Bulma.io](https://bulma.io/)
 * [SASS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html)
 * [Font-awesome](http://fontawesome.io/)
 * [Github OAuth](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
-
 
 ## Getting Started
 
@@ -110,6 +99,25 @@ and that's it !
 ```
 $ docker-compose run --rm blog-server ./bin/phpunit
 ```
+All tests from tests/Functional are writing with [Panther](https://github.com/symfony/panther)
+
+## Mercure feature
+I implement a notification feature to test how can we use Mercure in situation.
+At the moment, a notification will trigger each user that is connected when an admin publishes a new article.
+The only thing you are suppose to modify is in __docker-composer__ file
+
+```
+mercure:
+    image: dunglas/mercure
+    ports:
+      - '3000:80'
+    environment:
+      - JWT_KEY=symfonyBlogJwtToken
+      - PUBLISH_ALLOWED_ORIGINS=*
+      - CORS_ALLOWED_ORIGINS=http://symfony-blog.fr:8000
+      - DEBUG=1
+```
+You should adapt the CORS_ALLOWED_ORIGINS value. In general it should be __localhost__
 
 ##  License
 This project is released under the [MIT](https://opensource.org/licenses/MIT) license.
