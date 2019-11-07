@@ -4,7 +4,8 @@
 
 ## What's Symfony-blog ?
 This project is like a sandbox. The purpose is to implement some cool features to improve my symfony skills
-but also to help people. This app should be a very good example to show how I implement things like Panther or Mercure !
+but also to help people. This app should be a very good example to show how I implement things like 
+[Panther](https://github.com/symfony/panther) or [Mercure](https://github.com/dunglas/mercure) !
 
 Also, to improve this project, I'm using some tools like :
 * [Bulma.io](https://bulma.io/)
@@ -16,7 +17,7 @@ Also, to improve this project, I'm using some tools like :
 
 ### Installing
 
-This project require 
+This project requires
 * [Docker](https://docs.docker.com/)
 * [Docker-compose](https://docs.docker.com/compose/)
 
@@ -43,7 +44,7 @@ Just notice that, running those in a container do not trigger webpack-notifier.
 You should run these commands directly on your host to use it. In this case be 
 sure you have yarn installed.
 
-### Running docker containers
+### Running Docker containers
 
 #### Running containers
 ```
@@ -102,8 +103,8 @@ $ docker-compose run --rm blog-server ./bin/phpunit
 All tests from tests/Functional are writing with [Panther](https://github.com/symfony/panther)
 
 ## Mercure feature
-I implement a notification feature to test how can we use Mercure in situation.
-At the moment, a notification will trigger each user that is connected when an admin publishes a new article.
+I implemented a notification feature to test how can we use Mercure in situation.
+At the moment, a notification will trigger each authenticated user when an admin published a new article.
 The only thing you are suppose to modify is in __docker-composer__ file
 
 ```
@@ -117,7 +118,7 @@ mercure:
       - CORS_ALLOWED_ORIGINS=http://symfony-blog.fr:8000
       - DEBUG=1
 ```
-You should adapt the CORS_ALLOWED_ORIGINS value. In general it should be __localhost__
+You should adapt the CORS_ALLOWED_ORIGINS value. In general it would be __localhost__
 
 ##  License
 This project is released under the [MIT](https://opensource.org/licenses/MIT) license.
