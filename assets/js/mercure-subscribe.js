@@ -32,7 +32,7 @@ function newNotification(event) {
 
     animateBell();
 
-    bell.removeClass('notification-vued');
+    bell.removeClass('notification-read');
     let count = bell.attr('data-notification-count');
     count++;
     bell.attr('data-notification-count', count);

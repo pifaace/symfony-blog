@@ -9,7 +9,7 @@ bell.click(function () {
         showBellNotification()
     }
 
-    bell.addClass('notification-vued');
+    bell.addClass('notification-read');
 
     console.log(bell.data('notification-count'));
 
