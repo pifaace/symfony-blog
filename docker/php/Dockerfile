@@ -3,7 +3,7 @@ FROM php:7.2-fpm
 # Installing dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
-    mysql-client \
+    default-mysql-client \
     openssl \
     locales \
     zip \
