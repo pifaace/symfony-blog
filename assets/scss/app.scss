@@ -1,14 +1,14 @@
 // Variables Bulma
-@import "./node_modules/bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/initial-variables";
 
 // Import overwride variables
 @import "variables";
 
 // Import Bulma
-@import "./node_modules/bulma/bulma";
+@import "~bulma/bulma";
 
 // Import Font-awesome
-@import "./node_modules/font-awesome/scss/font-awesome";
+@import "~font-awesome/scss/font-awesome";
 
 @import "base";
 @import "spacing";

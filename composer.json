@@ -40,7 +40,7 @@
     "symfony/debug-bundle": "^3.3|^4.0",
     "symfony/dotenv": "^4.0",
     "symfony/maker-bundle": "^1.0",
-    "symfony/panther": "0.5.2",
+    "symfony/panther": "*",
     "symfony/phpunit-bridge": "*",
     "symfony/profiler-pack": "^1.0",
     "symfony/var-dumper": "^3.3|^4.0"

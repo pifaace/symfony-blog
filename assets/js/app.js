@@ -1,6 +1,7 @@
-const $ = require('jquery');
-global.$ = $;
+import $ from 'jquery';
 
-require('./delete-notification');
-require('./button-click-back');
-require('./bell-notification');
+import './delete-notification'
+import './button-click-back'
+import BellNotification from './class/BellNotification'
+
+new BellNotification($('#bell'))

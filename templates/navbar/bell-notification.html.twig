@@ -1,4 +1,4 @@
-    <div id="bell" class="navbar-item {{ notifications.getNotifications|length == 0 ? 'notification-read' }}"
+<div id="bell" class="navbar-item {{ notifications.getNotifications|length == 0 ? 'notification-read' }}"
      data-notification-count="{{ notifications.getNotifications|length }}"
      data-update="{{ path('notification-status-update', {'id': app.user.id}) }}">
     <i class="fa fa-bell-o" aria-hidden="true"></i>

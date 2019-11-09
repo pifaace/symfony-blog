@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $('#login-form').on('submit', function () {
     var translation = $('button:submit.button').data('trans');
     $('button:submit.button').prop("disabled", true).html(translation);
