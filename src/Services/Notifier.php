@@ -65,7 +65,7 @@ class Notifier
     }
 
     /**
-     * When an article is created, the app will notify all users that are connected
+     * When an article is created, the app will notify all users that are connected.
      */
     public function articleCreated(Article $article, Publisher $publisher)
     {

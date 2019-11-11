@@ -3,9 +3,12 @@
 namespace App\Tests\Functional;
 
 use App\Tests\BaseTestCase;
+use Hautelook\AliceBundle\PhpUnit\ReloadDatabaseTrait;
 
 class ArticleActionTest extends BaseTestCase
 {
+    use ReloadDatabaseTrait;
+
     public function testCreateAnArticle()
     {
         $client = static::createPantherClient();
@@ -22,9 +25,8 @@ class ArticleActionTest extends BaseTestCase
         $form['App_article[title]'] = 'An awesome new article';
         $form['App_article[content]'] = 'This is an article wrote by panther';
         $form['app_tag_input'] = 'symfony,panther,';
-        $crawler = $client->submit($form);
-
-        $client->waitFor('.notification');
+        $client->submit($form);
+        $crawler = $client->waitFor('.notification');
         $this->assertContains('The article has been successfully created', $crawler->filter('.notification')->text());
 
         $this->logout($client);
@@ -35,6 +37,8 @@ class ArticleActionTest extends BaseTestCase
         $client = static::createPantherClient();
 
         $crawler = $client->request('GET', '/');
+
+        $client->takeScreenshot('mdr.png');
 
         $crawler = $this->loginAs($client, $crawler, 'admin', 'azerty');
         $crawler = $client->click($crawler->selectLink('Dashboard')->link());

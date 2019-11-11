@@ -14,7 +14,6 @@ class NotificationController extends AbstractController
 {
     /**
      * @Route("/{id}/update/notification-status", name="notification-status-update", methods={"POST"})
-     *
      */
     public function __invoke(
         User $user,

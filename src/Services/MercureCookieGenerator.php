@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\Signer\Key;
 
 class MercureCookieGenerator
 {

@@ -6,7 +6,6 @@ use App\Entity\Notification;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @method Notification|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,7 +27,7 @@ class NotificationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get unread notifications for the current user
+     * Get unread notifications for the current user.
      */
     public function getUnreadNotification(User $user)
     {
@@ -40,6 +39,7 @@ class NotificationRepository extends ServiceEntityRepository
             ->setParameter(':user', $user)
             ->orderBy('n.createdAt', 'DESC')
         ;
+
         return $qb->getQuery()->getResult();
     }
 }

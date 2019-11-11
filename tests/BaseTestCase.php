@@ -23,8 +23,6 @@ class BaseTestCase extends PantherTestCase
 
     public function logout(Client $client)
     {
-        $crawler = $client->request('GET', '/');
-        $crawler = $client->click($crawler->selectLink('admin')->link());
-        $client->click($crawler->selectLink('Logout')->link());
+        $client->request('GET', '/logout');
     }
 }

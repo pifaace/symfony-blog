@@ -92,10 +92,6 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      * Does the authenticator support the given Request?
      *
      * If this returns false, the authenticator will be skipped.
-     *
-     * @param Request $request
-     *
-     * @return bool
      */
     public function supports(Request $request): bool
     {
@@ -118,8 +114,6 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      * Or for an API token that's on a header, you might use:
      *
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
-     *
-     * @param Request $request
      *
      * @return mixed Any non-null value
      *
@@ -150,13 +144,9 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed                 $credentials
-     * @param UserProviderInterface $userProvider
+     * @param mixed $credentials
      *
      * @throws AuthenticationException
-     *
-     * @return UserInterface|null
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
@@ -203,10 +193,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param               $credentials
-     * @param UserInterface $user
-     *
-     * @return bool
+     * @param $credentials
      */
     public function checkCredentials($credentials, UserInterface $user): bool
     {
@@ -221,11 +208,6 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *
      * If you return null, the request will continue, but the user will
      * not be authenticated. This is probably not what you want to do.
-     *
-     * @param Request                 $request
-     * @param AuthenticationException $exception
-     *
-     * @return Response|null
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
@@ -243,11 +225,7 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      * If you return null, the current request will continue, and the user
      * will be authenticated. This makes sense, for example, with an API.
      *
-     * @param Request        $request
-     * @param TokenInterface $token
-     * @param string         $providerKey The provider (i.e. firewall) key
-     *
-     * @return Response|null
+     * @param string $providerKey The provider (i.e. firewall) key
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
@@ -271,8 +249,6 @@ class LoginGithubAuthenticator extends AbstractGuardAuthenticator
      *      can be configured by the "always_remember_me" and "remember_me_parameter"
      *      parameters under the "remember_me" firewall key
      *  D) The onAuthenticationSuccess method returns a Response object
-     *
-     * @return bool
      */
     public function supportsRememberMe(): bool
     {

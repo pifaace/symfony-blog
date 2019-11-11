@@ -13,7 +13,6 @@ class NotificationFactory
     /**
      * @var NotificationTypeRepository
      */
-
     private $notificationTypeRepository;
     /**
      * @var TokenStorageInterface

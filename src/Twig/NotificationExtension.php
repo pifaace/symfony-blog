@@ -6,7 +6,7 @@ use App\Repository\NotificationRepository;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * This extension creates a global variable of number of notification for the current user
+ * This extension creates a global variable of number of notification for the current user.
  */
 class NotificationExtension
 {
@@ -27,7 +27,7 @@ class NotificationExtension
     }
 
     /**
-     * Returns unread notifications to the twig global variable 'notifications'
+     * Returns unread notifications to the twig global variable 'notifications'.
      *
      * @return array
      */
