@@ -23,7 +23,7 @@ php:
   - '7.2'
 
 before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - chromium --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install:
   - composer install
