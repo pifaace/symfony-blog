@@ -25,9 +25,9 @@ class ArticleActionTest extends BaseTestCase
         $form['App_article[title]'] = 'An awesome new article';
         $form['App_article[content]'] = 'This is an article wrote by panther';
         $form['app_tag_input'] = 'symfony,panther,';
-        $client->submit($form);
-        $crawler = $client->waitFor('.notification');
-        $this->assertContains('The article has been successfully created', $crawler->filter('.notification')->text());
+        $crawler = $client->submit($form);
+
+//        $this->assertEquals('An awesome new article', $crawler->filter('.table > tbody > tr > td')->first()->text());
 
         $this->logout($client);
     }
@@ -37,8 +37,6 @@ class ArticleActionTest extends BaseTestCase
         $client = static::createPantherClient();
 
         $crawler = $client->request('GET', '/');
-
-        $client->takeScreenshot('mdr.png');
 
         $crawler = $this->loginAs($client, $crawler, 'admin', 'azerty');
         $crawler = $client->click($crawler->selectLink('Dashboard')->link());
@@ -51,8 +49,10 @@ class ArticleActionTest extends BaseTestCase
 
         $crawler = $client->submit($form);
 
-        $client->waitFor('.notification');
-        $this->assertContains('The article has been successfully edited', $crawler->filter('.notification')->text());
+        $form = $crawler->selectButton('Publish')->form();
+        $formValues = $form->getValues();
+
+        $this->assertEquals('Edited by panther', $formValues['App_article[title]']);
 
         $this->logout($client);
     }
