@@ -20,13 +20,13 @@ class ArticleActionTest extends BaseTestCase
         $crawler = $client->click($crawler->selectLink('ARTICLES')->link());
         $crawler = $client->click($crawler->selectLink('New article')->link());
 
-//        $form = $crawler->selectButton('Publish')->form();
-//
-//        $form['App_article[title]'] = 'An awesome new article';
-//        $form['App_article[content]'] = 'This is an article wrote by panther';
-//        $form['app_tag_input'] = 'symfony,panther,';
-//        $crawler = $client->submit($form);
-//
+        $form = $crawler->selectButton('Publish')->form();
+
+        $form['App_article[title]'] = 'An awesome new article';
+        $form['App_article[content]'] = 'This is an article wrote by panther';
+        $form['app_tag_input'] = 'symfony,panther,';
+        $crawler = $client->submit($form);
+
 //        $this->assertEquals('An awesome new article', $crawler->filter('.table > tbody > tr > td')->first()->text());
 
         $this->logout($client);
