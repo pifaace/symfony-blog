@@ -27,6 +27,7 @@ class ArticleActionTest extends BaseTestCase
         $form['app_tag_input'] = 'symfony,panther,';
         $client->submit($form);
         $crawler = $client->waitFor('.notification');
+        sleep(2);
         $this->assertContains('The article has been successfully created', $crawler->filter('.notification')->text());
 
         $this->logout($client);
