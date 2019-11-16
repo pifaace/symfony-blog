@@ -6,6 +6,7 @@
 This project is like a sandbox. The purpose is to implement some cool features to improve my symfony skills
 but also to help people. This app should be a very good example to show how I implement things like 
 [Panther](https://github.com/symfony/panther) or [Mercure](https://github.com/dunglas/mercure) !
+Feel free to report bugs with an issue !
 
 Also, to improve this project, I'm using some tools like :
 * [Bulma.io](https://bulma.io/)
