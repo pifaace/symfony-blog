@@ -117,7 +117,5 @@ class SigninTest extends BaseTestCase
         $crawler = $client->submit($form);
 
         $this->assertContains('Log in', $crawler->filter('h1')->text());
-        $client->waitFor('.flash-notification-container');
-        $this->assertContains('Your account has been created. You can now log in', $crawler->filter('.flash-notification-container')->text());
     }
 }
