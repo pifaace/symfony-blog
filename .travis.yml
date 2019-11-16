@@ -26,6 +26,7 @@ before_install:
   - chromium --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install:
+  - composer clearcache
   - composer install
   - ./bin/phpunit install
   - yarn install
