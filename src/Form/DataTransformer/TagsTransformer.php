@@ -3,17 +3,17 @@
 namespace App\Form\DataTransformer;
 
 use App\Entity\Tag;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 class TagsTransformer implements DataTransformerInterface
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $em;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 # Installing dependencies
 RUN apt-get update && apt-get install -y \
@@ -12,12 +12,12 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     chromium
 
-RUN curl -sS -o /tmp/icu.tgz -L http://download.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz \
-  && tar -zxf /tmp/icu.tgz -C /tmp \
-  && cd /tmp/icu/source \
-  && ./configure --prefix=/usr/local \
-  && make \
-  && make install
+#RUN curl -sS -o /tmp/icu.tgz -L http://download.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz \
+#  && tar -zxf /tmp/icu.tgz -C /tmp \
+#  && cd /tmp/icu/source \
+#  && ./configure --prefix=/usr/local \
+#  && make \
+#  && make install
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -29,16 +29,12 @@ RUN docker-php-ext-install \
     intl \
     opcache
 
-RUN docker-php-ext-configure intl --with-icu-dir=/usr/local
+#RUN docker-php-ext-configure intl --with-icu-dir=/usr/local
 
 COPY php.ini /usr/local/etc/php/php.ini
 
 # Setting locales
 RUN echo fr_FR.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
-
-# Installing composer
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- --install-dir=/usr/bin/ --filename=composer
 
 # Changing Workdir
 WORKDIR /application
