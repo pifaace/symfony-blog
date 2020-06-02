@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/pifaace/symfony-blog.svg?branch=master)](https://travis-ci.org/pifaace/symfony-blog)
 
-# Symfony-blog 4.3
+# Symfony-blog 4.4
 
 ## What's Symfony-blog ?
 This project is like a sandbox. The purpose is to implement some cool features to improve my symfony skills
