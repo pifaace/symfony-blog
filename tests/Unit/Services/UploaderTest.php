@@ -14,7 +14,7 @@ class UploaderTest extends TestCase
      */
     private $uploader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->uploader = new Uploader('%kernel.project_dir%/public/uploads/articles/coverages/');
     }
